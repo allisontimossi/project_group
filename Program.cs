@@ -1,6 +1,7 @@
 ﻿﻿using System.Data.SQLite; 
 // comando per installare il pacchetto System.Data.SQLite
 // dotnet add package System.Data.SQLite
+// ignore
 
 class Program
 {
