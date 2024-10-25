@@ -1,64 +1,66 @@
 using System.Data.SQLite;
+using System.Runtime.CompilerServices;
 
-    public class Controller
+public class Controller
     {
         private MyView _myView;
         private Database _database;
-
         public Controller(MyView myView, Database database){
             _myView = myView;
             _database = database;
 
         }
-         public void MainMenu()
-    {
-        while (true)
-        {
-            _myView.ShowMainMenu();
-            string scelta = Console.ReadLine()!;
-            switch (scelta)
+        public void MainMenu(){
+            bool exit = true;
+            while(exit)
             {
-                case "1":
-                    VisualizzaProdotti();
-                    break;
-                case "2":
-                    VisualizzaProdottiOrdinatiPerPrezzo();
-                    break;
-                case "3":
-                    VisualizzaProdottiOrdinatiPerQuantita();
-                    break;
-                case "4":
-                    ModificaPrezzoProdotto();
-                    break;
-                case "5":
-                    EliminaProdotto();
-                    break;
-                case "6":
-                    VisualizzaProdottoPiuCostoso();
-                    break;
-                case "7":
-                    VisualizzaProdottoMenoCostoso();
-                    break;
-                case "8":
-                    InserisciProdotto();
-                    break;
-                case "9":
-                    VisualizzaProdotto();
-                    break;
-                case "10":
-                    VisualizzaProdottiCategoria();
-                    break;
-                case "11":
-                    InserisciCategoria();
-                    break;
-                case "12":
-                    EliminaCategoria();
-                    break;
-                case "13":
-                    return;
+                _myView.ShowMainMenu();
+                string seselection = Console.ReadLine()!;
+                switch (seselection)
+                {
+                    case "1":
+                        VisualizzaProdotti();
+                        break;
+                    case "2":
+                        VisualizzaProdottiOrdinatiPerPrezzo();
+                        break;
+                    case "3":
+                        VisualizzaProdottiOrdinatiPerQuantita();
+                        break;
+                    case "4":
+                        ModificaPrezzoProdotto();
+                        break;
+                    case "5":
+                        EliminaProdotto();
+                        break;
+                    case "6":
+                        VisualizzaProdottoPiuCostoso();
+                        break;
+                    case "7":
+                        VisualizzaProdottoMenoCostoso();
+                        break;
+                    case "8":
+                        InserisciProdotto();
+                        break;
+                    case "9":
+                        VisualizzaProdotto();
+                        break;
+                    case "10":
+                        VisualizzaProdottiCategoria();
+                        break;
+                    case "11":
+                        InserisciCategoria();
+                        break;
+                    case "12":
+                        EliminaCategoria();
+                        break;
+                    case "13":
+                        exit = false;
+                        break;
+                }
             }
+            return;
         }
-    }
 
     private void VisualizzaProdotti()
     {
