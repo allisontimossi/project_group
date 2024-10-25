@@ -86,7 +86,7 @@ public class Controller
 
     private void VisualizzaProdottiOrdinatiPerQuantita()
     {
-        using var reader = _database.GetProductsOrderedByQuantity();
+        using var reader = _database.GetProductsOrderedByStock();
         while (reader.Read())
         {
             _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
