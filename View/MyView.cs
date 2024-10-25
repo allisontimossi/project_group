@@ -16,7 +16,9 @@ public class MyView
         //Console.WriteLine("13 - Insert product in a category"); not implemented yet
         //Console.WriteLine("14 - Show products and category");
         Console.WriteLine("13 - Add purchase");
-        Console.WriteLine("14 - Exit");
+        Console.WriteLine("14 - Show purchases");
+        Console.WriteLine("15 - Show customers");
+        Console.WriteLine("16 - Exit");
         Console.WriteLine("Make your selection");
     }
     public void ShowProduct(string id, string name, string price, string quantity, string categoryId){
