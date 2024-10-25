@@ -24,9 +24,9 @@ using System.Threading.Tasks;
             _database.CloseConnection();
         }
 
-        private void ShowProductsOrderedBySurname()
+        private void ShowCustomersOrderedBySurname()
         {
-            using var reader = _database.GetProductsOrderedBySurname();
+            using var reader = _database.GetCustomersOrderedBySurname();
             while (reader.Read())
             {
                 _myView.ShowCustomers(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString());
@@ -36,9 +36,11 @@ using System.Threading.Tasks;
 
         private void DeleteCustomer()
         {
-            Console.WriteLine("Insert customer's name");
-            string name = Console.ReadLine()!;
-            _database.DeleteCustomer(name);
+            ShowCustomers();
+
+            Console.WriteLine("Insert customer's ID");
+            string id = Console.ReadLine()!;
+            _database.DeleteCustomer(id);
             _database.CloseConnection();        
         }
 
@@ -54,7 +56,7 @@ using System.Threading.Tasks;
             string address = Console.ReadLine()!;
             Console.WriteLine("Insert customer's phone number");
             int phoneNumber = Console.ReadLine()!;
-            _database.AddProduct(name, surname, email, address, phoneNumber);
+            _database.AddCustomer(name, surname, email, address, phoneNumber);
             _database.CloseConnection();
         }
 
