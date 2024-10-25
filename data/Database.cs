@@ -200,17 +200,17 @@ public class Database
         command.ExecuteNonQuery();
     }
 
-    public SQLiteDataReader GetCustomerByName(string name)
+    public SQLiteDataReader GetCustomerBySurname(string surname)
     {
-        string sql = $"SELECT * FROM customers WHERE name = '{name}'";
+        string sql = $"SELECT * FROM customers WHERE name = '{surname}'";
         OpenConnection();
         var command = new SQLiteCommand(sql, _connection);
         return command.ExecuteReader();
     }
 
-    public void DeleteCustomer(string name)
+    public void DeleteCustomer(int id)
     {
-        string sql = $"DELETE FROM customers WHERE name = '{name}'";
+        string sql = $"DELETE FROM customers WHERE name = '{id}'";
         OpenConnection();
         using var command = new SQLiteCommand(sql, _connection);
         command.ExecuteNonQuery();
