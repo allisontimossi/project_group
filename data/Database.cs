@@ -4,6 +4,7 @@ using System.Data.SQLite;
 public class Database
 {
     private const string ConnectionString = "Data Source=database.db;Version=3;";
+    private SQLiteConnection _connection;
     
     public void CreateDatabase(string path)
     {
@@ -34,20 +35,21 @@ public class Database
 
     private SQLiteConnection OpenConnection()
     {
-        var connection = new SQLiteConnection(ConnectionString);
-        connection.Open();
-        return connection;
+        _connection = new SQLiteConnection(ConnectionString);
+        _connection.Open();
+        return _connection;
     }
-    private SQLiteConnection CloseConnection()
+    public void CloseConnection()
     {
-        connection.Close();
+        if (_connection.State != System.Data.ConnectionState.Closed)
+            _connection.Close();
     }
 
     public SQLiteDataReader GetProducts()
     {
         string sql = "SELECT * FROM prodotti";
-        var connection = OpenConnection();
-        var command = new SQLiteCommand(sql, connection);
+        OpenConnection();
+        var command = new SQLiteCommand(sql, _connection);
         return command.ExecuteReader();
     }
 
