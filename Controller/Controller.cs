@@ -55,6 +55,7 @@ public class Controller
                         EliminaCategoria();
                         break;
                     case "13":
+                        _database.CloseConnection();
                         exit = false;
                         break;
                 }
@@ -69,6 +70,8 @@ public class Controller
         {
             _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
         }
+        _database.CloseConnection();
+        
     }
 
     private void VisualizzaProdottiOrdinatiPerPrezzo()
@@ -78,6 +81,7 @@ public class Controller
         {
             _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
         }
+        _database.CloseConnection();
     }
 
     private void VisualizzaProdottiOrdinatiPerQuantita()
@@ -87,6 +91,7 @@ public class Controller
         {
             _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
         }
+        _database.CloseConnection();
     }
 
     private void ModificaPrezzoProdotto()
@@ -96,6 +101,7 @@ public class Controller
         Console.WriteLine("inserisci il nuovo prezzo");
         string prezzo = Console.ReadLine()!;
         _database.UpdateProductPrice(nome, prezzo);
+        _database.CloseConnection();
     }
 
     private void EliminaProdotto()
@@ -103,6 +109,7 @@ public class Controller
         Console.WriteLine("inserisci il nome del prodotto");
         string nome = Console.ReadLine()!;
         _database.DeleteProduct(nome);
+        _database.CloseConnection();        
     }
 
     private void VisualizzaProdottoPiuCostoso()
@@ -112,6 +119,7 @@ public class Controller
         {
             _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
         }
+        _database.CloseConnection();
     }
 
     private void VisualizzaProdottoMenoCostoso()
@@ -121,6 +129,7 @@ public class Controller
         {
             _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
         }
+        _database.CloseConnection();
     }
 
     private void InserisciProdotto()
@@ -134,6 +143,7 @@ public class Controller
         Console.WriteLine("inserisci l'id della categoria del prodotto");
         string id_categoria = Console.ReadLine()!;
         _database.AddProduct(nome, prezzo, quantita, id_categoria);
+        _database.CloseConnection();
     }
 
     private void VisualizzaProdotto()
@@ -145,6 +155,7 @@ public class Controller
         {
             _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
         }
+        _database.CloseConnection();        
     }
 
     private void VisualizzaProdottiCategoria()
@@ -156,6 +167,7 @@ public class Controller
         {
             _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
         }
+        _database.CloseConnection();        
     }
 
     private void InserisciCategoria()
@@ -163,6 +175,8 @@ public class Controller
         Console.WriteLine("inserisci il nome della categoria");
         string nome = Console.ReadLine()!;
         _database.AddCategory(nome);
+        _database.CloseConnection();
+
     }
 
     private void EliminaCategoria()
@@ -170,5 +184,6 @@ public class Controller
         Console.WriteLine("inserisci il nome della categoria");
         string nome = Console.ReadLine()!;
         _database.DeleteCategory(nome);
+        _database.CloseConnection();        
     }
 }

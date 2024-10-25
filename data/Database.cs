@@ -38,6 +38,10 @@ public class Database
         connection.Open();
         return connection;
     }
+    private SQLiteConnection CloseConnection()
+    {
+        connection.Close();
+    }
 
     public SQLiteDataReader GetProducts()
     {
