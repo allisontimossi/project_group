@@ -58,8 +58,10 @@ public class Controller
                     break;
                 case "14":
                     ShowPurchases();
+                    break;
                 case "15":
                     ShowCustomers();
+                    break;
                 case "16":
                     exit = false;
                     break;
