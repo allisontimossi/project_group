@@ -78,7 +78,7 @@ public class Database
             _connection.Close();
     }
 
-    public bool CheckStock(int productId, int quantity)
+    public int CheckStock(int productId)
     {
         string sql = "SELECT stock FROM products WHERE id = @productId";
         OpenConnection();
@@ -87,7 +87,7 @@ public class Database
         int stock = Convert.ToInt32(command.ExecuteScalar());
         CloseConnection();
         
-        return stock >= quantity;
+        return stock;
     }
 
     public SQLiteDataReader GetProducts()
@@ -218,9 +218,7 @@ public class Database
 
 public void AddPurchase(int customerId, int productId, int quantity)
     {
-        // Check if enough stock is available
-        if (CheckStock(productId, quantity))
-        {
+
             string purchaseSql = $"INSERT INTO purchases (customer_id, product_id, quantity) VALUES (@customerId, @productId, @quantity)";
             OpenConnection();
             using var purchaseCommand = new SQLiteCommand(purchaseSql, _connection);
@@ -235,13 +233,7 @@ public void AddPurchase(int customerId, int productId, int quantity)
             updateStockCommand.Parameters.AddWithValue("@quantity", quantity);
             updateStockCommand.Parameters.AddWithValue("@productId", productId);
             updateStockCommand.ExecuteNonQuery();
-
             CloseConnection();
-        }
-        else
-        {
-            Console.WriteLine("Not enough stock available for this purchase.");
-        }
     }
 
     public void AddCategory(string name)
