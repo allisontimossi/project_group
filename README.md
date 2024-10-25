@@ -73,6 +73,19 @@ CREATE TABLE clienti (
 - `ProdottoController.cs`
 - `CategoriaController.cs`
 
+### 3. Estensione Database
+#### Nuova Tabella `purchases`
+```sql
+CREATE TABLE IF NOT EXISTS purchases (
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            client_id INTEGER, 
+            product_id INTEGER, 
+            purchase_date DATETIME DEFAULT CURRENT_TIMESTAMP, 
+            quantity INTEGER CHECK (quantity > 0),
+            FOREIGN KEY (client_id) REFERENCES clients(id), 
+            FOREIGN KEY (product_id) REFERENCES products(id)
+        );
+
 ## Divisione dei Compiti
 
 ### Sviluppatore 1 - Mattia Totonchi: 
