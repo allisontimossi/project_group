@@ -180,13 +180,15 @@ public class Controller
     }
     private void AddPurchase(){
         Console.WriteLine("Insert product Id");
-        string id = Console.ReadLine()!;
-        int stock = _database.CheckStock(id);
+        Int32.TryParse(Console.ReadLine()!, out int productId);
+        int stock = _database.CheckStock(productId);
         _database.CloseConnection();
         Console.WriteLine("Insert product quantity");
         Int32.TryParse(Console.ReadLine()!, out int quantity);
         if(quantity <= stock){
-            _database.AddPurchase(id, stock-quantity);
+            Console.WriteLine("Insert customer Id");
+            Int32.TryParse(Console.ReadLine()!, out int customerId);
+            _database.AddPurchase(customerId, productId, stock-quantity);
             _database.CloseConnection();
         }else{
             Console.WriteLine("Not enought products in stock");
