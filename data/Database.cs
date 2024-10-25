@@ -7,137 +7,174 @@ public class Database
     private SQLiteConnection _connection;
     
     public void CreateDatabase(string path)
+{
+    if (!File.Exists(path))
     {
-        if (!File.Exists(path))
-        {
-            SQLiteConnection.CreateFile(path);
-            SQLiteConnection connection = new SQLiteConnection($"Data Source={path};Version=3;");
-            connection.Open();
+        SQLiteConnection.CreateFile(path);
+        SQLiteConnection connection = new SQLiteConnection($"Data Source={path};Version=3;");
+        connection.Open();
 
-            // Add the new table `clienti` with the field `codice_cliente`
             string sql = @"
-                            CREATE TABLE categorie (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT UNIQUE);
-                            CREATE TABLE prodotti (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT UNIQUE, 
-                            prezzo REAL, quantita INTEGER CHECK (quantita >= 0), id_categoria INTEGER, 
-                            FOREIGN KEY (id_categoria) REFERENCES categorie(id));
-                            CREATE TABLE clienti (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT UNIQUE, codice_cliente TEXT UNIQUE);
-                            INSERT INTO categorie (nome) VALUES ('c1');
-                            INSERT INTO categorie (nome) VALUES ('c2');
-                            INSERT INTO categorie (nome) VALUES ('c3');
-                            INSERT INTO prodotti (nome, prezzo, quantita, id_categoria) VALUES ('p1', 1, 10, 1);
-                            INSERT INTO prodotti (nome, prezzo, quantita, id_categoria) VALUES ('p2', 2, 20, 2);";
+        CREATE TABLE IF NOT EXISTS categories (
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            name TEXT UNIQUE
+        );
 
-            SQLiteCommand command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
+        CREATE TABLE IF NOT EXISTS products (
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            name TEXT UNIQUE, 
+            price REAL, 
+            stock INTEGER CHECK (stock >= 0), 
+            category_id INTEGER, 
+            FOREIGN KEY (category_id) REFERENCES categories(id)
+        );
+
+        CREATE TABLE IF NOT EXISTS clients (
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            name TEXT UNIQUE, 
+            client_code TEXT UNIQUE
+        );
+
+        CREATE TABLE IF NOT EXISTS purchases (
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            client_id INTEGER, 
+            product_id INTEGER, 
+            purchase_date DATETIME DEFAULT CURRENT_TIMESTAMP, 
+            quantity INTEGER CHECK (quantity > 0),
+            FOREIGN KEY (client_id) REFERENCES clients(id), 
+            FOREIGN KEY (product_id) REFERENCES products(id)
+        );
+
+        INSERT INTO categories (name) VALUES ('c1'), ('c2'), ('c3');
+        INSERT INTO products (name, price, stock, category_id) VALUES 
+            ('p1', 1, 10, 1), 
+            ('p2', 2, 20, 2);
+        INSERT INTO clients (name, client_code) VALUES 
+            ('client1', 'C001'), 
+            ('client2', 'C002');
+    ";
+
+
+        SQLiteCommand command = new SQLiteCommand(sql, connection);
+        command.ExecuteNonQuery();
+        connection.Close();
     }
+}
 
     private SQLiteConnection OpenConnection()
-    {
-        _connection = new SQLiteConnection(ConnectionString);
-        _connection.Open();
-        return _connection;
-    }
-    public void CloseConnection()
-    {
-        if (_connection.State != System.Data.ConnectionState.Closed)
-            _connection.Close();
-    }
+{
+    _connection = new SQLiteConnection(ConnectionString);
+    _connection.Open();
+    return _connection;
+}
 
-    public SQLiteDataReader GetProducts()
-    {
-        string sql = "SELECT * FROM prodotti";
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
-    }
+public void CloseConnection()
+{
+    if (_connection.State != System.Data.ConnectionState.Closed)
+        _connection.Close();
+}
 
-    public SQLiteDataReader GetProductsOrderedByPrice()
-    {
-        string sql = "SELECT * FROM prodotti ORDER BY prezzo";
-        var connection = OpenConnection();
-        var command = new SQLiteCommand(sql, connection);
-        return command.ExecuteReader();
-    }
+public SQLiteDataReader GetProducts()
+{
+    string sql = "SELECT * FROM products";
+    OpenConnection();
+    var command = new SQLiteCommand(sql, _connection);
+    return command.ExecuteReader();
+}
 
-    public SQLiteDataReader GetProductsOrderedByQuantity()
-    {
-        string sql = "SELECT * FROM prodotti ORDER BY quantita";
-        var connection = OpenConnection();
-        var command = new SQLiteCommand(sql, connection);
-        return command.ExecuteReader();
-    }
+public SQLiteDataReader GetProductsOrderedByPrice()
+{
+    string sql = "SELECT * FROM products ORDER BY price";
+    OpenConnection();
+    var command = new SQLiteCommand(sql, _connection);
+    return command.ExecuteReader();
+}
 
-    public void UpdateProductPrice(string name, string price)
-    {
-        string sql = $"UPDATE prodotti SET prezzo = {price} WHERE nome = '{name}'";
-        using var connection = OpenConnection();
-        using var command = new SQLiteCommand(sql, connection);
-        command.ExecuteNonQuery();
-    }
+public SQLiteDataReader GetProductsOrderedByStock()
+{
+    string sql = "SELECT * FROM products ORDER BY stock";
+    OpenConnection();
+    var command = new SQLiteCommand(sql, _connection);
+    return command.ExecuteReader();
+}
 
-    public void DeleteProduct(string name)
-    {
-        string sql = $"DELETE FROM prodotti WHERE nome = '{name}'";
-        using var connection = OpenConnection();
-        using var command = new SQLiteCommand(sql, connection);
-        command.ExecuteNonQuery();
-    }
+public void UpdateProductPrice(string name, string price)
+{
+    string sql = $"UPDATE products SET price = {price} WHERE name = '{name}'";
+    OpenConnection();
+    using var command = new SQLiteCommand(sql, _connection);
+    command.ExecuteNonQuery();
+}
 
-    public SQLiteDataReader GetMostExpensiveProduct()
-    {
-        string sql = "SELECT * FROM prodotti ORDER BY prezzo DESC LIMIT 1";
-        var connection = OpenConnection();
-        var command = new SQLiteCommand(sql, connection);
-        return command.ExecuteReader();
-    }
+public void DeleteProduct(string name)
+{
+    string sql = $"DELETE FROM products WHERE name = '{name}'";
+    OpenConnection();
+    using var command = new SQLiteCommand(sql, _connection);
+    command.ExecuteNonQuery();
+}
 
-    public SQLiteDataReader GetLeastExpensiveProduct()
-    {
-        string sql = "SELECT * FROM prodotti ORDER BY prezzo ASC LIMIT 1";
-        var connection = OpenConnection();
-        var command = new SQLiteCommand(sql, connection);
-        return command.ExecuteReader();
-    }
+public SQLiteDataReader GetMostExpensiveProduct()
+{
+    string sql = "SELECT * FROM products ORDER BY price DESC LIMIT 1";
+    OpenConnection();
+    var command = new SQLiteCommand(sql, _connection);
+    return command.ExecuteReader();
+}
 
-    public void AddProduct(string name, string price, string quantity, string categoryId)
-    {
-        string sql = $"INSERT INTO prodotti (nome, prezzo, quantita, id_categoria) VALUES ('{name}', {price}, {quantity}, {categoryId})";
-        using var connection = OpenConnection();
-        using var command = new SQLiteCommand(sql, connection);
-        command.ExecuteNonQuery();
-    }
+public SQLiteDataReader GetLeastExpensiveProduct()
+{
+    string sql = "SELECT * FROM products ORDER BY price ASC LIMIT 1";
+    OpenConnection();
+    var command = new SQLiteCommand(sql, _connection);
+    return command.ExecuteReader();
+}
 
-    public SQLiteDataReader GetProductByName(string name)
-    {
-        string sql = $"SELECT * FROM prodotti WHERE nome = '{name}'";
-        var connection = OpenConnection();
-        var command = new SQLiteCommand(sql, connection);
-        return command.ExecuteReader();
-    }
+public void AddProduct(string name, string price, string stock, string categoryId)
+{
+    string sql = $"INSERT INTO products (name, price, stock, category_id) VALUES ('{name}', {price}, {stock}, {categoryId})";
+    OpenConnection();
+    using var command = new SQLiteCommand(sql, _connection);
+    command.ExecuteNonQuery();
+}
 
-    public SQLiteDataReader GetProductsByCategory(string categoryId)
-    {
-        string sql = $"SELECT * FROM prodotti WHERE id_categoria = {categoryId}";
-        var connection = OpenConnection();
-        var command = new SQLiteCommand(sql, connection);
-        return command.ExecuteReader();
-    }
+public SQLiteDataReader GetProductByName(string name)
+{
+    string sql = $"SELECT * FROM products WHERE name = '{name}'";
+    OpenConnection();
+    var command = new SQLiteCommand(sql, _connection);
+    return command.ExecuteReader();
+}
 
-    public void AddCategory(string name)
-    {
-        string sql = $"INSERT INTO categorie (nome) VALUES ('{name}')";
-        using var connection = OpenConnection();
-        using var command = new SQLiteCommand(sql, connection);
-        command.ExecuteNonQuery();
-    }
+public SQLiteDataReader GetProductsByCategory(string categoryId)
+{
+    string sql = $"SELECT * FROM products WHERE category_id = {categoryId}";
+    OpenConnection();
+    var command = new SQLiteCommand(sql, _connection);
+    return command.ExecuteReader();
+}
 
-    public void DeleteCategory(string name)
-    {
-        string sql = $"DELETE FROM categorie WHERE nome = '{name}'";
-        using var connection = OpenConnection();
-        using var command = new SQLiteCommand(sql, connection);
-        command.ExecuteNonQuery();
-    }
+public void AddCategory(string name)
+{
+    string sql = $"INSERT INTO categories (name) VALUES ('{name}')";
+    OpenConnection();
+    using var command = new SQLiteCommand(sql, _connection);
+    command.ExecuteNonQuery();
+}
+
+public void DeleteCategory(string name)
+{
+    string sql = $"DELETE FROM categories WHERE name = '{name}'";
+    OpenConnection();
+    using var command = new SQLiteCommand(sql, _connection);
+    command.ExecuteNonQuery();
+}
+public void AddPurchase(int clientId, int productId, int quantity)
+{
+    string sql = $"INSERT INTO purchases (client_id, product_id, quantity) VALUES ({clientId}, {productId}, {quantity})";  
+    OpenConnection();
+    using var command = new SQLiteCommand(sql, _connection);
+    command.ExecuteNonQuery();
+}
+
 }
