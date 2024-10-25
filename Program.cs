@@ -34,8 +34,6 @@ class Program
             command.ExecuteNonQuery();
             connection.Close();
         }
-
         controller.MainMenu();
-
     }
 }

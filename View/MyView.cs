@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-
 public class MyView
 {
     public void ShowMainMenu(){
@@ -23,5 +17,9 @@ public class MyView
         Console.WriteLine("14 - visualizzare i prodotti con la categoria");
         Console.WriteLine("15 - uscire");
         Console.WriteLine("scegli un'opzione");
+    }
+
+    public void ShowProduct(string id, string name, string price, string quantity, string categoryId){
+        Console.WriteLine($"id: {id}, nome: {name}, prezzo: {price}, quantita: {quantity}, id_categoria: {categoryId}");
     }
 }

@@ -56,7 +56,7 @@ using System.Data.SQLite;
             }
         }
 
-         static void VisualizzaProdotti()
+        public void VisualizzaProdotti()
         {
             SQLiteConnection connection = new SQLiteConnection($"Data Source=database.db;Version=3;"); // crea la connessione di nuovo perché è stata chiusa alla fine del while in modo da poter visualizzare i dati aggiornati
             connection.Open();
@@ -65,34 +65,35 @@ using System.Data.SQLite;
             SQLiteDataReader reader = command.ExecuteReader(); // esegue il comando sql sulla connessione al database e salva i dati in reader che è un oggetto di tipo SQLiteDataReader incaricato di leggere i dati
             while (reader.Read())
             {
-                Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
+                _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+                //Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
             }
             connection.Close(); // chiude la connessione al database se non è già chiusa
         }
 
-        static void VisualizzaProdottiAdvanced()
+        public void VisualizzaProdottiAdvanced()
         {
             SQLiteConnection connection = new SQLiteConnection($"Data Source=database.db;Version=3;");
             connection.Open();
 
             // Modifica la query SQL per includere una join con la tabella categorie
             string sql = @"
-        SELECT prodotti.id, prodotti.nome, prodotti.prezzo, prodotti.quantita, categorie.nome AS nome_categoria 
-        FROM prodotti
-        JOIN categorie ON prodotti.id_categoria = categorie.id";
+                SELECT prodotti.id, prodotti.nome, prodotti.prezzo, prodotti.quantita, categorie.nome AS nome_categoria 
+                FROM prodotti
+                JOIN categorie ON prodotti.id_categoria = categorie.id";
 
             SQLiteCommand command = new SQLiteCommand(sql, connection);
             SQLiteDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
             {
-                Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, categoria: {reader["nome_categoria"]}");
+                _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["nome_categoria"].ToString());
+                //Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, categoria: {reader["nome_categoria"]}");
             }
-
             connection.Close();
         }
 
-        static void VisualizzaProdottiOrdinatiPerPrezzo()
+        public void VisualizzaProdottiOrdinatiPerPrezzo()
         {
             SQLiteConnection connection = new SQLiteConnection($"Data Source=database.db;Version=3;");
             connection.Open();
@@ -101,12 +102,13 @@ using System.Data.SQLite;
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
+                _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+                //Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
             }
             connection.Close();
         }
 
-        static void VisualizzaProdottiOrdinatiPerQuantita()
+        public void VisualizzaProdottiOrdinatiPerQuantita()
         {
             SQLiteConnection connection = new SQLiteConnection($"Data Source=database.db;Version=3;");
             connection.Open();
@@ -115,7 +117,8 @@ using System.Data.SQLite;
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
+                _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+                //Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
             }
             connection.Close();
         }
@@ -146,7 +149,7 @@ using System.Data.SQLite;
             connection.Close();
         }
 
-        static void VisualizzaProdottoPiuCostoso()
+        public void VisualizzaProdottoPiuCostoso()
         {
             SQLiteConnection connection = new SQLiteConnection($"Data Source=database.db;Version=3;");
             connection.Open();
@@ -155,12 +158,13 @@ using System.Data.SQLite;
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
+                _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+                //Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
             }
             connection.Close();
         }
 
-        static void VisualizzaProdottoMenoCostoso()
+        public void VisualizzaProdottoMenoCostoso()
         {
             SQLiteConnection connection = new SQLiteConnection($"Data Source=database.db;Version=3;");
             connection.Open();
@@ -169,7 +173,8 @@ using System.Data.SQLite;
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
+                _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+                //Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
             }
             connection.Close();
         }
@@ -224,7 +229,7 @@ using System.Data.SQLite;
             connectionins.Close();
         }
 
-        static void VisualizzaProdotto()
+        public void VisualizzaProdotto()
         {
             Console.WriteLine("inserisci il nome del prodotto");
             string nome = Console.ReadLine()!;
@@ -235,12 +240,13 @@ using System.Data.SQLite;
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
+                _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+                //Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
             }
             connection.Close();
         }
 
-        static void VisualizzaProdottiCategoria()
+        public void VisualizzaProdottiCategoria()
         {
             Console.WriteLine("inserisci l'id della categoria");
             string id_categoria = Console.ReadLine()!;
@@ -251,7 +257,8 @@ using System.Data.SQLite;
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
+                _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+                //Console.WriteLine($"id: {reader["id"]}, nome: {reader["nome"]}, prezzo: {reader["prezzo"]}, quantita: {reader["quantita"]}, id_categoria: {reader["id_categoria"]}");
             }
             connection.Close();
         }
