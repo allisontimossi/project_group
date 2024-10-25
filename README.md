@@ -57,9 +57,11 @@ CREATE TABLE clienti (
 
 ### 2. Ristrutturazione MVC
 #### Model
-- `Cliente.cs`
-- `Prodotto.cs`
-- `Categoria.cs`
+- `Entity.cs`
+- `Customer.cs`
+- `Product.cs`
+- `Category.cs`
+- `Purchase.cs`
 
 #### View
 - `ClienteView.cs`
@@ -73,24 +75,81 @@ CREATE TABLE clienti (
 
 ## Divisione dei Compiti
 
-### Sviluppatore 1: Database Extension
-- Creazione tabella `clienti`
-- Implementazione delle relazioni necessarie
-- Test integrità database
-- **Branch**: `feature/database-extension`
+### Sviluppatore 1 - Mattia Totonchi: 
 
-### Sviluppatore 2: MVC Implementation
-- Ristrutturazione del codice esistente in pattern MVC
-- Implementazione nuovo controller per `clienti`
-- Implementazione delle relative view
-- **Branch**: `feature/mvc-implementation`
+<details>
+<summary>Task 1: Database Extension 1</summary>
 
-### Sviluppatore 3: Documentation & Coordination
-- Mantenimento README.md
-- Coordinamento merge requests
-- Documentazione dei modelli
+**Branch**: `feature/creazione tabella clienti`
+- [x] Creazione tabella `clienti`
+- [x]  Test integrità database
+
+</details>
+
+<details>
+<summary>Task 2: Adding Close Connection </summary>
+
+- [x] Implementazione della chiusura della connessione al database
+
+<details>
+<summary>Task 3: Database Extension 2</summary>
+
+**Branch**: `feature/creazione tabella acquisti`
+- [ ] Creazione tabella `acquisti`
+- [ ] Implementazione delle relazioni necessarie
+- [ ] Test integrità database
+- [ ] Refactor del Database: spostamento da Program.cs a Database.cs
+</details>
+
+<details>
+<summary>Task 3: Suddivisione della View basato sui Model</summary>
+
+- [ ] `CustomerView.cs`: nuova view per `Customer`
+- [ ] `ProductView.cs`: nuova view per `Product`
+- [ ] `PurchaseView.cs`: nuova view per `Purchase`
+</details>
+
+### Sviluppatore 2 - Francesco Basevi: 
+<details>
+<summary>Task 1: MVC Implementation</summary>
+
+**Branch**: `feature/mvc-implementation`
+
+- [x] Ristrutturazione del codice esistente in pattern MVC
+- [x] Traduzione del progetto originale da Italiano a Inglese
+</details>
+
+<details>
+<summary>Task 2: Suddivisione del Controller basato sui Model</summary>
+
+**Branch**: `???`
+
+- [ ] `CustomerController.cs`: nuovo controller per `Customer`
+- [ ] `ProductController.cs.cs`: nuovo controller per `Product`
+- [ ] `PurchaseController.cs`: nuovo controller per `Purchase`
+</details>
+
+### Sviluppatore 3 - Allison Timossi + Serghej Ivaldi: 
+
+<details>
+<summary>Principal Task : Documentation & Coordination </summary>
+
+**Branch**: `docs/project-updating`
 - Supervisione generale del progetto
-- **Branch**: `docs/project-documentation`
+- Mantenimento README.md **ad ogni implementazione**
+- Coordinamento merge requests
+</details>
+
+<details>
+<summary>Task 1: Models Documentation</summary>
+
+**Branch**: `feature/modelName-model`
+    - [ ] Entity.cs
+    - [x] Customer.cs
+    - [x] Product.cs
+    - [x] Purchase.cs
+
+</details>
 
 ## Workflow Git
 
@@ -131,7 +190,7 @@ erDiagram
         string nome
         string cognome
         string email
-        string telefono
+        int telefono
         string indirizzo
     }
 ```
