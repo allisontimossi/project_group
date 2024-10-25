@@ -2,188 +2,185 @@ using System.Data.SQLite;
 using System.Runtime.CompilerServices;
 
 public class Controller
-    {
-        private MyView _myView;
-        private Database _database;
-        public Controller(MyView myView, Database database){
-            _myView = myView;
-            _database = database;
-
-        }
-        public void MainMenu(){
-            bool exit = true;
-            while(exit)
+{
+    private MyView _myView;
+    private Database _database;
+    public Controller(MyView myView, Database database){
+        _myView = myView;
+        _database = database;
+    }
+    public void MainMenu(){
+        bool exit = true;
+        while(exit)
+        {
+            _myView.ShowMainMenu();
+            string selection = Console.ReadLine()!;
+            switch (selection)
             {
-                _myView.ShowMainMenu();
-                string seselection = Console.ReadLine()!;
-                switch (seselection)
-                {
-                    case "1":
-                        VisualizzaProdotti();
-                        break;
-                    case "2":
-                        VisualizzaProdottiOrdinatiPerPrezzo();
-                        break;
-                    case "3":
-                        VisualizzaProdottiOrdinatiPerQuantita();
-                        break;
-                    case "4":
-                        ModificaPrezzoProdotto();
-                        break;
-                    case "5":
-                        EliminaProdotto();
-                        break;
-                    case "6":
-                        VisualizzaProdottoPiuCostoso();
-                        break;
-                    case "7":
-                        VisualizzaProdottoMenoCostoso();
-                        break;
-                    case "8":
-                        InserisciProdotto();
-                        break;
-                    case "9":
-                        VisualizzaProdotto();
-                        break;
-                    case "10":
-                        VisualizzaProdottiCategoria();
-                        break;
-                    case "11":
-                        InserisciCategoria();
-                        break;
-                    case "12":
-                        EliminaCategoria();
-                        break;
-                    case "13":
-                        _database.CloseConnection();
-                        exit = false;
-                        break;
-                }
+                case "1":
+                    ShowProducts();
+                    break;
+                case "2":
+                    ShowProductsOrderedByPrice();
+                    break;
+                case "3":
+                    ShowProductsOrderedByQuantity();
+                    break;
+                case "4":
+                    UpdateProductPrice();
+                    break;
+                case "5":
+                    DeleteProduct();
+                    break;
+                case "6":
+                    ShowMostExpensiveProduct();
+                    break;
+                case "7":
+                    ShowLeastExpensiveProduct();
+                    break;
+                case "8":
+                    AddProduct();
+                    break;
+                case "9":
+                    ShowProductByName();
+                    break;
+                case "10":
+                    ShowProductsByCategory();
+                    break;
+                case "11":
+                    AddCategory();
+                    break;
+                case "12":
+                    DeleteCategory();
+                    break;
+                case "13":
+                    exit = false;
+                    break;
             }
-            return;
         }
+        return;
+    }
 
-    private void VisualizzaProdotti()
+    private void ShowProducts()
     {
         using var reader = _database.GetProducts();
         while (reader.Read())
         {
-            _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+            _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
         }
         _database.CloseConnection();
-        
     }
 
-    private void VisualizzaProdottiOrdinatiPerPrezzo()
+    private void ShowProductsOrderedByPrice()
     {
         using var reader = _database.GetProductsOrderedByPrice();
         while (reader.Read())
         {
-            _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+            _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
         }
         _database.CloseConnection();
     }
 
-    private void VisualizzaProdottiOrdinatiPerQuantita()
+    private void ShowProductsOrderedByQuantity()
     {
         using var reader = _database.GetProductsOrderedByQuantity();
         while (reader.Read())
         {
-            _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+            _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
         }
         _database.CloseConnection();
     }
 
-    private void ModificaPrezzoProdotto()
+    private void UpdateProductPrice()
     {
-        Console.WriteLine("inserisci il nome del prodotto");
-        string nome = Console.ReadLine()!;
-        Console.WriteLine("inserisci il nuovo prezzo");
-        string prezzo = Console.ReadLine()!;
-        _database.UpdateProductPrice(nome, prezzo);
+        Console.WriteLine("Insert product name");
+        string name = Console.ReadLine()!;
+        Console.WriteLine("Insert new price");
+        string price = Console.ReadLine()!;
+        _database.UpdateProductPrice(name, price);
         _database.CloseConnection();
     }
 
-    private void EliminaProdotto()
+    private void DeleteProduct()
     {
-        Console.WriteLine("inserisci il nome del prodotto");
-        string nome = Console.ReadLine()!;
-        _database.DeleteProduct(nome);
+        Console.WriteLine("Insert product name");
+        string name = Console.ReadLine()!;
+        _database.DeleteProduct(name);
         _database.CloseConnection();        
     }
 
-    private void VisualizzaProdottoPiuCostoso()
+    private void ShowMostExpensiveProduct()
     {
         using var reader = _database.GetMostExpensiveProduct();
         while (reader.Read())
         {
-            _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+            _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
         }
         _database.CloseConnection();
     }
 
-    private void VisualizzaProdottoMenoCostoso()
+    private void ShowLeastExpensiveProduct()
     {
         using var reader = _database.GetLeastExpensiveProduct();
         while (reader.Read())
         {
-            _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+            _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
         }
         _database.CloseConnection();
     }
 
-    private void InserisciProdotto()
+    private void AddProduct()
     {
-        Console.WriteLine("inserisci il nome del prodotto");
-        string nome = Console.ReadLine()!;
-        Console.WriteLine("inserisci il prezzo del prodotto");
-        string prezzo = Console.ReadLine()!;
-        Console.WriteLine("inserisci la quantità del prodotto");
-        string quantita = Console.ReadLine()!;
-        Console.WriteLine("inserisci l'id della categoria del prodotto");
-        string id_categoria = Console.ReadLine()!;
-        _database.AddProduct(nome, prezzo, quantita, id_categoria);
+        Console.WriteLine("Insert product name");
+        string name = Console.ReadLine()!;
+        Console.WriteLine("Insert product price");
+        string price = Console.ReadLine()!;
+        Console.WriteLine("Insert product quantity");
+        string quantity = Console.ReadLine()!;
+        Console.WriteLine("Insert category Id");
+        string categoryId = Console.ReadLine()!;
+        _database.AddProduct(name, price, quantity, categoryId);
         _database.CloseConnection();
     }
 
-    private void VisualizzaProdotto()
+    private void ShowProductByName()
     {
-        Console.WriteLine("inserisci il nome del prodotto");
-        string nome = Console.ReadLine()!;
-        using var reader = _database.GetProductByName(nome);
+        Console.WriteLine("Insert product name");
+        string name = Console.ReadLine()!;
+        using var reader = _database.GetProductByName(name);
         while (reader.Read())
         {
-            _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+            _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
         }
         _database.CloseConnection();        
     }
 
-    private void VisualizzaProdottiCategoria()
+    private void ShowProductsByCategory()
     {
-        Console.WriteLine("inserisci l'id della categoria");
-        string id_categoria = Console.ReadLine()!;
-        using var reader = _database.GetProductsByCategory(id_categoria);
+        Console.WriteLine("Insert category Id");
+        string categoryId = Console.ReadLine()!;
+        using var reader = _database.GetProductsByCategory(categoryId);
         while (reader.Read())
         {
-            _myView.ShowProduct(reader["id"].ToString(), reader["nome"].ToString(), reader["prezzo"].ToString(), reader["quantita"].ToString(), reader["id_categoria"].ToString());
+            _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
         }
         _database.CloseConnection();        
     }
 
-    private void InserisciCategoria()
+    private void AddCategory()
     {
-        Console.WriteLine("inserisci il nome della categoria");
-        string nome = Console.ReadLine()!;
-        _database.AddCategory(nome);
+        Console.WriteLine("Insert category name");
+        string name = Console.ReadLine()!;
+        _database.AddCategory(name);
         _database.CloseConnection();
 
     }
 
-    private void EliminaCategoria()
+    private void DeleteCategory()
     {
         Console.WriteLine("inserisci il nome della categoria");
-        string nome = Console.ReadLine()!;
-        _database.DeleteCategory(nome);
+        string name = Console.ReadLine()!;
+        _database.DeleteCategory(name);
         _database.CloseConnection();        
     }
 }
