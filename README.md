@@ -90,6 +90,7 @@ CREATE TABLE clienti (
 <summary>Task 2: Adding Close Connection </summary>
 
 - [x] Implementazione della chiusura della connessione al database
+</details>
 
 <details>
 <summary>Task 3: Database Extension 2</summary>
@@ -102,7 +103,7 @@ CREATE TABLE clienti (
 </details>
 
 <details>
-<summary>Task 3: Suddivisione della View basato sui Model</summary>
+<summary>Task 4: Suddivisione della View basato sui Model</summary>
 
 - [ ] `CustomerView.cs`: nuova view per `Customer`
 - [ ] `ProductView.cs`: nuova view per `Product`
@@ -134,7 +135,8 @@ CREATE TABLE clienti (
 <details>
 <summary>Principal Task : Documentation & Coordination </summary>
 
-**Branch**: `docs/project-updating`
+**Branch**: `README-updating`
+
 - Supervisione generale del progetto
 - Mantenimento README.md **ad ogni implementazione**
 - Coordinamento merge requests
