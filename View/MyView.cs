@@ -20,5 +20,6 @@ public class MyView
     }
     public void ShowProduct(string id, string name, string price, string quantity, string categoryId){
         Console.WriteLine($"id: {id}, nome: {name}, prezzo: {price}, quantita: {quantity}, id_categoria: {categoryId}");
+        Console.WriteLine("***********************************************************************");
     }
 }
