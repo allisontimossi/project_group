@@ -54,13 +54,19 @@ public class Controller
                     DeleteCategory();
                     break;
                 case "13":
+                    AddPurchase();
+                    break;
+                case "14":
+                    ShowPurchases();
+                case "15":
+                    ShowCustomers();
+                case "16":
                     exit = false;
                     break;
             }
         }
         return;
     }
-
     private void ShowProducts()
     {
         using var reader = _database.GetProducts();
@@ -70,7 +76,6 @@ public class Controller
         }
         _database.CloseConnection();
     }
-
     private void ShowProductsOrderedByPrice()
     {
         using var reader = _database.GetProductsOrderedByPrice();
@@ -80,7 +85,6 @@ public class Controller
         }
         _database.CloseConnection();
     }
-
     private void ShowProductsOrderedByQuantity()
     {
         using var reader = _database.GetProductsOrderedByStock();
@@ -90,7 +94,6 @@ public class Controller
         }
         _database.CloseConnection();
     }
-
     private void UpdateProductPrice()
     {
         Console.WriteLine("Insert product name");
@@ -100,7 +103,6 @@ public class Controller
         _database.UpdateProductPrice(name, price);
         _database.CloseConnection();
     }
-
     private void DeleteProduct()
     {
         Console.WriteLine("Insert product name");
@@ -108,7 +110,6 @@ public class Controller
         _database.DeleteProduct(name);
         _database.CloseConnection();        
     }
-
     private void ShowMostExpensiveProduct()
     {
         using var reader = _database.GetMostExpensiveProduct();
@@ -118,7 +119,6 @@ public class Controller
         }
         _database.CloseConnection();
     }
-
     private void ShowLeastExpensiveProduct()
     {
         using var reader = _database.GetLeastExpensiveProduct();
@@ -128,7 +128,6 @@ public class Controller
         }
         _database.CloseConnection();
     }
-
     private void AddProduct()
     {
         Console.WriteLine("Insert product name");
@@ -142,7 +141,6 @@ public class Controller
         _database.AddProduct(name, price, quantity, categoryId);
         _database.CloseConnection();
     }
-
     private void ShowProductByName()
     {
         Console.WriteLine("Insert product name");
@@ -154,7 +152,6 @@ public class Controller
         }
         _database.CloseConnection();        
     }
-
     private void ShowProductsByCategory()
     {
         Console.WriteLine("Insert category Id");
@@ -166,7 +163,6 @@ public class Controller
         }
         _database.CloseConnection();        
     }
-
     private void AddCategory()
     {
         Console.WriteLine("Insert category name");
@@ -175,12 +171,41 @@ public class Controller
         _database.CloseConnection();
 
     }
-
     private void DeleteCategory()
     {
         Console.WriteLine("inserisci il nome della categoria");
         string name = Console.ReadLine()!;
         _database.DeleteCategory(name);
         _database.CloseConnection();        
+    }
+    private void AddPurchase(){
+        Console.WriteLine("Insert product Id");
+        string id = Console.ReadLine()!;
+        int stock = _database.CheckStock(id);
+        _database.CloseConnection();
+        Console.WriteLine("Insert product quantity");
+        Int32.TryParse(Console.ReadLine()!, out int quantity);
+        if(quantity <= stock){
+            _database.AddPurchase(id, stock-quantity);
+            _database.CloseConnection();
+        }else{
+            Console.WriteLine("Not enought products in stock");
+        }
+    }
+    private void ShowPurchases(){
+        using var reader = _database.GetPurchases();
+        while (reader.Read())
+        {
+            _myView.ShowPurchases(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+        }
+        _database.CloseConnection();
+    }
+    private void ShowCustomers(){
+        using var reader = _database.GetCustomers();
+        while (reader.Read())
+        {
+            _myView.ShowCustomers(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+        }
+        _database.CloseConnection();
     }
 }
