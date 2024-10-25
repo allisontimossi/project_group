@@ -1,18 +1,19 @@
 using System.Data.SQLite;
+using System.Runtime.CompilerServices;
 
-    public class Controller
+public class Controller
     {
         private MyView _myView;
-
         public Controller(MyView myView){
             _myView = myView;
         }
         public void MainMenu(){
-            while (true)
+            bool exit = true;
+            while (exit)
             {
                 _myView.ShowMainMenu();
-                string scelta = Console.ReadLine()!;
-                switch (scelta)
+                string seselection = Console.ReadLine()!;
+                switch (seselection)
                 {
                     case "1":
                         VisualizzaProdotti();
@@ -51,8 +52,10 @@ using System.Data.SQLite;
                         EliminaCategoria();
                         break;
                     case "13":
+                        exit = false;
                         break;
                 }
+                return;
             }
         }
 
