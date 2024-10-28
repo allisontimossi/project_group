@@ -3,11 +3,18 @@ using System.Runtime.CompilerServices;
 
 public class Controller
 {
+    private CategoryController _categoryController;
+    private CustomerController _customerController;
+    private ProductController _productController;
+    private PurchaseController _purchaseController;
     private MyView _myView;
-    private Database _database;
-    public Controller(MyView myView, Database database){
+    public Controller(MyView myView, CategoryController categoryController, CustomerController customerController, ProductController productController, 
+                        PurchaseController purchaseController){
+        _categoryController = categoryController;
+        _customerController = customerController;
+        _productController = productController;
+        _purchaseController = purchaseController;
         _myView = myView;
-        _database = database;
     }
     public void MainMenu(){
         bool exit = true;
@@ -18,13 +25,13 @@ public class Controller
             switch (selection)
             {
                 case "1":
-                    ShowProducts();
+                    _productController.ProductMenu();
                     break;
                 case "2":
-                    ShowProductsOrderedByPrice();
+                    _categoryController.CategoryMenu();
                     break;
                 case "3":
-                    ShowProductsOrderedByQuantity();
+                    _customerController.CustomerMenu();
                     break;
                 case "4":
                     UpdateProductPrice();
