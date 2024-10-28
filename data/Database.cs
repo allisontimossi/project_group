@@ -254,10 +254,8 @@ public void AddPurchase(int customerId, int productId, int quantity)
 
     public void AddCategory(string name)
     {
-        string sql = $"INSERT INTO categories (name) VALUES ('{name}')";
-        OpenConnection();
-        using var command = new SQLiteCommand(sql, _connection);
-        command.ExecuteNonQuery();
+        Categories.Add(new Category{Name = name});
+        SaveChanges();
     }
 
     public void DeleteCategory(string name)

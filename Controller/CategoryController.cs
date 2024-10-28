@@ -56,14 +56,27 @@ public class CategoryController
         Console.WriteLine("Insert category name");
         string name = Console.ReadLine()!;
         _database.AddCategory(name);
-        _database.CloseConnection();
-
     }
     private void DeleteCategory()
     {
-        Console.WriteLine("inserisci il nome della categoria");
-        string name = Console.ReadLine()!;
-        _database.DeleteCategory(name);
-        _database.CloseConnection();
+        Console.WriteLine("Enter the ID of the Category u want to delete:");
+        int id = Convert.ToInt32(Console.ReadLine()!);
+
+        Category catId = null;
+        foreach (var cat in _database.Categories)
+        {
+            if (cat.Id == id)
+            {
+                catId = cat;
+            }
+        }
+        if (catId != null)
+        {
+            _database.Categories.Remove(catId);
+            _database.SaveChanges();
+            Console.WriteLine("Category succesfully deleted:");
+            Console.WriteLine("Press any key to continue:");
+            Console.ReadKey(true);
+        }
     }
 }
