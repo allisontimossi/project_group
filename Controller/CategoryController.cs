@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 public class CategoryController
 {
-    private MyView _myView;
+    private CategoryView _categoryView;
     private Database _database;
     public CategoryController(CategoryView categoryView, Database database)
     {
