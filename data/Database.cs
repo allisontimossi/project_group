@@ -259,4 +259,11 @@ public void AddPurchase(int customerId, int productId, int quantity)
         using var command = new SQLiteCommand(sql, _connection);
         command.ExecuteNonQuery();
     }
+    public  SQLiteDataReader GetCategories() 
+    {
+        string sql = "SELECT * FROM categories"; 
+        OpenConnection();
+        var command = new SQLiteCommand(sql, _connection);
+        return command.ExecuteReader();
+    }
 }
