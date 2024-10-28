@@ -39,7 +39,6 @@ using System.Threading.Tasks;
         private void DeleteCustomer()
         {
             ShowCustomers();
-
             Console.WriteLine("Insert customer's ID");
             string id = Console.ReadLine()!;
 

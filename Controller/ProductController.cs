@@ -10,8 +10,8 @@ using System.Threading.Tasks;
         private Database _database;
         public ProductController(MyView myView, Database database)
         {
-        _myView = myView;
-        _database = database;
+            _myView = myView;
+            _database = database;
         }
 
         private void ShowProducts()
