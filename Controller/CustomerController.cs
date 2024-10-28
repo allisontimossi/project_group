@@ -6,20 +6,55 @@ using System.Threading.Tasks;
 
     public class CustomerController
     {
-        private MyView _myView;
+        private CustomerView _customerView;
         private Database _database;
-        public CustomerController(MyView myView, Database database)
+        public CustomerController(CustomerView customerView, Database database)
         {
-        _myView = myView;
+        _customerView = customerView;
         _database = database;
         }
+
+        public void CustomerMenu()
+    {
+        bool exit = true;
+        while (exit)
+        {
+            _customerView.ShowCustomerMainMenu();
+            string selection = Console.ReadLine()!;
+
+            switch (selection)
+            {
+                case "1":
+                    AddCustomer();
+                    break;
+                case "2":
+                    ShowCustomers();
+                    break;
+                case "3":
+                    ShowCustomersOrderedBySurname();
+                    break;
+                case "4":
+                    DeleteCustomer();
+                    break;
+                case "5":
+                    AddCustomer();
+                    break;
+                case "6":
+                    UpdateCustomer();
+                    break;
+                case "7":
+                    exit = false;
+                    break;
+            }
+        }
+    }
 
         private void ShowCustomers()
         {
             using var reader = _database.GetCustomers();
             while (reader.Read())
             {
-                _myView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());
+                _customerView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());
             }
             _database.CloseConnection();
         }
@@ -31,7 +66,7 @@ using System.Threading.Tasks;
             using var reader = _database.GetCustomerBySurname(surname);
             while (reader.Read())
             {
-                _myView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());;
+                _customerView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());;
             }
             _database.CloseConnection();
         }

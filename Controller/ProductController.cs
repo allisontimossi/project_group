@@ -6,20 +6,68 @@ using System.Threading.Tasks;
 
     public class ProductController
     {
+        private ProductView _productview;
         private MyView _myView;
         private Database _database;
-        public ProductController(MyView myView, Database database)
+        public ProductController(ProductView productview, Database database)
         {
-            _myView = myView;
-            _database = database;
+        _productview = productview;
+        _database = database;
         }
+
+public void ProductMenu()
+    {
+        bool exit = true;
+        while (exit)
+        {
+            _productview.ShowProductMainMenu();
+            string selection = Console.ReadLine()!;
+
+            switch (selection)
+            {
+                case "1":
+                    ShowProducts();
+                    break;
+                case "2":
+                    ShowProductByName();
+                    break;
+                case "3":
+                    ShowProductsOrderedByPrice();
+                    break;
+                case "4":
+                    ShowProductsOrderedByQuantity();
+                    break;
+                case "5":
+                    ShowProductsByCategory();
+                    break;
+                case "6":
+                    ShowMostExpensiveProduct();
+                    break;
+                case "7":
+                    ShowLeastExpensiveProduct();
+                    break;
+                case "8":
+                    UpdateProductPrice();
+                    break;
+                case "9":
+                    DeleteProduct();
+                    break;
+                case "10":
+                    AddProduct();
+                    break;
+                case "11":
+                    exit = false;
+                    break;
+            }
+        }
+    }
 
         private void ShowProducts()
         {
             using var reader = _database.GetProducts();
             while (reader.Read())
             {
-                _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
             }
             _database.CloseConnection();
         }
@@ -28,7 +76,7 @@ using System.Threading.Tasks;
             using var reader = _database.GetProductsOrderedByPrice();
             while (reader.Read())
             {
-                _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
             }
             _database.CloseConnection();
         }
@@ -37,7 +85,7 @@ using System.Threading.Tasks;
             using var reader = _database.GetProductsOrderedByStock();
             while (reader.Read())
             {
-                _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
             }
             _database.CloseConnection();
         }
@@ -62,7 +110,7 @@ using System.Threading.Tasks;
             using var reader = _database.GetMostExpensiveProduct();
             while (reader.Read())
             {
-                _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
             }
             _database.CloseConnection();
         }
@@ -71,7 +119,7 @@ using System.Threading.Tasks;
             using var reader = _database.GetLeastExpensiveProduct();
             while (reader.Read())
             {
-                _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
             }
             _database.CloseConnection();
         }
@@ -95,7 +143,7 @@ using System.Threading.Tasks;
             using var reader = _database.GetProductByName(name);
             while (reader.Read())
             {
-                _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
             }
             _database.CloseConnection();        
         }
@@ -106,7 +154,7 @@ using System.Threading.Tasks;
             using var reader = _database.GetProductsByCategory(categoryId);
             while (reader.Read())
             {
-                _myView.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
             }
             _database.CloseConnection();        
         }

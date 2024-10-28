@@ -6,14 +6,37 @@ using System.Threading.Tasks;
 
 public class PurchaseController
 {
-    private MyView _myView;
+    private PurchaseView _purchaseView;
         private Database _database;
-        public PurchaseController(MyView myView, Database database)
+        public PurchaseController(PurchaseView purchaseView, Database database)
         {
-        _myView = myView;
+        _purchaseView = purchaseView;
         _database = database;
         }
     
+
+        public void PurchaseMenu()
+    {
+        bool exit = true;
+        while (exit)
+        {
+            _purchaseView.ShowPurchaseMainMenu();
+            string selection = Console.ReadLine()!;
+
+            switch (selection)
+            {
+                case "1":
+                    ShowPurchases();
+                    break;
+                case "2":
+                    AddPurchase();
+                    break;
+                case "3":
+                    exit = false;
+                    break;
+            }
+        }
+    }
     private void AddPurchase(){
         Console.WriteLine("Insert product Id");
         Int32.TryParse(Console.ReadLine()!, out int productId);
@@ -34,7 +57,7 @@ public class PurchaseController
         using var reader = _database.GetPurchases();
         while (reader.Read())
         {
-            _myView.ShowPurchase(reader["id"].ToString(), reader["customer_id"].ToString(), reader["product_id"].ToString(), reader["purchase_date"].ToString(), reader["quantity"].ToString());
+            _purchaseView.ShowPurchase(reader["id"].ToString(), reader["customer_id"].ToString(), reader["product_id"].ToString(), reader["purchase_date"].ToString(), reader["quantity"].ToString());
         }
         _database.CloseConnection();
     }
