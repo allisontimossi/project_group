@@ -1,21 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-
 public class ProductController
 {
-        private ProductView _productview;
-        private MyView _myView;
-        private Database _database;
-        public ProductController(ProductView productview, Database database)
-        {
-            _productview = productview;
-            _database = database;
-        }
+    private ProductView _productview;
+    private Database _database;
+    public ProductController(ProductView productview, Database database)
+    {
+        _productview = productview;
+        _database = database;
+    }
 
-public void ProductMenu()
+    public void ProductMenu()
     {
         bool exit = true;
         while (exit)

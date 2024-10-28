@@ -1,13 +1,21 @@
-using System;
 using System.Data.SQLite;
-using System.IO;
+using Microsoft.EntityFrameworkCore;
 
-public class Database
+
+public class Database : DbContext
 {
+    public DbSet<Customer> Customers{get;set;}
+    public DbSet<Category> Categories{get;set;}
+    public DbSet<Product> Products{get;set;}
+    public DbSet<Purchase> Purchases{get;set;}
+    protected override void OnConfiguring(DbContextOptionsBuilder options){
+        options.UseSqlite("Data Source = database.db");
+        //options.UseLazyLoadingProxies();
+    }
     private const string ConnectionString = "Data Source=database.db;Version=3;";
     private SQLiteConnection _connection;
 
-    public void CreateDatabase(string path)
+    /*public void CreateDatabase(string path)
     {
         if (!File.Exists(path))
         {
@@ -63,7 +71,7 @@ public class Database
             command.ExecuteNonQuery();
             connection.Close();
         }
-    }
+    }*/
 
     private void OpenConnection()
     {
@@ -194,18 +202,11 @@ public class Database
         return command.ExecuteReader();
     }
 
-    public void AddCustomer(string name, string surname, string email, string phoneNumber, string address, string clientCode)
+    public void AddCustomer(string name, string surname, string email, Int64 phoneNumber, string address, string clientCode)
     {
-        string sql = "INSERT INTO customers (name, surname, email, phone_number, address, client_code) VALUES (@name, @surname, @email, @phoneNumber, @address, @clientCode)";
-        OpenConnection();
-        using var command = new SQLiteCommand(sql, _connection);
-        command.Parameters.AddWithValue("@name", name);
-        command.Parameters.AddWithValue("@surname", surname);
-        command.Parameters.AddWithValue("@email", email);
-        command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
-        command.Parameters.AddWithValue("@address", address);
-        command.Parameters.AddWithValue("@clientCode", clientCode);
-        command.ExecuteNonQuery();
+        Customers.Add(new Customer{Name = name, Surname = surname, Email = email, PhoneNumber = phoneNumber, Address = address, ClientCode = clientCode});
+        SaveChanges();
+
     }
 
     public SQLiteDataReader GetCustomerBySurname(string surname)
@@ -239,7 +240,6 @@ public void AddPurchase(int customerId, int productId, int quantity)
     // Retrieve the current stock for the product
     int currentStock = CheckStock(productId);
     OpenConnection();
-
     // Calculate the new stock by subtracting the quantity purchased
     int newStock = currentStock - quantity;
 
@@ -249,7 +249,6 @@ public void AddPurchase(int customerId, int productId, int quantity)
     updateStockCommand.Parameters.AddWithValue("@newStock", newStock);
     updateStockCommand.Parameters.AddWithValue("@productId", productId);
     updateStockCommand.ExecuteNonQuery();
-
     CloseConnection();  // Close connection only after all operations are done
 }
 

@@ -14,7 +14,7 @@
         ProductController productController = new ProductController(productView, database);
         PurchaseController purchaseController = new PurchaseController(purchaseView, database);
         Controller controller = new Controller(myView, categoryController, customerController, productController, purchaseController);
-        database.CreateDatabase(_path);
+        //database.CreateDatabase(_path);
         controller.MainMenu();
     }
 }

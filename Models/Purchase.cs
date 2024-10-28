@@ -1,7 +1,8 @@
-public class Purchase: Entity
+public class Purchase
 {
-    public int Amount {get;set;}  
-    public string Date {get;set;}   
-    public int CustomerId {get;set;}   
-    public int ProductId {get;set;}   
+    public int Id {get;set;}
+    public Customer Customer {get;set;}   
+    public Product Product {get;set;} 
+    public int Quantity {get;set;}  
+    public string Date {get;set;}
 }

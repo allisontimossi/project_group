@@ -58,7 +58,7 @@ public class CustomerController
             using var reader = _database.GetCustomerBySurname(surname);
             while (reader.Read())
             {
-                _customerView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["phone_number"].ToString(), reader["address"].ToString());;
+                _customerView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());;
             }
             _database.CloseConnection();
             Console.ReadKey();
@@ -91,16 +91,16 @@ public class CustomerController
             Console.WriteLine("Insert customer's address");
             string address = Console.ReadLine()!;
             Console.WriteLine("Insert customer's phone number");
-            string phoneNumber = Console.ReadLine()!;
+            Int64 phoneNumber = Convert.ToInt64(Console.ReadLine()!);
             Console.WriteLine("Insert customer's code");
             string clientCode = Console.ReadLine()!;
             _database.AddCustomer(name, surname, email, phoneNumber, address, clientCode);
-            _database.CloseConnection();
+            //_database.CloseConnection();
         }
 
         private void UpdateCustomer()
         {
-            ShowCustomers();  
+            ShowCustomers();
             Console.WriteLine("Insert ID's customer");
 
             if (!int.TryParse(Console.ReadLine()!, out int id))
