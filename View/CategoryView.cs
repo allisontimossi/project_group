@@ -8,7 +8,6 @@ public class CategoryView
         Console.WriteLine("4 - Back");
         Console.WriteLine("Make your selection");
     }
-
     public void ShowCategories(string id, string name)
     {
         Console.WriteLine($"ID: {id}, Name: {name}");
