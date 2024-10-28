@@ -58,7 +58,7 @@ public class CustomerController
             using var reader = _database.GetCustomerBySurname(surname);
             while (reader.Read())
             {
-                _customerView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());;
+                _customerView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["phone_number"].ToString(), reader["address"].ToString());;
             }
             _database.CloseConnection();
             Console.ReadKey();

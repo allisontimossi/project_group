@@ -201,7 +201,7 @@ public class Database
 
     public SQLiteDataReader GetCustomerBySurname(string surname)
     {
-        string sql = $"SELECT * FROM customers WHERE name = '{surname}'";
+        string sql = $"SELECT * FROM customers WHERE surname = '{surname}'";
         OpenConnection();
         var command = new SQLiteCommand(sql, _connection);
         return command.ExecuteReader();
@@ -209,7 +209,7 @@ public class Database
 
     public void DeleteCustomer(int id)
     {
-        string sql = $"DELETE FROM customers WHERE name = '{id}'";
+        string sql = $"DELETE FROM customers WHERE id = '{id}'";
         OpenConnection();
         using var command = new SQLiteCommand(sql, _connection);
         command.ExecuteNonQuery();
