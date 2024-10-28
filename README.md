@@ -116,12 +116,10 @@ CREATE TABLE IF NOT EXISTS purchases (
 </details>
 
 <details>
-<summary>Task 4: Suddivisione della View basato sui Model</summary>
+<summary>Task 4: Reorganizing MainMenu: Controller </summary>
 
-- [ ] `CustomerView.cs`: nuova view per `Customer`
-- [ ] `ProductView.cs`: nuova view per `Product`
-- [ ] `PurchaseView.cs`: nuova view per `Purchase`
 </details>
+
 
 ### Sviluppatore 2 - Francesco Basevi: 
 <details>
@@ -134,13 +132,16 @@ CREATE TABLE IF NOT EXISTS purchases (
 </details>
 
 <details>
-<summary>Task 2: Suddivisione del Controller basato sui Model</summary>
+<summary>Task 2: Suddivisione della View basato sui Model</summary>
 
-**Branch**: `???`
+- [x] `CustomerView.cs`: nuova view per `Customer`
+- [x] `ProductView.cs`: nuova view per `Product`
+- [x] `PurchaseView.cs`: nuova view per `Purchase`
 
-- [x] `CustomerController.cs`: nuovo controller per `Customer`
-- [x] `ProductController.cs.cs`: nuovo controller per `Product`
-- [x] `PurchaseController.cs`: nuovo controller per `Purchase`
+</details>
+
+<details>
+<summary>Task 3: Reorganizing MainMenu: View </summary>
 </details>
 
 ### Sviluppatore 3 - Allison Timossi + Serghej Ivaldi: 
@@ -163,8 +164,31 @@ CREATE TABLE IF NOT EXISTS purchases (
     - [x] Customer.cs
     - [x] Product.cs
     - [x] Purchase.cs
-
 </details>
+
+<details>
+<summary>Task 2: Suddivisione del Controller basato sui Model</summary>
+
+- [x] `CustomerController.cs`: nuovo controller per `Customer`
+- [x] `ProductController.cs.cs`: nuovo controller per `Product`
+- [x] `PurchaseController.cs`: nuovo controller per `Purchase`
+</details>
+
+<details>
+<summary>Task 3: Reorganizing MainMenu: MyView </summary>
+
+- [x] Rendere MainMenu più semplice: 
+```csharp
+    public void ShowMainMenu(){
+        Console.WriteLine("1 - Manage Products");
+        Console.WriteLine("2 - Manage Categories");
+        Console.WriteLine("3 - Manage Customers");
+        Console.WriteLine("4 - Manage Purchases");
+        Console.WriteLine("5 - Exit");
+    }
+```
+</details>
+
 
 ## Workflow Git
 
