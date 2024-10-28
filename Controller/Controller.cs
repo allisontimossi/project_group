@@ -200,7 +200,7 @@ public class Controller
         using var reader = _database.GetPurchases();
         while (reader.Read())
         {
-            _myView.ShowPurchase(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+            _myView.ShowPurchase(reader["id"].ToString(), reader["customer_id"].ToString(), reader["product_id"].ToString(), reader["purchase_date"].ToString(), reader["quantity"].ToString());
         }
         _database.CloseConnection();
     }

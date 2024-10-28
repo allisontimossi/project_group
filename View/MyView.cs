@@ -30,7 +30,7 @@ public class MyView
         Console.WriteLine($"ID: {id}, Name: {name}, Surname: {surname}, Email: {email}, Phone: {phoneNumber}, Address: {address}");
         Console.WriteLine("***********************************************************************");
     }
-    public void ShowPurchase(string id, string date, string amount, string customerId, string productId)
+    public void ShowPurchase(string id, string customerId, string productId, string date, string amount)
     {
         Console.WriteLine($"ID: {id}, Date: {date}, Amount: {amount}, Customer ID: {customerId}, Product ID: {productId}");
         Console.WriteLine("***********************************************************************");
