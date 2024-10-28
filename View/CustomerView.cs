@@ -1,10 +1,10 @@
 public class CustomerView
 {
     public void ShowCustomerMainMenu(){
-        Console.WriteLine("1 - Show Customers");
-        Console.WriteLine("2 - Show Customers By Surname");
-        Console.WriteLine("3 - Delete Customer by Id");
-        Console.WriteLine("4 - Add Customer");
+        Console.WriteLine("1 - Add Customer");
+        Console.WriteLine("2 - Show Customers");
+        Console.WriteLine("3 - Show Customers by surname");
+        Console.WriteLine("4 - Delete Customer");
         Console.WriteLine("5 - Update Customer");
         Console.WriteLine("6 - Back");
         Console.WriteLine("Make your selection");

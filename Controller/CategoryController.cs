@@ -18,6 +18,7 @@ public class CategoryController
         bool exit = true;
         while (exit)
         {
+            Console.Clear();
             _categoryView.ShowCategoryMenu();
             string selection = Console.ReadLine()!;
 
@@ -48,6 +49,7 @@ public class CategoryController
             _categoryView.ShowCategories(reader["id"].ToString(), reader["name"].ToString());
         }
         _database.CloseConnection();
+        Console.ReadKey();
     }
     private void AddCategory()
     {

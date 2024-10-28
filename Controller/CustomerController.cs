@@ -1,27 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-
-    public class CustomerController
+public class CustomerController
+{
+    private CustomerView _customerView;
+    private Database _database;
+    public CustomerController(CustomerView customerView, Database database)
     {
-        private CustomerView _customerView;
-        private Database _database;
-        public CustomerController(CustomerView customerView, Database database)
-        {
         _customerView = customerView;
         _database = database;
-        }
+    }
 
-        public void CustomerMenu()
+    public void CustomerMenu()
     {
         bool exit = true;
         while (exit)
         {
+            Console.Clear();
             _customerView.ShowCustomerMainMenu();
             string selection = Console.ReadLine()!;
-
             switch (selection)
             {
                 case "1":
@@ -31,18 +25,15 @@ using System.Threading.Tasks;
                     ShowCustomers();
                     break;
                 case "3":
-                    ShowCustomersOrderedBySurname();
+                    ShowCustomersBySurname();
                     break;
                 case "4":
                     DeleteCustomer();
                     break;
                 case "5":
-                    AddCustomer();
-                    break;
-                case "6":
                     UpdateCustomer();
                     break;
-                case "7":
+                case "6":
                     exit = false;
                     break;
             }
@@ -54,12 +45,13 @@ using System.Threading.Tasks;
             using var reader = _database.GetCustomers();
             while (reader.Read())
             {
-                _customerView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());
+                _customerView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["phone_number"].ToString(), reader["address"].ToString());
             }
             _database.CloseConnection();
+            Console.ReadKey();
         }
 
-        private void ShowCustomersOrderedBySurname()
+        private void ShowCustomersBySurname()
         {
             Console.WriteLine("Insert customer surname");
             string surname = Console.ReadLine()!;
@@ -69,6 +61,7 @@ using System.Threading.Tasks;
                 _customerView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());;
             }
             _database.CloseConnection();
+            Console.ReadKey();
         }
 
         private void DeleteCustomer()
@@ -101,15 +94,14 @@ using System.Threading.Tasks;
             string phoneNumber = Console.ReadLine()!;
             Console.WriteLine("Insert customer's code");
             string clientCode = Console.ReadLine()!;
-            _database.AddCustomer(name, surname, email, address, phoneNumber, clientCode);
+            _database.AddCustomer(name, surname, email, phoneNumber, address, clientCode);
             _database.CloseConnection();
         }
 
         private void UpdateCustomer()
         {
-            Console.WriteLine("Insert ID's customer");
-
             ShowCustomers();
+            Console.WriteLine("Insert ID's customer");
 
             if (!int.TryParse(Console.ReadLine()!, out int id))
             {
@@ -128,7 +120,8 @@ using System.Threading.Tasks;
 
            // _database.UpdateCustomer(id, newName);
 
-            Console.WriteLine("Updated customer");
+            Console.WriteLine("Customer updated");
             _database.CloseConnection();
+            Console.ReadKey();
         }
     }

@@ -4,15 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-    public class ProductController
-    {
+public class ProductController
+{
         private ProductView _productview;
         private MyView _myView;
         private Database _database;
         public ProductController(ProductView productview, Database database)
         {
-        _productview = productview;
-        _database = database;
+            _productview = productview;
+            _database = database;
         }
 
 public void ProductMenu()
@@ -20,9 +20,9 @@ public void ProductMenu()
         bool exit = true;
         while (exit)
         {
+            Console.Clear();
             _productview.ShowProductMainMenu();
             string selection = Console.ReadLine()!;
-
             switch (selection)
             {
                 case "1":
@@ -32,10 +32,10 @@ public void ProductMenu()
                     ShowProductByName();
                     break;
                 case "3":
-                    ShowProductsOrderedByPrice();
+                    ShowProductsByPrice();
                     break;
                 case "4":
-                    ShowProductsOrderedByQuantity();
+                    ShowProductsByQuantity();
                     break;
                 case "5":
                     ShowProductsByCategory();
@@ -61,101 +61,107 @@ public void ProductMenu()
             }
         }
     }
-
-        private void ShowProducts()
+    private void ShowProducts()
+    {
+        using var reader = _database.GetProducts();
+        while (reader.Read())
         {
-            using var reader = _database.GetProducts();
-            while (reader.Read())
-            {
-                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
-            }
-            _database.CloseConnection();
+            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
         }
-        private void ShowProductsOrderedByPrice()
-        {
-            using var reader = _database.GetProductsOrderedByPrice();
-            while (reader.Read())
-            {
-                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
-            }
-            _database.CloseConnection();
-        }
-        private void ShowProductsOrderedByQuantity()
-        {
-            using var reader = _database.GetProductsOrderedByStock();
-            while (reader.Read())
-            {
-                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
-            }
-            _database.CloseConnection();
-        }
-        private void UpdateProductPrice()
-        {
-            Console.WriteLine("Insert product name");
-            string name = Console.ReadLine()!;
-            Console.WriteLine("Insert new price");
-            string price = Console.ReadLine()!;
-            _database.UpdateProductPrice(name, price);
-            _database.CloseConnection();
-        }
-        private void DeleteProduct()
-        {
-            Console.WriteLine("Insert product name");
-            string name = Console.ReadLine()!;
-            _database.DeleteProduct(name);
-            _database.CloseConnection();        
-        }
-        private void ShowMostExpensiveProduct()
-        {
-            using var reader = _database.GetMostExpensiveProduct();
-            while (reader.Read())
-            {
-                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
-            }
-            _database.CloseConnection();
-        }
-        private void ShowLeastExpensiveProduct()
-        {
-            using var reader = _database.GetLeastExpensiveProduct();
-            while (reader.Read())
-            {
-                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
-            }
-            _database.CloseConnection();
-        }
-        private void AddProduct()
-        {
-            Console.WriteLine("Insert product name");
-            string name = Console.ReadLine()!;
-            Console.WriteLine("Insert product price");
-            string price = Console.ReadLine()!;
-            Console.WriteLine("Insert product quantity");
-            string quantity = Console.ReadLine()!;
-            Console.WriteLine("Insert category Id");
-            string categoryId = Console.ReadLine()!;
-            _database.AddProduct(name, price, quantity, categoryId);
-            _database.CloseConnection();
-        }
-        private void ShowProductByName()
-        {
-            Console.WriteLine("Insert product name");
-            string name = Console.ReadLine()!;
-            using var reader = _database.GetProductByName(name);
-            while (reader.Read())
-            {
-                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
-            }
-            _database.CloseConnection();        
-        }
-        private void ShowProductsByCategory()
-        {
-            Console.WriteLine("Insert category Id");
-            string categoryId = Console.ReadLine()!;
-            using var reader = _database.GetProductsByCategory(categoryId);
-            while (reader.Read())
-            {
-                _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
-            }
-            _database.CloseConnection();        
-        }
+        _database.CloseConnection();
+        Console.ReadKey();
     }
+    private void ShowProductsByPrice()
+    {
+        using var reader = _database.GetProductsByPrice();
+        while (reader.Read())
+        {
+            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+        }
+        _database.CloseConnection();
+        Console.ReadKey();
+    }
+    private void ShowProductsByQuantity()
+    {
+        using var reader = _database.GetProductsByStock();
+        while (reader.Read())
+        {
+            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+        }
+        _database.CloseConnection();
+        Console.ReadKey();
+    }
+    private void UpdateProductPrice()
+    {
+        Console.WriteLine("Insert product name");
+        string name = Console.ReadLine()!;
+        Console.WriteLine("Insert new price");
+        string price = Console.ReadLine()!;
+        _database.UpdateProductPrice(name, price);
+        _database.CloseConnection();
+    }
+    private void DeleteProduct()
+    {
+        Console.WriteLine("Insert product name");
+        string name = Console.ReadLine()!;
+        _database.DeleteProduct(name);
+        _database.CloseConnection();        
+    }
+    private void ShowMostExpensiveProduct()
+    {
+        using var reader = _database.GetMostExpensiveProduct();
+        while (reader.Read())
+        {
+            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+        }
+        _database.CloseConnection();
+        Console.ReadKey();
+    }
+    private void ShowLeastExpensiveProduct()
+    {
+        using var reader = _database.GetLeastExpensiveProduct();
+        while (reader.Read())
+        {
+            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+        }
+        _database.CloseConnection();
+        Console.ReadKey();
+    }
+    private void AddProduct()
+    {
+        Console.WriteLine("Insert product name");
+        string name = Console.ReadLine()!;
+        Console.WriteLine("Insert product price");
+        string price = Console.ReadLine()!;
+        Console.WriteLine("Insert product quantity");
+        string quantity = Console.ReadLine()!;
+        Console.WriteLine("Insert category Id");
+        string categoryId = Console.ReadLine()!;
+        _database.AddProduct(name, price, quantity, categoryId);
+        _database.CloseConnection();
+    }
+    private void ShowProductByName()
+    {
+        Console.WriteLine("Insert product name");
+        string name = Console.ReadLine()!;
+        using var reader = _database.GetProductByName(name);
+        while (reader.Read())
+        {
+            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+        }
+        _database.CloseConnection();
+        Console.ReadKey();       
+    }
+    private void ShowProductsByCategory()
+    {
+        Console.WriteLine("Insert category Id");
+        string categoryId = Console.ReadLine()!;
+        using var reader = _database.GetProductsByCategory(categoryId);
+        while (reader.Read())
+        {
+            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+        }
+        _database.CloseConnection(); 
+        Console.ReadKey();       
+    }
+}

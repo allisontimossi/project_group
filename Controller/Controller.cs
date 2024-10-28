@@ -20,6 +20,7 @@ public class Controller
         bool exit = true;
         while(exit)
         {
+            Console.Clear();
             _myView.ShowMainMenu();
             string selection = Console.ReadLine()!;
             switch (selection)

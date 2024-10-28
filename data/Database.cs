@@ -97,7 +97,7 @@ public class Database
         return command.ExecuteReader();
     }
 
-    public SQLiteDataReader GetProductsOrderedByPrice()
+    public SQLiteDataReader GetProductsByPrice()
     {
         string sql = "SELECT * FROM products ORDER BY price";
         OpenConnection();
@@ -105,7 +105,7 @@ public class Database
         return command.ExecuteReader();
     }
 
-    public SQLiteDataReader GetProductsOrderedByStock()
+    public SQLiteDataReader GetProductsByStock()
     {
         string sql = "SELECT * FROM products ORDER BY stock";
         OpenConnection();

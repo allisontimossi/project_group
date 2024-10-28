@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-
-    public class CategoryView
-    {
+public class CategoryView
+{
     public void ShowCategoryMenu()
     {
         Console.WriteLine("1 - Add Category");
@@ -17,7 +11,7 @@ using System.Threading.Tasks;
 
     public void ShowCategories(string id, string name)
     {
-        Console.WriteLine($"ID: {id}, Name: {name});
+        Console.WriteLine($"ID: {id}, Name: {name}");
         Console.WriteLine("***********************************************************************");
     }
-    }
+}

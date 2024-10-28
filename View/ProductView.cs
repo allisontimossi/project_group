@@ -7,7 +7,7 @@ public class ProductView
         Console.WriteLine("4 - Show Products By Quantity");
         Console.WriteLine("5 - Show Products By Category");
         Console.WriteLine("6 - Show Most Expensive Product");
-        Console.WriteLine("7 - Show Less Expensive Product");
+        Console.WriteLine("7 - Show Least Expensive Product");
         Console.WriteLine("8 - Update Product Price");
         Console.WriteLine("9 - Delete Product");
         Console.WriteLine("10 - Add Product");
