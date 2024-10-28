@@ -65,11 +65,10 @@ public class Database
         }
     }
 
-    private SQLiteConnection OpenConnection()
+    private void OpenConnection()
     {
         _connection = new SQLiteConnection(ConnectionString);
         _connection.Open();
-        return _connection;
     }
 
     public void CloseConnection()
@@ -218,21 +217,25 @@ public class Database
 
 public void AddPurchase(int customerId, int productId, int quantity)
 {
-
             string purchaseSql = $"INSERT INTO purchases (customer_id, product_id, quantity) VALUES (@customerId, @productId, @quantity)";
             OpenConnection();
-            using var purchaseCommand = new SQLiteCommand(purchaseSql, _connection);
-            purchaseCommand.Parameters.AddWithValue("@customerId", customerId);
-            purchaseCommand.Parameters.AddWithValue("@productId", productId);
-            purchaseCommand.Parameters.AddWithValue("@quantity", quantity);
-            purchaseCommand.ExecuteNonQuery();
-
+            using (var purchaseCommand = new SQLiteCommand(purchaseSql, _connection)){
+                purchaseCommand.Parameters.AddWithValue("@customerId", customerId);
+                purchaseCommand.Parameters.AddWithValue("@productId", productId);
+                purchaseCommand.Parameters.AddWithValue("@quantity", quantity);
+                purchaseCommand.ExecuteNonQuery();
+            }
+            int currentStock = CheckStock(productId);
+            
+            OpenConnection();
+            int newStock =  currentStock-quantity;
             // Update stock after purchase
             string updateStockSql = "UPDATE products SET stock = @quantity WHERE id = @productId";
-            using var updateStockCommand = new SQLiteCommand(updateStockSql, _connection);
-            updateStockCommand.Parameters.AddWithValue("@quantity", quantity);
-            updateStockCommand.Parameters.AddWithValue("@productId", productId);
-            updateStockCommand.ExecuteNonQuery();
+            using (var updateStockCommand = new SQLiteCommand(updateStockSql, _connection)){
+                updateStockCommand.Parameters.AddWithValue("@quantity", newStock);
+                updateStockCommand.Parameters.AddWithValue("@productId", productId);
+                updateStockCommand.ExecuteNonQuery();
+            }
             CloseConnection();
     }
 
