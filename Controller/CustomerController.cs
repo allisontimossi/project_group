@@ -8,7 +8,7 @@ using System.Threading.Tasks;
     {
         private MyView _myView;
         private Database _database;
-        public Controller(MyView myView, Database database)
+        public CustomerController(MyView myView, Database database)
         {
         _myView = myView;
         _database = database;
@@ -19,17 +19,19 @@ using System.Threading.Tasks;
             using var reader = _database.GetCustomers();
             while (reader.Read())
             {
-                _myView.ShowCustomers(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());
+                _myView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());
             }
             _database.CloseConnection();
         }
 
         private void ShowCustomersOrderedBySurname()
         {
-            using var reader = _database.GetCustomerBySurname();
+            Console.WriteLine("Insert customer surname");
+            string surname = Console.ReadLine()!;
+            using var reader = _database.GetCustomerBySurname(surname);
             while (reader.Read())
             {
-                _myView.ShowCustomers(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString());
+                _myView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());;
             }
             _database.CloseConnection();
         }
@@ -39,15 +41,15 @@ using System.Threading.Tasks;
             ShowCustomers();
 
             Console.WriteLine("Insert customer's ID");
-            int id = Console.ReadLine()!;
+            string id = Console.ReadLine()!;
 
-            if (!int.TryParse(id, out int id))
+            if (!int.TryParse(id, out int idConverted))
             {
                 Console.WriteLine("Non valid ID.");
                 return;
             }
             
-            _database.DeleteCustomer(id);
+            _database.DeleteCustomer(idConverted);
             _database.CloseConnection();        
         }
 
@@ -62,9 +64,9 @@ using System.Threading.Tasks;
             Console.WriteLine("Insert customer's address");
             string address = Console.ReadLine()!;
             Console.WriteLine("Insert customer's phone number");
-            int phoneNumber = Console.ReadLine()!;
+            string phoneNumber = Console.ReadLine()!;
             Console.WriteLine("Insert customer's code");
-            int clientCode = Console.ReadLine()!;
+            string clientCode = Console.ReadLine()!;
             _database.AddCustomer(name, surname, email, address, phoneNumber, clientCode);
             _database.CloseConnection();
         }
@@ -75,16 +77,14 @@ using System.Threading.Tasks;
 
             ShowCustomers();
 
-            int id = Console.ReadLine()!;
-
-            if (!int.TryParse(id, out int id))
+            if (!int.TryParse(Console.ReadLine()!, out int id))
             {
                 Console.WriteLine("Non valid ID.");
                 return;
             }
 
             Console.WriteLine("Insert new customer's name");
-            var newName = _view.GetInput();
+            var newName = Console.ReadLine()!;
 
             if (string.IsNullOrWhiteSpace(newName))
             {
@@ -92,7 +92,7 @@ using System.Threading.Tasks;
                 return;
             }
 
-            _db.UpdateCustomer(id, newName);
+           // _database.UpdateCustomer(id, newName);
 
             Console.WriteLine("Updated customer");
             _database.CloseConnection();

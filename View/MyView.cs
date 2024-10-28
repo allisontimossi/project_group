@@ -25,4 +25,14 @@ public class MyView
         Console.WriteLine($"id: {id}, nome: {name}, prezzo: {price}, quantita: {quantity}, id_categoria: {categoryId}");
         Console.WriteLine("***********************************************************************");
     }
+    public void ShowCustomer(string id, string name, string surname, string email, string phoneNumber, string address)
+    {
+        Console.WriteLine($"ID: {id}, Name: {name}, Surname: {surname}, Email: {email}, Phone: {phoneNumber}, Address: {address}");
+        Console.WriteLine("***********************************************************************");
+    }
+    public void ShowPurchase(string id, string date, string amount, string customerId, string productId)
+    {
+        Console.WriteLine($"ID: {id}, Date: {date}, Amount: {amount}, Customer ID: {customerId}, Product ID: {productId}");
+        Console.WriteLine("***********************************************************************");
+    }
 }

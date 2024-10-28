@@ -200,7 +200,7 @@ public class Controller
         using var reader = _database.GetPurchases();
         while (reader.Read())
         {
-            _myView.ShowPurchases(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+            _myView.ShowPurchase(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
         }
         _database.CloseConnection();
     }
@@ -208,8 +208,8 @@ public class Controller
         using var reader = _database.GetCustomers();
         while (reader.Read())
         {
-            _myView.ShowCustomers(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+            _myView.ShowCustomer(reader["id"].ToString(), reader["name"].ToString(), reader["surname"].ToString(), reader["email"].ToString(), reader["address"].ToString(), reader["phoneNumber"].ToString());
+            _database.CloseConnection();
         }
-        _database.CloseConnection();
     }
 }

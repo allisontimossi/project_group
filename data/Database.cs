@@ -217,7 +217,7 @@ public class Database
     }
 
 public void AddPurchase(int customerId, int productId, int quantity)
-    {
+{
 
             string purchaseSql = $"INSERT INTO purchases (customer_id, product_id, quantity) VALUES (@customerId, @productId, @quantity)";
             OpenConnection();
@@ -228,7 +228,7 @@ public void AddPurchase(int customerId, int productId, int quantity)
             purchaseCommand.ExecuteNonQuery();
 
             // Update stock after purchase
-            string updateStockSql = "UPDATE products SET stock = stock - @quantity WHERE id = @productId";
+            string updateStockSql = "UPDATE products SET stock = @quantity WHERE id = @productId";
             using var updateStockCommand = new SQLiteCommand(updateStockSql, _connection);
             updateStockCommand.Parameters.AddWithValue("@quantity", quantity);
             updateStockCommand.Parameters.AddWithValue("@productId", productId);
