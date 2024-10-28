@@ -190,7 +190,7 @@ public class Controller
         if(quantity <= stock){
             Console.WriteLine("Insert customer Id");
             Int32.TryParse(Console.ReadLine()!, out int customerId);
-            _database.AddPurchase(customerId, productId, stock-quantity);
+            _database.AddPurchase(customerId, productId, quantity);
             _database.CloseConnection();
         }else{
             Console.WriteLine("Not enought products in stock");

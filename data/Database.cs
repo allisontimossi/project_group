@@ -218,23 +218,32 @@ public class Database
 
 public void AddPurchase(int customerId, int productId, int quantity)
 {
+    OpenConnection();  // Ensure the connection is open before operations
 
-            string purchaseSql = $"INSERT INTO purchases (customer_id, product_id, quantity) VALUES (@customerId, @productId, @quantity)";
-            OpenConnection();
-            using var purchaseCommand = new SQLiteCommand(purchaseSql, _connection);
-            purchaseCommand.Parameters.AddWithValue("@customerId", customerId);
-            purchaseCommand.Parameters.AddWithValue("@productId", productId);
-            purchaseCommand.Parameters.AddWithValue("@quantity", quantity);
-            purchaseCommand.ExecuteNonQuery();
+    // Insert the purchase record with the actual quantity purchased
+    string purchaseSql = "INSERT INTO purchases (customer_id, product_id, quantity) VALUES (@customerId, @productId, @quantity)";
+    using var purchaseCommand = new SQLiteCommand(purchaseSql, _connection);
+    purchaseCommand.Parameters.AddWithValue("@customerId", customerId);
+    purchaseCommand.Parameters.AddWithValue("@productId", productId);
+    purchaseCommand.Parameters.AddWithValue("@quantity", quantity);
+    purchaseCommand.ExecuteNonQuery();
 
-            // Update stock after purchase
-            string updateStockSql = "UPDATE products SET stock = @quantity WHERE id = @productId";
-            using var updateStockCommand = new SQLiteCommand(updateStockSql, _connection);
-            updateStockCommand.Parameters.AddWithValue("@quantity", quantity);
-            updateStockCommand.Parameters.AddWithValue("@productId", productId);
-            updateStockCommand.ExecuteNonQuery();
-            CloseConnection();
-    }
+    // Retrieve the current stock for the product
+    int currentStock = CheckStock(productId);
+    OpenConnection();
+
+    // Calculate the new stock by subtracting the quantity purchased
+    int newStock = currentStock - quantity;
+
+    // Update the stock in the products table with the calculated new stock value
+    string updateStockSql = "UPDATE products SET stock = @newStock WHERE id = @productId";
+    using var updateStockCommand = new SQLiteCommand(updateStockSql, _connection);
+    updateStockCommand.Parameters.AddWithValue("@newStock", newStock);
+    updateStockCommand.Parameters.AddWithValue("@productId", productId);
+    updateStockCommand.ExecuteNonQuery();
+
+    CloseConnection();  // Close connection only after all operations are done
+}
 
     public void AddCategory(string name)
     {
