@@ -138,9 +138,9 @@ CREATE TABLE IF NOT EXISTS purchases (
 
 **Branch**: `???`
 
-- [ ] `CustomerController.cs`: nuovo controller per `Customer`
-- [ ] `ProductController.cs.cs`: nuovo controller per `Product`
-- [ ] `PurchaseController.cs`: nuovo controller per `Purchase`
+- [x] `CustomerController.cs`: nuovo controller per `Customer`
+- [x] `ProductController.cs.cs`: nuovo controller per `Product`
+- [x] `PurchaseController.cs`: nuovo controller per `Purchase`
 </details>
 
 ### Sviluppatore 3 - Allison Timossi + Serghej Ivaldi: 
