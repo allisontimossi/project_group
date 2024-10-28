@@ -39,28 +39,24 @@ public class Database : DbContext
         return _products.ToList();
     }
 
-    public SQLiteDataReader GetProductsByPrice()
+    public List<Product> GetProductsByPrice()
     {
-        string sql = "SELECT * FROM products ORDER BY price";
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
+            return _products.OrderBy(p => p.Price).ToList();
     }
 
-    public SQLiteDataReader GetProductsByStock()
+    public List<Product> GetProductsByStock()
     {
-        string sql = "SELECT * FROM products ORDER BY stock";
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
+        return _products.OrderBy(p => p.Stock).ToList();
     }
 
-    public void UpdateProductPrice(string name, string price)
+    public void UpdateProductPrice(string name, int price)
     {
-        string sql = $"UPDATE products SET price = {price} WHERE name = '{name}'";
-        OpenConnection();
-        using var command = new SQLiteCommand(sql, _connection);
-        command.ExecuteNonQuery();
+        foreach(Product p in _products){
+            if(p.Name == name){
+                p.Price = price;
+            }
+        }
+        SaveChanges();
     }
 
     public void UpdateCustomer(int id, string newName)
@@ -96,12 +92,10 @@ public class Database : DbContext
         return command.ExecuteReader();
     }
 
-    public void AddProduct(string name, string price, string stock, string categoryId)
+    public void AddProduct(string name, int price, int stock, int categoryId)
     {
-        string sql = $"INSERT INTO products (name, price, stock, category_id) VALUES ('{name}', {price}, {stock}, {categoryId})";
-        OpenConnection();
-        using var command = new SQLiteCommand(sql, _connection);
-        command.ExecuteNonQuery();
+        _products.Add(new Product{Name = name, Price = price, Stock = stock, CategoryId = categoryId});
+        SaveChanges();
     }
 
     public SQLiteDataReader GetProductByName(string name)
@@ -140,7 +134,6 @@ public class Database : DbContext
     {
         _customers.Add(new Customer{Name = name, Surname = surname, Email = email, PhoneNumber = phoneNumber, Address = address, ClientCode = clientCode});
         SaveChanges();
-
     }
 
     public SQLiteDataReader GetCustomerBySurname(string surname)

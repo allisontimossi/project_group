@@ -61,25 +61,24 @@ public class ProductController
         {
             _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.CategoryId.ToString());
         }
+        Console.ReadKey();
     }
     private void ShowProductsByPrice()
     {
-        using var reader = _database.GetProductsByPrice();
-        while (reader.Read())
+        List<Product> products = _database.GetProducts();
+        foreach(Product p in products)
         {
-            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.CategoryId.ToString());
         }
-        _database.CloseConnection();
         Console.ReadKey();
     }
     private void ShowProductsByQuantity()
     {
-        using var reader = _database.GetProductsByStock();
-        while (reader.Read())
+        List<Product> products = _database.GetProducts();
+        foreach(Product p in products)
         {
-            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.CategoryId.ToString());
         }
-        _database.CloseConnection();
         Console.ReadKey();
     }
     private void UpdateProductPrice()
@@ -87,9 +86,8 @@ public class ProductController
         Console.WriteLine("Insert product name");
         string name = Console.ReadLine()!;
         Console.WriteLine("Insert new price");
-        string price = Console.ReadLine()!;
+        int price = Convert.ToInt32(Console.ReadLine()!);
         _database.UpdateProductPrice(name, price);
-        _database.CloseConnection();
     }
     private void DeleteProduct()
     {
@@ -123,13 +121,12 @@ public class ProductController
         Console.WriteLine("Insert product name");
         string name = Console.ReadLine()!;
         Console.WriteLine("Insert product price");
-        string price = Console.ReadLine()!;
+        int price = Convert.ToInt32( Console.ReadLine()!);
         Console.WriteLine("Insert product quantity");
-        string quantity = Console.ReadLine()!;
+        int stock = Convert.ToInt32(  Console.ReadLine()!);
         Console.WriteLine("Insert category Id");
-        string categoryId = Console.ReadLine()!;
-        _database.AddProduct(name, price, quantity, categoryId);
-        _database.CloseConnection();
+        int categoryId = Convert.ToInt32(Console.ReadLine()!);
+        _database.AddProduct(name, price, stock, categoryId);
     }
     private void ShowProductByName()
     {
