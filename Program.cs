@@ -1,18 +1,20 @@
-﻿﻿using System.Data.SQLite;
-using System.Runtime.CompilerServices;
-// comando per installare il pacchetto System.Data.SQLite
-// dotnet add package System.Data.SQLite
-// ignore
-
-class Program 
+﻿﻿class Program 
 {
-    static string path = @"database.db";
+    private static string _path = @"database.db";
     static void Main(string[] args)
     {
-        MyView myView = new MyView();
         Database database = new Database();
-        Controller controller = new Controller(myView, database);
-        database.CreateDatabase(path);
+        CustomerView customerView = new CustomerView();
+        CategoryView categoryView = new CategoryView();
+        ProductView productView = new ProductView();
+        PurchaseView purchaseView = new PurchaseView(); 
+        MyView myView = new MyView();
+        CategoryController categoryController = new CategoryController(categoryView, database);
+        CustomerController customerController = new CustomerController(customerView, database);
+        ProductController productController = new ProductController(productView, database);
+        PurchaseController purchaseController = new PurchaseController(purchaseView, database);
+        Controller controller = new Controller(myView, categoryController, customerController, productController, purchaseController);
+        database.CreateDatabase(_path);
         controller.MainMenu();
     }
 }
