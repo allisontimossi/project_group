@@ -56,13 +56,11 @@ public class ProductController
     }
     private void ShowProducts()
     {
-        using var reader = _database.GetProducts();
-        while (reader.Read())
+        List<Product> products = _database.GetProducts();
+        foreach(Product p in products)
         {
-            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.CategoryId.ToString());
         }
-        _database.CloseConnection();
-        Console.ReadKey();
     }
     private void ShowProductsByPrice()
     {

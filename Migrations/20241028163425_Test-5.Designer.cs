@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace project_group.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20241028154137_Test-4")]
-    partial class Test4
+    [Migration("20241028163425_Test-5")]
+    partial class Test5
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace project_group.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("_categories");
                 });
 
             modelBuilder.Entity("Customer", b =>
@@ -64,7 +64,7 @@ namespace project_group.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("_customers");
                 });
 
             modelBuilder.Entity("Product", b =>
@@ -88,7 +88,7 @@ namespace project_group.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("_products");
                 });
 
             modelBuilder.Entity("Purchase", b =>
@@ -116,7 +116,7 @@ namespace project_group.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Purchases");
+                    b.ToTable("_purchases");
                 });
 
             modelBuilder.Entity("Purchase", b =>

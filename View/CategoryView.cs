@@ -7,6 +7,13 @@ public class CategoryView
         Console.WriteLine("3 - Delete Category");
         Console.WriteLine("4 - Back");
         Console.WriteLine("Make your selection");
+        Console.WriteLine("Make your selection");
+        Console.WriteLine("Make your selection");
+        Console.WriteLine("Make your selection");
+        Console.WriteLine("Make your selection");
+        Console.WriteLine("Make your selection");
+        Console.WriteLine("Make your selection");
+        
     }
     public void ShowCategories(string id, string name)
     {

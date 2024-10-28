@@ -5,13 +5,13 @@
 namespace project_group.Migrations
 {
     /// <inheritdoc />
-    public partial class Test4 : Migration
+    public partial class Test5 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "_categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -20,11 +20,11 @@ namespace project_group.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK__categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "_customers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -38,11 +38,11 @@ namespace project_group.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.PrimaryKey("PK__customers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "_products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -54,11 +54,11 @@ namespace project_group.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK__products", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Purchases",
+                name: "_purchases",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -70,29 +70,29 @@ namespace project_group.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Purchases", x => x.Id);
+                    table.PrimaryKey("PK__purchases", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Purchases_Customers_CustomerId",
+                        name: "FK__purchases__customers_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        principalTable: "_customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Purchases_Products_ProductId",
+                        name: "FK__purchases__products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "_products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Purchases_CustomerId",
-                table: "Purchases",
+                name: "IX__purchases_CustomerId",
+                table: "_purchases",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Purchases_ProductId",
-                table: "Purchases",
+                name: "IX__purchases_ProductId",
+                table: "_purchases",
                 column: "ProductId");
         }
 
@@ -100,16 +100,16 @@ namespace project_group.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "_categories");
 
             migrationBuilder.DropTable(
-                name: "Purchases");
+                name: "_purchases");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "_customers");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "_products");
         }
     }
 }
