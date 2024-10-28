@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "FTalWXByo/4=",
   "success": true,
   "projectFilePath": "C:\\Users\\dev1\\Documents\\Corsodev1\\corso_dev1\\esercitazioni\\project_group\\project_group.csproj",
+=======
+  "dgSpecHash": "sHi+1rRk8Ys=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dev1\\Desktop\\Corso_Dev1\\project_group\\project_group.csproj",
+>>>>>>> feature/UpdateCustomer-fixing
   "expectedPackageFiles": [
     "C:\\Users\\dev1\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\dev1\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

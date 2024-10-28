@@ -100,7 +100,7 @@ public class CustomerController
 
         private void UpdateCustomer()
         {
-            ShowCustomers();
+            ShowCustomers();  
             Console.WriteLine("Insert ID's customer");
 
             if (!int.TryParse(Console.ReadLine()!, out int id))
@@ -118,7 +118,7 @@ public class CustomerController
                 return;
             }
 
-           // _database.UpdateCustomer(id, newName);
+            _database.UpdateCustomer(id, newName);
 
             Console.WriteLine("Customer updated");
             _database.CloseConnection();

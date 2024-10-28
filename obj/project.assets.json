@@ -1220,11 +1220,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\dev1\\Documents\\Corsodev1\\corso_dev1\\esercitazioni\\project_group\\project_group.csproj",
       "projectName": "project_group",
       "projectPath": "C:\\Users\\dev1\\Documents\\Corsodev1\\corso_dev1\\esercitazioni\\project_group\\project_group.csproj",
       "packagesPath": "C:\\Users\\dev1\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\dev1\\Documents\\Corsodev1\\corso_dev1\\esercitazioni\\project_group\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\dev1\\Desktop\\Corso_Dev1\\project_group\\project_group.csproj",
+      "projectName": "project_group",
+      "projectPath": "C:\\Users\\dev1\\Desktop\\Corso_Dev1\\project_group\\project_group.csproj",
+      "packagesPath": "C:\\Users\\dev1\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dev1\\Desktop\\Corso_Dev1\\project_group\\obj\\",
+>>>>>>> feature/UpdateCustomer-fixing
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dev1\\AppData\\Roaming\\NuGet\\NuGet.Config"

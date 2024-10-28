@@ -121,6 +121,15 @@ public class Database
         command.ExecuteNonQuery();
     }
 
+    public void UpdateCustomer(int id, string newName)
+    {
+        string sql = $"UPDATE customers SET name = '{newName}' WHERE id = {id}";
+        OpenConnection();
+        using var command = new SQLiteCommand(sql, _connection);
+        command.ExecuteNonQuery();
+
+    }
+
     public void DeleteProduct(string name)
     {
         string sql = $"DELETE FROM products WHERE name = '{name}'";
