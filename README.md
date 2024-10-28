@@ -14,7 +14,7 @@ Attualmente il database SQLite contiene due tabelle principali:
 ```sql
 CREATE TABLE categorie (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    nome TEXT UNIQUE
+    name TEXT UNIQUE
 );
 ```
 
@@ -22,11 +22,11 @@ CREATE TABLE categorie (
 ```sql
 CREATE TABLE prodotti (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    nome TEXT UNIQUE, 
-    prezzo REAL, 
-    quantita INTEGER CHECK (quantita >= 0), 
-    id_categoria INTEGER,
-    FOREIGN KEY (id_categoria) REFERENCES categorie(id)
+    name TEXT UNIQUE, 
+    price REAL, 
+    stock INTEGER CHECK (stock >= 0), 
+    category_id INTEGER, 
+    FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 ```
 
@@ -44,15 +44,15 @@ CREATE TABLE prodotti (
 ### 1. Estensione Database
 #### Nuova Tabella `clienti`
 ```sql
-CREATE TABLE clienti (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    codice_cliente TEXT UNIQUE,
-    nome TEXT,
-    cognome TEXT,
-    email TEXT,
-    telefono TEXT,
-    indirizzo TEXT
-);
+CREATE TABLE customers (
+                id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                name TEXT, 
+                surname TEXT, 
+                email TEXT UNIQUE, 
+                phone_number TEXT, 
+                address TEXT, 
+                client_code TEXT UNIQUE
+            );
 ```
 
 ### 2. Ristrutturazione MVC
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS purchases (
             FOREIGN KEY (client_id) REFERENCES clients(id), 
             FOREIGN KEY (product_id) REFERENCES products(id)
         );
-
+```
 ## Divisione dei Compiti
 
 ### Sviluppatore 1 - Mattia Totonchi: 
@@ -109,10 +109,10 @@ CREATE TABLE IF NOT EXISTS purchases (
 <summary>Task 3: Database Extension 2</summary>
 
 **Branch**: `feature/creazione tabella acquisti`
-- [ ] Creazione tabella `acquisti`
-- [ ] Implementazione delle relazioni necessarie
-- [ ] Test integrità database
-- [ ] Refactor del Database: spostamento da Program.cs a Database.cs
+- [x] Creazione tabella `purchases`
+- [x] Implementazione delle relazioni necessarie
+- [x] Test integrità database
+- [x] Refactor del Database: spostamento da Program.cs a Database.cs
 </details>
 
 <details>
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS purchases (
 <summary>Task 1: Models Documentation</summary>
 
 **Branch**: `feature/modelName-model`
-    - [ ] Entity.cs
+    - [x] Entity.cs
     - [x] Customer.cs
     - [x] Product.cs
     - [x] Purchase.cs
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS purchases (
 main
 ├── feature/database-extension
 ├── feature/mvc-implementation
-└── docs/project-documentation
+└── docs/README-updating
 ```
 
 ### Processo di Merge
@@ -187,26 +187,36 @@ main
 ### Database Schema
 ```mermaid
 erDiagram
-    CATEGORIE ||--o{ PRODOTTI : contains
-    CATEGORIE {
+    CATEGORIES ||--o{ PRODUCTS : contains
+    CATEGORIES {
         int id
-        string nome
+        string name
     }
-    PRODOTTI {
+    PRODUCTS ||--o{ PURCHASES : contains
+    PRODUCTS {
         int id
-        string nome
-        float prezzo
-        int quantita
-        int id_categoria
+        string name
+        float price
+        int stock
+        int category_id
     }
-    CLIENTI {
+    CUSTOMERS ||--o{ PURCHASES : contains
+    CUSTOMERS {
         int id
-        string codice_cliente
-        string nome
-        string cognome
+        string customer_id
+        string name
+        string surname
         string email
-        int telefono
-        string indirizzo
+        string phone_number
+        string address
+    }
+    
+    PURCHASES {
+        int id
+        int customer_id
+        int product_id
+        datetime purchase_date
+        int quantity
     }
 ```
 
