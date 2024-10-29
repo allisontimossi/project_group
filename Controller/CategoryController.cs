@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 public class CategoryController
 {
     private CategoryView _categoryView;
@@ -12,7 +7,6 @@ public class CategoryController
         _categoryView = categoryView;
         _database = database;
     }
-
     public void CategoryMenu()
     {
         bool exit = true;
@@ -39,7 +33,6 @@ public class CategoryController
             }
         }
     }
-
     private void AddCategory()
     {
         Console.WriteLine("Insert category name");
@@ -50,17 +43,15 @@ public class CategoryController
     {
         Console.WriteLine("Enter the ID of the Category u want to delete:");
         int id = Convert.ToInt32(Console.ReadLine()!);
-
-
+        _database.DeleteCategory(id);
     }
-
-        private void ShowCategory()
+    private void ShowCategory()
+    {
+        List<Category> categories = _database.GetCategories();
+        foreach(Category c in categories)
         {
-            List<Category> categories = _database.GetCategories();
-            foreach(Category c in categories)
-            {
-                _categoryView.ShowCategories(c.Id.ToString(), c.Name);
-            }
-            Console.ReadKey();
+            _categoryView.ShowCategories(c.Id.ToString(), c.Name);
         }
+        Console.ReadKey();
+    }
 }

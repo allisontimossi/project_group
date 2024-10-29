@@ -12,7 +12,6 @@ public class Database : DbContext
         options.UseSqlite("Data Source = database.db");
         //options.UseLazyLoadingProxies();
     }
-    private const string ConnectionString = "Data Source=database.db;Version=3;";
     public int CheckStock(int productId)
     {
         int stock = 0;
@@ -60,7 +59,15 @@ public class Database : DbContext
         }
         SaveChanges();
     }
-
+    public void DeleteCategory(int id)
+    {
+        foreach (Category c in _categories)
+        {
+            if (c.Id == id)
+                _categories.Remove(c);
+        }
+        SaveChanges();
+    }
     public void UpdateCustomer(int id, string newName)
     {
         foreach (Customer c in _customers)
