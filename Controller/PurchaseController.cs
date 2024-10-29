@@ -41,29 +41,29 @@ private void AddPurchase()
 {
     Console.WriteLine("Insert product Id");
     Int32.TryParse(Console.ReadLine()!, out int productId);
-    var product = _database.Products.Find(productId);
-    
+    var product = _database.GetProductById(productId);  // Use helper method
+
     if (product == null)
     {
         Console.WriteLine("Product not found.");
         return;
     }
-    
+
     Console.WriteLine("Insert product quantity");
     Int32.TryParse(Console.ReadLine()!, out int quantity);
-    
+
     if (quantity <= product.Stock)
     {
         Console.WriteLine("Insert customer Id");
         Int32.TryParse(Console.ReadLine()!, out int customerId);
-        
-        var customer = _database.Customers.Find(customerId);
+
+        var customer = _database.GetCustomerById(customerId);  // Use helper method
         if (customer == null)
         {
             Console.WriteLine("Customer not found.");
             return;
         }
-        
+
         _database.AddPurchase(customer, product, quantity);
         Console.WriteLine("Purchase added successfully.");
     }
@@ -72,6 +72,7 @@ private void AddPurchase()
         Console.WriteLine("Not enough products in stock.");
     }
 }
+
 
     private void ShowPurchases()
     {
