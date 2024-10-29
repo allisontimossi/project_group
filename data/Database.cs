@@ -14,17 +14,6 @@ public class Database : DbContext
         //options.UseLazyLoadingProxies();
     }
     private const string ConnectionString = "Data Source=database.db;Version=3;";
-    private SQLiteConnection _connection;
-    private void OpenConnection()
-    {
-        _connection = new SQLiteConnection(ConnectionString);
-        _connection.Open();
-    }
-    public void CloseConnection()
-    {
-        if (_connection.State != System.Data.ConnectionState.Closed)
-            _connection.Close();
-    }
     public int CheckStock(int productId)
     {
         int stock = 0;
