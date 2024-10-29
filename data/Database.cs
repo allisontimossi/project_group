@@ -193,15 +193,6 @@ public class Database : DbContext
         var command = new SQLiteCommand(sql, _connection);
         return command.ExecuteReader();
     }
-
-    public SQLiteDataReader GetPurchases()
-    {
-        string sql = "SELECT * FROM purchases";
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
-    }
-
     public void AddCustomer(string name, string surname, string email, Int64 phoneNumber, string address, string clientCode)
     {
         Customers.Add(new Customer{Name = name, Surname = surname, Email = email, PhoneNumber = phoneNumber, Address = address, ClientCode = clientCode});
@@ -225,51 +216,30 @@ public class Database : DbContext
         command.ExecuteNonQuery();
     }
 
-public void AddPurchase(int customerId, int productId, int quantity)
+public void AddPurchase(Customer customer, Product product, int quantity)
 {
-    OpenConnection();  // Ensure the connection is open before operations
+    // Create a new Purchase record
+    var purchase = new Purchase
+    {
+        Customer = customer,
+        Product = product,
+        Quantity = quantity,
+        Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") // Store the date in the desired format
+    };
 
-    // Insert the purchase record with the actual quantity purchased
-    string purchaseSql = "INSERT INTO purchases (customer_id, product_id, quantity) VALUES (@customerId, @productId, @quantity)";
-    using var purchaseCommand = new SQLiteCommand(purchaseSql, _connection);
-    purchaseCommand.Parameters.AddWithValue("@customerId", customerId);
-    purchaseCommand.Parameters.AddWithValue("@productId", productId);
-    purchaseCommand.Parameters.AddWithValue("@quantity", quantity);
-    purchaseCommand.ExecuteNonQuery();
+    // Update the stock
+    product.Stock -= quantity;
 
-    // Retrieve the current stock for the product
-    int currentStock = CheckStock(productId);
-    OpenConnection();
-    // Calculate the new stock by subtracting the quantity purchased
-    int newStock = currentStock - quantity;
-
-    // Update the stock in the products table with the calculated new stock value
-    string updateStockSql = "UPDATE products SET stock = @newStock WHERE id = @productId";
-    using var updateStockCommand = new SQLiteCommand(updateStockSql, _connection);
-    updateStockCommand.Parameters.AddWithValue("@newStock", newStock);
-    updateStockCommand.Parameters.AddWithValue("@productId", productId);
-    updateStockCommand.ExecuteNonQuery();
-    CloseConnection();  // Close connection only after all operations are done
+    // Add the purchase and update stock in a single transaction
+    Purchases.Add(purchase);
+    SaveChanges();
 }
+
+
 
     public void AddCategory(string name)
     {
         Categories.Add(new Category{Name = name});
         SaveChanges();
-    }
-
-    public void DeleteCategory(string name)
-    {
-        string sql = $"DELETE FROM categories WHERE name = '{name}'";
-        OpenConnection();
-        using var command = new SQLiteCommand(sql, _connection);
-        command.ExecuteNonQuery();
-    }
-    public  SQLiteDataReader GetCategories() 
-    {
-        string sql = "SELECT * FROM categories"; 
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
     }
 }

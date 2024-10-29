@@ -28,7 +28,7 @@ public class CategoryController
                     AddCategory();
                     break;
                 case "2":
-                    ShowCategories();
+                    ShowCategory();
                     break;
                 case "3":
                     DeleteCategory();
@@ -40,17 +40,6 @@ public class CategoryController
         }
     }
 
-
-    public void ShowCategories()
-    {
-        using var reader = _database.GetCategories();
-        while (reader.Read())
-        {
-            _categoryView.ShowCategories(reader["id"].ToString(), reader["name"].ToString());
-        }
-        _database.CloseConnection();
-        Console.ReadKey();
-    }
     private void AddCategory()
     {
         Console.WriteLine("Insert category name");
@@ -78,5 +67,11 @@ public class CategoryController
             Console.WriteLine("Press any key to continue:");
             Console.ReadKey(true);
         }
+    }
+
+        public void ShowCategory()
+    {
+        var categories = _database.Categories.ToList();
+        _categoryView.ShowCategories(categories);
     }
 }
