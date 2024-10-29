@@ -9,6 +9,7 @@ public class ProductController
     }
     public void ProductMenu()
     {
+        _database.LoadTables();
         bool exit = true;
         while(exit)
         {

@@ -6,9 +6,9 @@ public class PurchaseView
         Console.WriteLine("3 - Back");
         Console.WriteLine("Make your selection");
     }
-    public void ShowPurchase(string id, string date, string amount, string customerId, string productId)
+    public void ShowPurchase(string id, string date, string amount, string customerId, string product)
     {
-        Console.WriteLine($"ID: {id}, Date: {date}, Amount: {amount}, Customer ID: {customerId}, Product ID: {productId}");
+        Console.WriteLine($"ID: {id}, Date: {date}, Amount: {amount}, Customer Surname: {customerId}, Product Name: {product}");
         Console.WriteLine("***********************************************************************");
     }
 }
