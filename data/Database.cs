@@ -137,7 +137,7 @@ public void UpdateCustomer(int id, string newName)
 
     public Product GetProductByName(string name)
     {
-        return _products.FirstOrDefault(p => p.Name == name);
+        return _products.Include(t => t.Category).FirstOrDefault(p => p.Name == name);
     }
 
     public List<Product> GetProductsByCategory(int categoryId)
@@ -235,7 +235,7 @@ public void AddCustomer(string name, string surname, string email, Int64 phoneNu
 
     public Product GetProductById(int productId)
     {
-        return _products.FirstOrDefault(p => p.Id == productId);
+        return _products.Include(t => t.Category).FirstOrDefault(p => p.Id == productId);
     }
 
     // Helper method to find a customer by ID
