@@ -1,6 +1,3 @@
-using System.Data.SQLite;
-using System.Runtime.CompilerServices;
-
 public class Controller
 {
     private CategoryController _categoryController;

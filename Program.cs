@@ -1,6 +1,5 @@
 ﻿﻿class Program 
 {
-    private static string _path = @"database.db";
     static void Main(string[] args)
     {
         Database database = new Database();
