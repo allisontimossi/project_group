@@ -7,7 +7,6 @@ public class ProductController
         _productview = productview;
         _database = database;
     }
-
     public void ProductMenu()
     {
         bool exit = true;
