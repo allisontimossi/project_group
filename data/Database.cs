@@ -104,6 +104,7 @@ public class Database : DbContext
     {
         List<Product> LeastExpensive = new List<Product>();
         Product temp = new Product();
+        temp.Price = 9000000;
         foreach (Product p in _products)
         {
             if (p.Price <= temp.Price)
