@@ -70,11 +70,14 @@ public class Database : DbContext
 
     public void UpdateCustomer(int id, string newName)
     {
-        string sql = $"UPDATE customers SET name = '{newName}' WHERE id = {id}";
-        OpenConnection();
-        using var command = new SQLiteCommand(sql, _connection);
-        command.ExecuteNonQuery();
-
+        foreach (Customer c in _customers)
+        {
+            if (c.Id == id)
+            {
+                c.Name = newName;
+            }
+        }
+        SaveChanges();
     }
     public List<Product> GetMostExpensiveProduct()
     {
@@ -132,12 +135,9 @@ public class Database : DbContext
         return productsByCategory;
     }
 
-    public SQLiteDataReader GetCustomers()
+    public List<Customer> GetCustomers()
     {
-        string sql = "SELECT * FROM customers"; 
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
+        return _customers.ToList();
     }
     public void AddCustomer(string name, string surname, string email, Int64 phoneNumber, string address, string clientCode)
     {
@@ -145,20 +145,21 @@ public class Database : DbContext
         SaveChanges();
     }
 
-    public SQLiteDataReader GetCustomerBySurname(string surname)
+    public List<Customer> GetCustomerBySurname()
     {
-        string sql = $"SELECT * FROM customers WHERE surname = '{surname}'";
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
+        return _customers.ToList();
     }
 
     public void DeleteCustomer(int id)
     {
-        string sql = $"DELETE FROM customers WHERE id = '{id}'";
-        OpenConnection();
-        using var command = new SQLiteCommand(sql, _connection);
-        command.ExecuteNonQuery();
+        foreach(Customer c in _customers)
+        {
+            if (c.Id == id)
+            {
+                _customers.Remove(c);
+            }
+        }
+        SaveChanges();
     }
 
 public void AddPurchase(Customer customer, Product product, int quantity)
