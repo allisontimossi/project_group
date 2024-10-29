@@ -116,9 +116,9 @@ public class Database : DbContext
         return LeastExpensive;
     }
 
-    public void AddProduct(string name, int price, int stock, int categoryId)
+    public void AddProduct(string name, int price, int stock, Category category)
     {
-        _products.Add(new Product { Name = name, Price = price, Stock = stock, CategoryId = categoryId });
+        _products.Add(new Product { Name = name, Price = price, Stock = stock, Category = category });
         SaveChanges();
     }
 
@@ -132,7 +132,7 @@ public class Database : DbContext
         List<Product> productsByCategory = new List<Product>();
         foreach (Product p in _products)
         {
-            if (p.CategoryId == categoryId)
+            if (p.Category.Id == categoryId)
             {
                 productsByCategory.Add(p);
             }
@@ -228,5 +228,10 @@ public class Database : DbContext
     public Customer GetCustomerById(int customerId)
     {
         return _customers.FirstOrDefault(c => c.Id == customerId);
+    }
+
+      public Category GetCategoryById(int categoryId)
+    {
+        return _categories.FirstOrDefault(c => c.Id == categoryId);
     }
 }
