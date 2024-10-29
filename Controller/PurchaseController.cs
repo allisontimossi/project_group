@@ -37,28 +37,49 @@ public class PurchaseController
             }
         }
     }
-    private void AddPurchase(){
-        Console.WriteLine("Insert product Id");
-        Int32.TryParse(Console.ReadLine()!, out int productId);
-        int stock = _database.CheckStock(productId);
-        _database.CloseConnection();
-        Console.WriteLine("Insert product quantity");
-        Int32.TryParse(Console.ReadLine()!, out int quantity);
-        if(quantity <= stock){
-            Console.WriteLine("Insert customer Id");
-            Int32.TryParse(Console.ReadLine()!, out int customerId);
-            _database.AddPurchase(customerId, productId, quantity);
-            _database.CloseConnection();
-        }else{
-            Console.WriteLine("Not enought products in stock");
-        }
+private void AddPurchase()
+{
+    Console.WriteLine("Insert product Id");
+    Int32.TryParse(Console.ReadLine()!, out int productId);
+    var product = _database.Products.Find(productId);
+    
+    if (product == null)
+    {
+        Console.WriteLine("Product not found.");
+        return;
     }
-    private void ShowPurchases(){
-        using var reader = _database.GetPurchases();
-        while (reader.Read())
+    
+    Console.WriteLine("Insert product quantity");
+    Int32.TryParse(Console.ReadLine()!, out int quantity);
+    
+    if (quantity <= product.Stock)
+    {
+        Console.WriteLine("Insert customer Id");
+        Int32.TryParse(Console.ReadLine()!, out int customerId);
+        
+        var customer = _database.Customers.Find(customerId);
+        if (customer == null)
         {
-            _purchaseView.ShowPurchase(reader["id"].ToString(), reader["customer_id"].ToString(), reader["product_id"].ToString(), reader["purchase_date"].ToString(), reader["quantity"].ToString());
+            Console.WriteLine("Customer not found.");
+            return;
         }
-        _database.CloseConnection();
+        
+        _database.AddPurchase(customer, product, quantity);
+        Console.WriteLine("Purchase added successfully.");
+    }
+    else
+    {
+        Console.WriteLine("Not enough products in stock.");
+    }
+}
+
+    private void ShowPurchases()
+    {
+        List<Purchase> purchases = _database.GetPurchases();
+        foreach(Purchase p in purchases)
+        {
+            _purchaseView.ShowPurchase(p.Id.ToString(), p.Customer.ToString(), p.Product.ToString(), p.Quantity.ToString(), p.Date.ToString());
+        }
+        Console.ReadKey();
     }
 }

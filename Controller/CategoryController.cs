@@ -28,7 +28,7 @@ public class CategoryController
                     AddCategory();
                     break;
                 case "2":
-                    ShowCategories();
+                    ShowCategory();
                     break;
                 case "3":
                     DeleteCategory();
@@ -40,30 +40,42 @@ public class CategoryController
         }
     }
 
-
-    public void ShowCategories()
-    {
-        using var reader = _database.GetCategories();
-        while (reader.Read())
-        {
-            _categoryView.ShowCategories(reader["id"].ToString(), reader["name"].ToString());
-        }
-        _database.CloseConnection();
-        Console.ReadKey();
-    }
     private void AddCategory()
     {
         Console.WriteLine("Insert category name");
         string name = Console.ReadLine()!;
         _database.AddCategory(name);
-        _database.CloseConnection();
-
     }
     private void DeleteCategory()
     {
-        Console.WriteLine("inserisci il nome della categoria");
-        string name = Console.ReadLine()!;
-        _database.DeleteCategory(name);
-        _database.CloseConnection();
+        Console.WriteLine("Enter the ID of the Category u want to delete:");
+        int id = Convert.ToInt32(Console.ReadLine()!);
+
+        Category catId = null;
+        foreach (var cat in _database.Categories)
+        {
+            if (cat.Id == id)
+            {
+                catId = cat;
+            }
+        }
+        if (catId != null)
+        {
+            _database.Categories.Remove(catId);
+            _database.SaveChanges();
+            Console.WriteLine("Category succesfully deleted:");
+            Console.WriteLine("Press any key to continue:");
+            Console.ReadKey(true);
+        }
     }
+
+        private void ShowCategory()
+        {
+            List<Category> categories = _database.GetCategories();
+            foreach(Category c in categories)
+            {
+                _categoryView.ShowCategories(c.Id.ToString(), c.Name);
+            }
+            Console.ReadKey();
+        }
 }
