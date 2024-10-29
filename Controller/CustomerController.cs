@@ -7,7 +7,6 @@ public class CustomerController
         _customerView = customerView;
         _database = database;
     }
-
     public void CustomerMenu()
     {
         bool exit = true;
@@ -39,95 +38,82 @@ public class CustomerController
             }
         }
     }
-
     private void AddCustomer()
-        {
-            Console.WriteLine("Insert customer's name");
-            string name = Console.ReadLine()!;
-            Console.WriteLine("Insert customer's surname");
-            string surname = Console.ReadLine()!;
-            Console.WriteLine("Insert customer's email");
-            string email = Console.ReadLine()!;
-            Console.WriteLine("Insert customer's address");
-            string address = Console.ReadLine()!;
-            Console.WriteLine("Insert customer's phone number");
-            Int64 phoneNumber = Convert.ToInt64(Console.ReadLine()!);
-            Console.WriteLine("Insert customer's code");
-            string clientCode = Console.ReadLine()!;
-            _database.AddCustomer(name, surname, email, phoneNumber, address, clientCode);
-            //_database.CloseConnection();
-        }
-        private void ShowCustomers()
-        {
-            List<Customer> customers = _database.GetCustomers();
-            foreach (Customer c in customers)
-            {
-                _customerView.ShowCustomer(c.Id.ToString(), c.Name.ToString(), c.Surname.ToString(), c.Email.ToString(),c.PhoneNumber.ToString(), c.Address.ToString());
-            }
-            //_database.CloseConnection();
-            Console.ReadKey();
-        }
-
-        private void ShowCustomersBySurname()
-        {
-            Console.WriteLine("Insert customer surname");
-            string surname = Console.ReadLine()!;
-
-            List<Customer> customers = _database.GetCustomers();
-            foreach (Customer c in customers)
-            {
-                if (c.Surname == surname)
-                {
-                    _customerView.ShowCustomer(c.Id.ToString(), c.Name.ToString(), c.Surname.ToString(), c.Email.ToString(),c.PhoneNumber.ToString(), c.Address.ToString());
-                }
-            }
-            //_database.CloseConnection();
-            Console.ReadKey();
-        }
-
-        private void DeleteCustomer()
-        {
-            ShowCustomers();
-            Console.WriteLine("Insert customer's ID");
-            string id = Console.ReadLine()!;
-
-            if (!int.TryParse(id, out int idConverted))
-            {
-                Console.WriteLine("Non valid ID.");
-                return;
-            }
-            _database.DeleteCustomer(idConverted);
-            //_database.CloseConnection();        
-        }
-
-        private void UpdateCustomer()
-        {
-            ShowCustomers();
-            Console.WriteLine("Insert ID's customer");
-            var id = Convert.ToInt32(Console.ReadLine()!);
-/*
-            if (!int.TryParse(Console.ReadLine()!, out int id))
-            {
-                Console.WriteLine("Non valid ID.");
-                return;
-            }
-*/
-            Console.WriteLine("Insert new customer's name");
-            var newName = Console.ReadLine()!;
-
-            
-            if (string.IsNullOrWhiteSpace(newName))
-            {
-                Console.WriteLine("Name cannot be null");
-                return;
-            }
-
-            _database.UpdateCustomer(id, newName);
-
-            Console.WriteLine("Customer updated");
-            //_database.CloseConnection();
-            Console.ReadKey();
-        }
+    {
+        Console.WriteLine("Insert customer's name");
+        string name = Console.ReadLine()!;
+        Console.WriteLine("Insert customer's surname");
+        string surname = Console.ReadLine()!;
+        Console.WriteLine("Insert customer's email");
+        string email = Console.ReadLine()!;
+        Console.WriteLine("Insert customer's address");
+        string address = Console.ReadLine()!;
+        Console.WriteLine("Insert customer's phone number");
+        Int64 phoneNumber = Convert.ToInt64(Console.ReadLine()!);
+        Console.WriteLine("Insert customer's code");
+        string clientCode = Console.ReadLine()!;
+        _database.AddCustomer(name, surname, email, phoneNumber, address, clientCode);
     }
+    private void ShowCustomers()
+    {
+        List<Customer> customers = _database.GetCustomers();
+        foreach (Customer c in customers)
+        {
+            _customerView.ShowCustomer(c.Id.ToString(), c.Name, c.Surname, c.Email, c.PhoneNumber.ToString(), c.Address);
+        }
+        Console.ReadKey();
+    }
+    private void ShowCustomersBySurname()
+    {
+        Console.WriteLine("Insert customer surname");
+        string surname = Console.ReadLine()!;
+
+        List<Customer> customers = _database.GetCustomers();
+        foreach (Customer c in customers)
+        {
+            if (c.Surname == surname)
+            {
+                _customerView.ShowCustomer(c.Id.ToString(), c.Name, c.Surname, c.Email, c.PhoneNumber.ToString(), c.Address);
+            }
+        }
+        Console.ReadKey();
+    }
+    private void DeleteCustomer()
+    {
+        ShowCustomers();
+        Console.WriteLine("Insert customer's ID");
+        string id = Console.ReadLine()!;
+
+        if (!int.TryParse(id, out int idConverted))
+        {
+            Console.WriteLine("Non valid ID.");
+            return;
+        }
+        _database.DeleteCustomer(idConverted);      
+    }
+    private void UpdateCustomer()
+    {
+        ShowCustomers();
+        Console.WriteLine("Insert ID's customer");
+
+        if (!int.TryParse(Console.ReadLine()!, out int id))
+        {
+            Console.WriteLine("Non valid ID.");
+            return;
+        }
+
+        Console.WriteLine("Insert new customer's name");
+        var newName = Console.ReadLine()!;
 
         
+        if (string.IsNullOrWhiteSpace(newName))
+        {
+            Console.WriteLine("Name cannot be null");
+            return;
+        }
+
+        _database.UpdateCustomer(id, newName);
+        Console.WriteLine("Customer updated");
+        Console.ReadKey();
+    }
+}
