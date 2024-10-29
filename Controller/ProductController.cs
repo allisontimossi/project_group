@@ -93,27 +93,22 @@ public class ProductController
     {
         Console.WriteLine("Insert product name");
         string name = Console.ReadLine()!;
-        _database.DeleteProduct(name);
-        _database.CloseConnection();        
+        _database.DeleteProduct(name);       
     }
     private void ShowMostExpensiveProduct()
     {
-        using var reader = _database.GetMostExpensiveProduct();
-        while (reader.Read())
-        {
-            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+        List<Product> mostExpensive = _database.GetMostExpensiveProduct();
+        foreach(Product p in mostExpensive){
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.CategoryId.ToString());
         }
-        _database.CloseConnection();
         Console.ReadKey();
     }
     private void ShowLeastExpensiveProduct()
     {
-        using var reader = _database.GetLeastExpensiveProduct();
-        while (reader.Read())
-        {
-            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+        List<Product> LeastExpensive = _database.GetLeastExpensiveProduct();
+        foreach(Product p in LeastExpensive){
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.CategoryId.ToString());
         }
-        _database.CloseConnection();
         Console.ReadKey();
     }
     private void AddProduct()
@@ -121,9 +116,9 @@ public class ProductController
         Console.WriteLine("Insert product name");
         string name = Console.ReadLine()!;
         Console.WriteLine("Insert product price");
-        int price = Convert.ToInt32( Console.ReadLine()!);
+        int price = Convert.ToInt32(Console.ReadLine()!);
         Console.WriteLine("Insert product quantity");
-        int stock = Convert.ToInt32(  Console.ReadLine()!);
+        int stock = Convert.ToInt32(Console.ReadLine()!);
         Console.WriteLine("Insert category Id");
         int categoryId = Convert.ToInt32(Console.ReadLine()!);
         _database.AddProduct(name, price, stock, categoryId);
@@ -132,24 +127,19 @@ public class ProductController
     {
         Console.WriteLine("Insert product name");
         string name = Console.ReadLine()!;
-        using var reader = _database.GetProductByName(name);
-        while (reader.Read())
-        {
-            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
-        }
-        _database.CloseConnection();
+        Product product = _database.GetProductByName(name);
+        _productview.ShowProduct(product.Id.ToString(), product.Name, product.Price.ToString(), product.Stock.ToString(), product.CategoryId.ToString());
         Console.ReadKey();       
     }
     private void ShowProductsByCategory()
     {
         Console.WriteLine("Insert category Id");
-        string categoryId = Console.ReadLine()!;
-        using var reader = _database.GetProductsByCategory(categoryId);
-        while (reader.Read())
+        int categoryId =Convert.ToInt32(Console.ReadLine()!);
+        List<Product> productsByCategory = _database.GetProductsByCategory(categoryId);
+        foreach(Product p in productsByCategory)
         {
-            _productview.ShowProduct(reader["id"].ToString(), reader["name"].ToString(), reader["price"].ToString(), reader["stock"].ToString(), reader["category_id"].ToString());
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.CategoryId.ToString());
         }
-        _database.CloseConnection(); 
         Console.ReadKey();       
     }
 }

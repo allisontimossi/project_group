@@ -1,4 +1,5 @@
 using System.Data.SQLite;
+using System.Security;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -58,6 +59,14 @@ public class Database : DbContext
         }
         SaveChanges();
     }
+    public void DeleteProduct(string name)
+    {
+        foreach(Product p in _products){
+            if(p.Name == name)
+                _products.Remove(p);
+        }
+        SaveChanges();
+    }
 
     public void UpdateCustomer(int id, string newName)
     {
@@ -67,29 +76,38 @@ public class Database : DbContext
         command.ExecuteNonQuery();
 
     }
-
-    public void DeleteProduct(string name)
+    public List<Product> GetMostExpensiveProduct()
     {
-        string sql = $"DELETE FROM products WHERE name = '{name}'";
-        OpenConnection();
-        using var command = new SQLiteCommand(sql, _connection);
-        command.ExecuteNonQuery();
+        List<Product> mostExpensive = new List<Product>();
+        Product temp = new Product();
+        foreach(Product p in _products){
+            if(p.Price >= temp.Price){
+                temp = p;
+            }
+        }
+        foreach(Product p in _products){
+            if(p.Price >= temp.Price){
+                mostExpensive.Add(p);
+            }
+        }
+        return mostExpensive;
     }
 
-    public SQLiteDataReader GetMostExpensiveProduct()
+    public List<Product> GetLeastExpensiveProduct()
     {
-        string sql = "SELECT * FROM products ORDER BY price DESC LIMIT 1";
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
-    }
-
-    public SQLiteDataReader GetLeastExpensiveProduct()
-    {
-        string sql = "SELECT * FROM products ORDER BY price ASC LIMIT 1";
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
+        List<Product> LeastExpensive = new List<Product>();
+        Product temp = new Product();
+        foreach(Product p in _products){
+            if(p.Price <= temp.Price){
+                temp = p;
+            }
+        }
+        foreach(Product p in _products){
+            if(p.Price <= temp.Price){
+                LeastExpensive.Add(p);
+            }
+        }
+        return LeastExpensive;
     }
 
     public void AddProduct(string name, int price, int stock, int categoryId)
@@ -98,20 +116,20 @@ public class Database : DbContext
         SaveChanges();
     }
 
-    public SQLiteDataReader GetProductByName(string name)
+    public Product GetProductByName(string name)
     {
-        string sql = $"SELECT * FROM products WHERE name = '{name}'";
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
+        return _products.FirstOrDefault(p => p.Name == name);
     }
 
-    public SQLiteDataReader GetProductsByCategory(string categoryId)
+    public List<Product> GetProductsByCategory(int categoryId)
     {
-        string sql = $"SELECT * FROM products WHERE category_id = {categoryId}";
-        OpenConnection();
-        var command = new SQLiteCommand(sql, _connection);
-        return command.ExecuteReader();
+        List<Product> productsByCategory =new List<Product>();
+        foreach(Product p in _products){
+            if(p.CategoryId == categoryId){
+                productsByCategory.Add(p);
+            }
+        }
+        return productsByCategory;
     }
 
     public SQLiteDataReader GetCustomers()
