@@ -59,14 +59,17 @@ public class Database : DbContext
         }
         SaveChanges();
     }
+    // Deletes a category from the database by its ID.
     public void DeleteCategory(int id)
     {
         foreach (Category c in _categories)
         {
             if (c.Id == id)
-                _categories.Remove(c);
+            {
+                _categories.Remove(c); // Remove the category from the set.
+            }
         }
-        SaveChanges();
+        SaveChanges(); // Persist changes to the database.
     }
     public void UpdateCustomer(int id, string newName)
     {
@@ -193,31 +196,30 @@ public class Database : DbContext
 
 
 
+    // Adds a new category to the database.
     public void AddCategory(string name)
     {
         _categories.Add(new Category { Name = name });
-        SaveChanges();
+        SaveChanges(); // Persist changes to the database.
     }
 
+    // Removes a category from the database by its ID.
     public void RemoveCategory(int id)
     {
         foreach (var cat in _categories)
         {
             if (cat.Id == id)
             {
-                _categories.Remove(cat);
-                SaveChanges();
+                _categories.Remove(cat); // Remove the category from the set.
+                SaveChanges(); // Persist changes to the database.
             }
         }
     }
-    public void Addpurchase()
-    {
 
-    }
-
+    // Retrieves a list of all categories from the database.
     public List<Category> GetCategories()
     {
-        return _categories.ToList();
+        return _categories.ToList(); // Returns all categories as a list.
     }
     public List<Purchase> GetPurchases()
     {
@@ -235,8 +237,9 @@ public class Database : DbContext
         return _customers.FirstOrDefault(c => c.Id == customerId);
     }
 
-      public Category GetCategoryById(int categoryId)
+    // Retrieves a specific category by its ID.
+    public Category GetCategoryById(int categoryId)
     {
-        return _categories.FirstOrDefault(c => c.Id == categoryId);
+        return _categories.FirstOrDefault(c => c.Id == categoryId); // Returns the category if found, otherwise null.
     }
 }
