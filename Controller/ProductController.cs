@@ -10,7 +10,7 @@ public class ProductController
     public void ProductMenu()
     {
         bool exit = true;
-        while (exit)
+        while(exit)
         {
             Console.Clear();
             _productview.ShowProductMainMenu();
@@ -18,34 +18,34 @@ public class ProductController
             switch (selection)
             {
                 case "1":
-                    ShowProducts();
+                    AddProduct();
                     break;
                 case "2":
-                    ShowProductByName();
-                    break;
-                case "3":
-                    ShowProductsByPrice();
-                    break;
-                case "4":
-                    ShowProductsByQuantity();
-                    break;
-                case "5":
-                    ShowProductsByCategory();
-                    break;
-                case "6":
-                    ShowMostExpensiveProduct();
-                    break;
-                case "7":
-                    ShowLeastExpensiveProduct();
-                    break;
-                case "8":
-                    UpdateProductPrice();
-                    break;
-                case "9":
                     DeleteProduct();
                     break;
+                case "3":
+                    ShowProducts();
+                    break;
+                case "4":
+                    ShowProductByName();
+                    break;
+                case "5":
+                    ShowProductsByPrice();
+                    break;
+                case "6":
+                    ShowProductsByQuantity();
+                    break;
+                case "7":
+                    ShowProductsByCategory();
+                    break;
+                case "8":
+                    ShowMostExpensiveProduct();
+                    break;
+                case "9":
+                    ShowLeastExpensiveProduct();
+                    break;
                 case "10":
-                    AddProduct();
+                    UpdateProductPrice();
                     break;
                 case "11":
                     exit = false;
@@ -58,8 +58,6 @@ public class ProductController
         List<Product> products = _database.GetProducts();
         foreach (Product p in products)
         {
-            // Check if the Category is null before accessing its properties
-            
             _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.Category.Name);
         }
         Console.ReadKey();
@@ -69,9 +67,7 @@ public class ProductController
         List<Product> products = _database.GetProducts();
         foreach (Product p in products)
         {
-            string categoryId = p.Category?.Id.ToString() ?? "No Category"; // Fallback if Category is null
-
-            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), categoryId);
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.Category.Name);
         }
         Console.ReadKey();
     }
@@ -80,9 +76,7 @@ public class ProductController
         List<Product> products = _database.GetProducts();
         foreach (Product p in products)
         {
-            string categoryId = p.Category?.Id.ToString() ?? "No Category"; // Fallback if Category is null
-
-            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), categoryId);
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.Category.Name);
         }
         Console.ReadKey();
     }
@@ -105,8 +99,7 @@ public class ProductController
         List<Product> mostExpensive = _database.GetMostExpensiveProduct();
         foreach (Product p in mostExpensive)
         {
-            string categoryId = p.Category?.Id.ToString() ?? "No Category"; // Fallback if Category is null
-            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), categoryId);
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.Category.Name);
         }
         Console.ReadKey();
     }
@@ -115,8 +108,7 @@ public class ProductController
         List<Product> LeastExpensive = _database.GetLeastExpensiveProduct();
         foreach (Product p in LeastExpensive)
         {
-            string categoryId = p.Category?.Id.ToString() ?? "No Category"; // Fallback if Category is null
-            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), categoryId);
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.Category.Name);
         }
         Console.ReadKey();
     }
@@ -130,7 +122,7 @@ public class ProductController
         int stock = Convert.ToInt32(Console.ReadLine()!);
         Console.WriteLine("Insert category Id");
         int categoryId = Convert.ToInt32(Console.ReadLine()!);
-        var category = _database.GetCategoryById(categoryId);
+        Category category = _database.GetCategoryById(categoryId);
         _database.AddProduct(name, price, stock, category);
     }
     private void ShowProductByName()
@@ -138,40 +130,31 @@ public class ProductController
         Console.WriteLine("Insert product name");
         string name = Console.ReadLine()!;
         Product product = _database.GetProductByName(name);
-        string categoryId = product.Category?.Id.ToString() ?? "No Category"; // Fallback if Category is null
-
-        _productview.ShowProduct(product.Id.ToString(), product.Name, product.Price.ToString(), product.Stock.ToString(), categoryId);
+        _productview.ShowProduct(product.Id.ToString(), product.Name, product.Price.ToString(), product.Stock.ToString(), product.Category.Name);
         Console.ReadKey();
     }
     private void ShowProductsByCategory()
-{
-    Console.WriteLine("Insert category Id");
-    
-    // Check for valid input
-    if (!int.TryParse(Console.ReadLine(), out int categoryId))
     {
-        Console.WriteLine("Invalid category ID. Please enter a number.");
+        Console.WriteLine("Insert category Id");
+        if (!int.TryParse(Console.ReadLine(), out int categoryId))
+        {
+            Console.WriteLine("Invalid category ID. Please enter a number.");
+            Console.ReadKey();
+            return;
+        }
+
+        List<Product> productsByCategory = _database.GetProductsByCategory(categoryId);
+
+        if (productsByCategory == null || productsByCategory.Count == 0)
+        {
+            Console.WriteLine("No products found in this category.");
+            Console.ReadKey(true);
+            return;
+        }
+        foreach (Product p in productsByCategory)
+        {
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.Category.Name);
+        }
         Console.ReadKey();
-        return; // Exit the method if the input is not valid
     }
-
-    List<Product> productsByCategory = _database.GetProductsByCategory(categoryId);
-
-    if (productsByCategory == null || productsByCategory.Count == 0)
-    {
-        Console.WriteLine("No products found in this category.");
-        Console.ReadKey();
-        return; // Exit if no products are found
-    }
-
-    foreach (Product p in productsByCategory)
-    {
-        // Use the null conditional operator to safely access the category ID
-        string categoryIdString = p.Category?.Id.ToString() ?? "No Category"; // Fallback if Category is null
-        _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), categoryIdString);
-    }
-
-    Console.ReadKey();
-}
-
 }
