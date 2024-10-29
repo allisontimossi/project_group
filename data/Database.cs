@@ -242,4 +242,13 @@ public void AddPurchase(Customer customer, Product product, int quantity)
         Categories.Add(new Category{Name = name});
         SaveChanges();
     }
+
+    public List<Category> GetCategories()
+    {
+        return _categories.ToList();
+    }
+    public List<Purchase> GetPurchases()
+    {
+        return _purchases.ToList();
+    }
 }

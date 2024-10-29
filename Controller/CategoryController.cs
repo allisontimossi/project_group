@@ -69,9 +69,13 @@ public class CategoryController
         }
     }
 
-        public void ShowCategory()
-    {
-        var categories = _database.Categories.ToList();
-        _categoryView.ShowCategories(categories);
-    }
+        private void ShowCategory()
+        {
+            List<Category> categories = _database.GetCategories();
+            foreach(Category c in categories)
+            {
+                _categoryView.ShowCategories(c.Id.ToString(), c.Name);
+            }
+            Console.ReadKey();
+        }
 }

@@ -26,7 +26,7 @@ public class PurchaseController
             switch (selection)
             {
                 case "1":
-                    ShowPurchase();
+                    ShowPurchases();
                     break;
                 case "2":
                     AddPurchase();
@@ -73,9 +73,13 @@ private void AddPurchase()
     }
 }
 
-        public void ShowPurchase()
+    private void ShowPurchases()
     {
-        var purchases = _database.Purchases.ToList();
-        _purchaseView.ShowPurchases(purchases);
+        List<Purchase> purchases = _database.GetPurchases();
+        foreach(Purchase p in purchases)
+        {
+            _purchaseView.ShowPurchase(p.Id.ToString(), p.Customer.ToString(), p.Product.ToString(), p.Quantity.ToString(), p.Date.ToString());
+        }
+        Console.ReadKey();
     }
 }
