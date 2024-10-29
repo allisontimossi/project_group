@@ -1,5 +1,3 @@
-using System.Data.SQLite;
-using System.Security;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -29,7 +27,7 @@ public class Database : DbContext
     }
     public List<Product> GetProducts()
     {
-        return _products.ToList();
+        return _products.Include(t => t.Category).ToList();
     }
 
     public List<Product> GetProductsByPrice()

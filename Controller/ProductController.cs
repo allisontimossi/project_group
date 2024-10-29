@@ -59,8 +59,8 @@ public class ProductController
         foreach (Product p in products)
         {
             // Check if the Category is null before accessing its properties
-            string categoryId = p.Category?.Id.ToString() ?? "No Category"; // Fallback if Category is null
-            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), categoryId);
+            
+            _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.Category.Name);
         }
         Console.ReadKey();
     }
