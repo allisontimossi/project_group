@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 
-
 public class Database : DbContext
 {
     private DbSet<Customer> _customers { get; set; }
@@ -24,6 +23,10 @@ public class Database : DbContext
         }
         return stock;
     }
+    public void LoadTables(){
+        _products.Include(t => t.Category);
+        _purchases.Include(t => t.Customer).Include(t => t.Product);
+    }
     public List<Product> GetProducts()
     {
         return _products.Include(t => t.Category).ToList();
@@ -31,12 +34,12 @@ public class Database : DbContext
 
     public List<Product> GetProductsByPrice()
     {
-        return _products.OrderBy(p => p.Price).ToList();
+        return _products.Include(t => t.Category).OrderBy(p => p.Price).ToList();
     }
 
     public List<Product> GetProductsByStock()
     {
-        return _products.OrderBy(p => p.Stock).ToList();
+        return _products.Include(t => t.Category).OrderBy(p => p.Stock).ToList();
     }
 
     public void UpdateProductPrice(string name, int price)
@@ -83,7 +86,7 @@ public class Database : DbContext
     {
         List<Product> mostExpensive = new List<Product>();
         Product temp = new Product();
-        foreach (Product p in _products)
+        foreach (Product p in _products.Include(t => t.Category))
         {
             if (p.Price >= temp.Price)
             {
@@ -105,7 +108,7 @@ public class Database : DbContext
         List<Product> LeastExpensive = new List<Product>();
         Product temp = new Product();
         temp.Price = 9000000;
-        foreach (Product p in _products)
+        foreach (Product p in _products.Include(t => t.Category))
         {
             if (p.Price <= temp.Price)
             {
@@ -136,7 +139,7 @@ public class Database : DbContext
     public List<Product> GetProductsByCategory(int categoryId)
     {
         List<Product> productsByCategory = new List<Product>();
-        foreach (Product p in _products)
+        foreach (Product p in _products.Include(t => t.Category))
         {
             if (p.Category.Id == categoryId)
             {
@@ -211,10 +214,6 @@ public class Database : DbContext
             }
         }
     }
-    public void Addpurchase()
-    {
-
-    }
 
     public List<Category> GetCategories()
     {
@@ -222,10 +221,10 @@ public class Database : DbContext
     }
     public List<Purchase> GetPurchases()
     {
-        return _purchases.ToList();
+        return _purchases.Include(t => t.Customer).Include(t => t.Product).ToList();
     }
 
-     public Product GetProductById(int productId)
+    public Product GetProductById(int productId)
     {
         return _products.FirstOrDefault(p => p.Id == productId);
     }
@@ -236,7 +235,7 @@ public class Database : DbContext
         return _customers.FirstOrDefault(c => c.Id == customerId);
     }
 
-      public Category GetCategoryById(int categoryId)
+    public Category GetCategoryById(int categoryId)
     {
         return _categories.FirstOrDefault(c => c.Id == categoryId);
     }
