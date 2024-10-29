@@ -71,17 +71,18 @@ public class Database : DbContext
         }
         SaveChanges(); // Persist changes to the database.
     }
-    public void UpdateCustomer(int id, string newName)
+public void UpdateCustomer(int id, string newName)
+{
+    // Iterate through the customer list to find the customer with the specified ID.
+    foreach (Customer c in _customers)
     {
-        foreach (Customer c in _customers)
+        if (c.Id == id) // Check if the customer's ID matches the specified ID.
         {
-            if (c.Id == id)
-            {
-                c.Name = newName;
-            }
+            c.Name = newName; // Update the customer's name.
         }
-        SaveChanges();
     }
+    SaveChanges(); // Persist changes to the database.
+}
     public List<Product> GetMostExpensiveProduct()
     {
         List<Product> mostExpensive = new List<Product>();
@@ -148,15 +149,17 @@ public class Database : DbContext
         return productsByCategory;
     }
 
-    public List<Customer> GetCustomers()
-    {
-        return _customers.ToList();
-    }
-    public void AddCustomer(string name, string surname, string email, Int64 phoneNumber, string address, string clientCode)
-    {
-        _customers.Add(new Customer { Name = name, Surname = surname, Email = email, PhoneNumber = phoneNumber, Address = address, ClientCode = clientCode });
-        SaveChanges();
-    }
+public List<Customer> GetCustomers()
+{
+    return _customers.ToList(); // Retrieves a list of all customers from the database.
+}
+
+public void AddCustomer(string name, string surname, string email, Int64 phoneNumber, string address, string clientCode)
+{
+    // Create and add a new customer to the database.
+    _customers.Add(new Customer { Name = name, Surname = surname, Email = email, PhoneNumber = phoneNumber, Address = address, ClientCode = clientCode });
+    SaveChanges(); // Persist changes to the database.
+}
 
     public List<Customer> GetCustomerBySurname()
     {
@@ -164,16 +167,17 @@ public class Database : DbContext
     }
 
     public void DeleteCustomer(int id)
+{
+    // Iterate through the customer list to find and remove the specified customer.
+    foreach (Customer c in _customers)
     {
-        foreach (Customer c in _customers)
+        if (c.Id == id) // Check if the customer's ID matches the specified ID.
         {
-            if (c.Id == id)
-            {
-                _customers.Remove(c);
-            }
+            _customers.Remove(c); // Remove the customer from the set.
         }
-        SaveChanges();
     }
+    SaveChanges(); // Persist changes to the database.
+}
 
     public void AddPurchase(Customer customer, Product product, int quantity)
     {
