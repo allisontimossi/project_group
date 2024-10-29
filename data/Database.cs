@@ -230,7 +230,7 @@ public void AddCustomer(string name, string surname, string email, Int64 phoneNu
     }
     public List<Purchase> GetPurchases()
     {
-        return _purchases.Include(t => t.Customer).Include(t => t.Product).ToList();
+        return _purchases.Include(t => t.Customer).Include(t => t.Product).ToList(); // Returns all purchases as a list and create connections to other tables
     }
 
     public Product GetProductById(int productId)
