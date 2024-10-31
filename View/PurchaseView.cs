@@ -1,6 +1,7 @@
 public class PurchaseView
 {
-        public void ShowPurchaseMainMenu(){
+    public void ShowPurchaseMainMenu(){
+        Console.Clear();
         Console.WriteLine("1 - Show Purchases");
         Console.WriteLine("2 - Add Purchase");
         Console.WriteLine("3 - Back");

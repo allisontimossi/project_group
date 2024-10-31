@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
+/// <summary>
+/// 
+/// </summary>
 public class Database : DbContext
 {
     // Define DbSet properties for each entity type
@@ -8,13 +11,16 @@ public class Database : DbContext
     private DbSet<Product> _products { get; set; }
     private DbSet<Purchase> _purchases { get; set; }
     
-    // Configures the database context options, including the database provider
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.UseSqlite("Data Source = database.db");
         //options.UseLazyLoadingProxies();
     }
-    // Checks the stock of a specific product by its ID
+    /// <summary>
+    /// pippo
+    /// </summary>
+    /// <param name="productId"></param>
+    /// <returns></returns>
     public int CheckStock(int productId)
     {
         int stock = 0;
