@@ -1,6 +1,7 @@
 public class CustomerView
 {
     public void ShowCustomerMainMenu(){
+        Console.Clear();
         Console.WriteLine("1 - Add Customer");
         Console.WriteLine("2 - Show Customers");
         Console.WriteLine("3 - Show Customers by surname");

@@ -1,6 +1,7 @@
 public class ProductView
 {
     public void ShowProductMainMenu(){
+        Console.Clear();
         Console.WriteLine("1 - Add Product");
         Console.WriteLine("2 - Delete Product");
         Console.WriteLine("3 - Show Products");
