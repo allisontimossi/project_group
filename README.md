@@ -430,6 +430,7 @@ private void DeleteCustomer()
 
 ### Sviluppatore 1 - Mattia Totonchi: 
 
+
 <details>
 <summary>Task 1: Database Extension 1</summary>
 
@@ -460,6 +461,40 @@ private void DeleteCustomer()
 
 </details>
 
+<details>
+<summary>Task 5: Adding DeletePurchase method </summary>
+
+In PurchaseController.cs:
+```c#
+    private void DeletePurchase()
+        {
+            Console.WriteLine("Insert purchase Id");
+            Int32.TryParse(Console.ReadLine()!, out int purchaseId);
+
+            // Call the database method to delete the purchase
+            _database.DeletePurchase(purchaseId);
+        }
+```
+In Database.cs:
+```c#
+public void DeleteCustomer(int id)
+    {
+        // Iterate through the customer list to find and remove the specified customer.
+        foreach (Customer c in _customers)
+        {
+            if (c.Id == id) // Check if the customer's ID matches the specified ID.
+            {
+                _customers.Remove(c); // Remove the customer from the set.
+            }
+        }
+        SaveChanges(); // Persist changes to the database.
+    }
+```
+</details>
+
+<details>
+<summary>Task 5: Switching to Entity: Category and Purchase methods </summary>
+</details>
 
 ### Sviluppatore 2 - Francesco Basevi: 
 <details>
@@ -482,6 +517,10 @@ private void DeleteCustomer()
 
 <details>
 <summary>Task 3: Reorganizing MainMenu: View </summary>
+</details>
+
+<details>
+<summary>Task 4: Switching to Entity: Product methods </summary>
 </details>
 
 ### Sviluppatore 3 - Allison Timossi + Serghej Ivaldi: 
@@ -529,6 +568,9 @@ private void DeleteCustomer()
 ```
 </details>
 
+<details>
+<summary>Task 4: Switching to Entity: Customer methods </summary>
+</details>
 
 ## Workflow Git
 
