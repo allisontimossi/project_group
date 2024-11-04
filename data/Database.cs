@@ -14,13 +14,8 @@ public class Database : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.UseSqlite("Data Source = database.db");
-        //options.UseLazyLoadingProxies();
     }
-    /// <summary>
-    /// pippo
-    /// </summary>
-    /// <param name="productId"></param>
-    /// <returns></returns>
+
     public int CheckStock(int productId)
     {
         int stock = 0;
@@ -179,7 +174,7 @@ public class Database : DbContext
     }
 
   // Adds a new customer to the database
-    public void AddCustomer(string name, string surname, string email, Int64 phoneNumber, string address, string clientCode)
+    public void AddCustomer(string name, string surname, string email, string phoneNumber, string address, string clientCode)
     {
         // Create and add a new customer to the database.
         _customers.Add(new Customer { Name = name, Surname = surname, Email = email, PhoneNumber = phoneNumber, Address = address, ClientCode = clientCode });

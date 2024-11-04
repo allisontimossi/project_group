@@ -64,7 +64,7 @@ public class CustomerController
         string address = Console.ReadLine()!; // Read the address input.
 
         Console.WriteLine("Insert customer's phone number"); // Prompt user for customer's phone number.
-        Int64 phoneNumber = Convert.ToInt64(Console.ReadLine()!); // Read and convert the input to a long.
+        string phoneNumber = Console.ReadLine()!; // Read and convert the input to a long.
 
         Console.WriteLine("Insert customer's code"); // Prompt user for customer's client code.
         string clientCode = Console.ReadLine()!; // Read the client code input.
