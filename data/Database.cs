@@ -26,26 +26,36 @@ public class Database : DbContext
         }
         return stock;  // Return the stock amount
     }
-    public void LoadProductsTable(){
-        foreach(Product p in _products){
-            foreach(Category c in _categories){
-                if(p.CategoryId == c.Id){
+    public void LoadProductsTable()
+    {
+        foreach (Product p in _products)
+        {
+            foreach (Category c in _categories)
+            {
+                if (p.CategoryId == c.Id)
+                {
                     p.Category = c;
                     break;
                 }
             }
         }
     }
-    public void LoadPurchasesTable(){
-        foreach(Purchase p in _purchases){
-            foreach(Customer c in _customers){
-                if(p.CustomerId == c.Id){
+    public void LoadPurchasesTable()
+    {
+        foreach (Purchase p in _purchases)
+        {
+            foreach (Customer c in _customers)
+            {
+                if (p.CustomerId == c.Id)
+                {
                     p.Customer = c;
                     break;
                 }
             }
-            foreach(Product pr in _products){
-                if(p.ProductId == pr.Id){
+            foreach (Product pr in _products)
+            {
+                if (p.ProductId == pr.Id)
+                {
                     p.Product = pr;
                     break;
                 }
@@ -191,7 +201,7 @@ public class Database : DbContext
         return _customers.ToList(); // Retrieves a list of all customers from the database.
     }
 
-  // Adds a new customer to the database
+    // Adds a new customer to the database
     public void AddCustomer(string name, string surname, string email, string phoneNumber, string address, string clientCode)
     {
         // Create and add a new customer to the database.
@@ -236,6 +246,32 @@ public class Database : DbContext
         _purchases.Add(purchase);
         SaveChanges();
     }
+
+    public void DeletePurchase(int purchaseId)
+    {
+        // Find the purchase by its ID
+        Purchase purchase = GetPurchaseById(purchaseId);
+
+        if (purchase == null)
+        {
+            Console.WriteLine("Purchase not found.");
+            return;
+        }
+
+        // Update the product stock by adding back the purchased quantity
+        var product = purchase.Product;
+        if (product != null)
+        {
+            product.Stock += purchase.Quantity;
+        }
+
+        // Remove the purchase and save changes in a single transaction
+        _purchases.Remove(purchase);
+        SaveChanges();
+
+        Console.WriteLine("Purchase deleted successfully, and stock updated.");
+    }
+
 
 
 
@@ -315,5 +351,20 @@ public class Database : DbContext
             }
         }
         return foundCategory;
+    }
+
+    public Purchase GetPurchaseById(int purchaseId)
+    {
+        Purchase foundPurchase = null;
+        foreach (var purchase in _purchases)
+        {
+            if (purchase.Id == purchaseId)
+            {
+                foundPurchase = purchase;
+                break;
+            }
+        }
+                    return foundPurchase;
+
     }
 }
