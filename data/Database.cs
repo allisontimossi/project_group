@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class Database : DbContext
 {
     // Define DbSet properties for each entity type
@@ -10,17 +8,13 @@ public class Database : DbContext
     private DbSet<Category> _categories { get; set; }
     private DbSet<Product> _products { get; set; }
     private DbSet<Purchase> _purchases { get; set; }
-    
+
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.UseSqlite("Data Source = database.db");
         //options.UseLazyLoadingProxies();
     }
-    /// <summary>
-    /// pippo
-    /// </summary>
-    /// <param name="productId"></param>
-    /// <returns></returns>
+
     public int CheckStock(int productId)
     {
         int stock = 0;
@@ -101,7 +95,7 @@ public class Database : DbContext
     }
 
     // Retrieves the most expensive product(s)
-        public List<Product> GetMostExpensiveProduct()
+    public List<Product> GetMostExpensiveProduct()
     {
         List<Product> mostExpensive = new List<Product>();
         Product temp = new Product();
@@ -172,13 +166,13 @@ public class Database : DbContext
         return productsByCategory; // Return products in the specified category
     }
 
-  // Retrieves all customers from the database
+    // Retrieves all customers from the database
     public List<Customer> GetCustomers()
     {
         return _customers.ToList(); // Retrieves a list of all customers from the database.
     }
 
-  // Adds a new customer to the database
+    // Adds a new customer to the database
     public void AddCustomer(string name, string surname, string email, Int64 phoneNumber, string address, string clientCode)
     {
         // Create and add a new customer to the database.
@@ -252,23 +246,55 @@ public class Database : DbContext
     }
     public List<Purchase> GetPurchases()
     {
-        return _purchases.Include(t => t.Customer).Include(t => t.Product).ToList(); // Returns all purchases as a list and create connections to other tables
+        var purchases = _purchases.ToList();
+        return purchases;
     }
 
     public Product GetProductById(int productId)
     {
-        return _products.Include(t => t.Category).FirstOrDefault(p => p.Id == productId);
+
+        Product foundProduct = null;
+
+        // Loop through each product to find the one with the matching ID
+        foreach (var product in _products)
+        {
+            if (product.Id == productId)
+            {
+                foundProduct = product;
+                break;
+            }
+        }
+        return foundProduct;
     }
 
-    // Helper method to find a customer by ID
     public Customer GetCustomerById(int customerId)
     {
-        return _customers.FirstOrDefault(c => c.Id == customerId);
+        Customer foundCustomer = null;
+
+        foreach (var customer in _customers)
+        {
+            if (customer.Id == customerId)
+            {
+                foundCustomer = customer;
+                break;
+            }
+        }
+        return foundCustomer;
     }
 
     // Retrieves a specific category by its ID.
     public Category GetCategoryById(int categoryId)
     {
-        return _categories.FirstOrDefault(c => c.Id == categoryId); // Returns the category if found, otherwise null.
+        Category foundCategory = null;
+
+        foreach (var category in _categories)
+        {
+            if (category.Id == categoryId)
+            {
+                foundCategory = category;
+                break;
+            }
+        }
+        return foundCategory;
     }
 }

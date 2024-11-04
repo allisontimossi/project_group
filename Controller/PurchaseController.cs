@@ -81,7 +81,7 @@ public class PurchaseController
         foreach (Purchase p in purchases)
         {
             // Displays details of each purchase.
-            _purchaseView.ShowPurchase(p.Id.ToString(), p.Date.ToString(), p.Quantity.ToString(), p.Customer.Surname, p.Product.Name);
+            _purchaseView.ShowPurchase(p.Id.ToString(), p.CustomerId.ToString(), p.ProductId.ToString(), p.Quantity.ToString(), p.Date.ToString());
         }
         Console.ReadKey(); // Waits for user input before returning to menu.
     }
