@@ -71,14 +71,6 @@ public class Database : DbContext
     {
         List<Product> originalList = _products.ToList();
         List<Product> orderedList = new List<Product>();
-       /* Product temp = new Product();
-        foreach(Product p in originalList){
-            foreach(Product p2 in originalList){
-                if(p.Price>=p2.Price){
-                    temp = p;
-                }
-            }
-        }*/
         Product temp;
         while(originalList.Count > 0)
         {
