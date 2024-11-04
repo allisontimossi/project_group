@@ -17,6 +17,7 @@
 - [ ] Subscription based website
 - [ ] Bundle Gioelli di diverse categorie
 - [ ] Nuova classe azienda estensione di customer
+- [ ] Proprietà bool per prodotto per controllare che sia valido
  
 
 ## Struttura del sito
@@ -24,7 +25,19 @@
 #### La homepage sarà costituita da un carousel dei prodotti piu venduti , card di prodotti in offerta, un carousel con i brand, un bottone che rimanda alla registrazione per usufruire dei vantaggi relativi all'utente registrato.
 ## Pagine
 - Homepage
-- Catalogo prodotti
+- Catalogo prodotti:
+    - Dettaglio
+- Gestione prodotti admin:
+    - Aggiungi
+    - Modifica
+    - Elimina
+    - Accetta il produttore
+    - Accetta prodotto del produttore
+- Gestione prodotti brand:
+    - Aggiungi
+    - Modifica
+    - Elimina
+    
 #### La pagina del catalogo dei gioielli sarà costituita da un'area centrale che conterrà le cards che rappresentano i prodotti del catalogo. Inoltre saranno presenti delle sezioni dedicate al filtro dei prodotti, alla ricerca per nome e all'ordinamento. Il filtro permette di visualizzare i prodotti per categoria, prezzo, quantità etc. Le funzionalità saranno vincolate al ruolo dell'utente in sessione. 
 
 - `Utente non loggato`: ha la possibilità di visualizzare il catalogo dei prodotti ma non può fare nessun acquisto.
