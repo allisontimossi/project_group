@@ -30,6 +30,9 @@ public class PurchaseController
                     AddPurchase(); // Initiates the process to add a new purchase.
                     break;
                 case "3":
+                    DeletePurchase(); // Initiates the process to add a new purchase.
+                    break;
+                case "4":
                     exit = false; // Exits the purchase menu.
                     break;
             }
@@ -74,6 +77,16 @@ public class PurchaseController
             Console.WriteLine("Not enough products in stock."); // Error if insufficient stock.
         }
     }
+
+    private void DeletePurchase()
+    {
+        Console.WriteLine("Insert purchase Id");
+        Int32.TryParse(Console.ReadLine()!, out int purchaseId);
+
+        // Call the database method to delete the purchase
+        _database.DeletePurchase(purchaseId);
+    }
+
 
     // Displays all the purchases made.
     private void ShowPurchases()

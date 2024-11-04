@@ -3594,6 +3594,7 @@
   },
   "packageFolders": {
     "C:\\Users\\dev1\\.nuget\\packages\\": {}
+    "C:\\Users\\dev1\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -3605,6 +3606,7 @@
       "outputPath": "C:\\Users\\dev1\\Desktop\\Corso_Dev1\\project_group\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
+        "C:\\Users\\dev1\\AppData\\Roaming\\NuGet\\NuGet.Config"
         "C:\\Users\\dev1\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
