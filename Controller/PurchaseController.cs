@@ -13,7 +13,8 @@ public class PurchaseController
     // Displays the purchase menu and handles user input for purchasing actions.
     public void PurchaseMenu()
     {
-        _database.LoadTables(); // Loads necessary tables from the database.
+        _database.LoadProductsTable();
+        _database.LoadPurchasesTable(); // Loads necessary tables from the database.
         bool exit = true;
         while (exit)
         {
@@ -81,7 +82,7 @@ public class PurchaseController
         foreach (Purchase p in purchases)
         {
             // Displays details of each purchase.
-            _purchaseView.ShowPurchase(p.Id.ToString(), p.CustomerId.ToString(), p.ProductId.ToString(), p.Quantity.ToString(), p.Date.ToString());
+            _purchaseView.ShowPurchase(p.Id.ToString(), p.Customer.Name.ToString(), p.Product.Name.ToString(), p.Quantity.ToString(), p.Date.ToString());
         }
         Console.ReadKey(); // Waits for user input before returning to menu.
     }

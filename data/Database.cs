@@ -53,7 +53,6 @@ public class Database : DbContext
         }
     }
     public List<Product> GetProducts()   // Retrieves all products along with their categories
-
     {
         return _products.Include(t => t.Category).ToList(); // Return all products with category info
     }

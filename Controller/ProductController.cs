@@ -13,7 +13,7 @@ public class ProductController
     // Main menu for managing products
     public void ProductMenu()
     {
-        _database.LoadTables(); // Load initial data from the database
+        _database.LoadProductsTable(); // Load initial data from the database
         bool exit = true; // Control variable for the menu loop
 
         while (exit) // Loop until user chooses to exit

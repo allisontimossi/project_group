@@ -10,9 +10,9 @@ public class PurchaseView
     }
 
     // Displays detailed information for a specific purchase
-    public void ShowPurchase(string id, string customerId, string productId,  string quantity, string date)
+    public void ShowPurchase(string id, string customerName, string productName,  string quantity, string date)
     {
-        Console.WriteLine($"Purchase ID: {id}, Customer ID: {customerId}, Product ID: {productId}, Quantity: {quantity}, Date: {date}");
+        Console.WriteLine($"Purchase ID: {id}, Customer Name: {customerName}, Product: {productName}, Quantity: {quantity}, Date: {date}");
         Console.WriteLine("***********************************************************************"); // Divider for readability
     }
 }
