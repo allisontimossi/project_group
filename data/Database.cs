@@ -28,10 +28,31 @@ public class Database : DbContext
         }
         return stock;  // Return the stock amount
     }
-    public void LoadTables()
-    {
-        _products.Include(t => t.Category);
-        _purchases.Include(t => t.Customer).Include(t => t.Product);
+    public void LoadProductsTable(){
+        foreach(Product p in _products){
+            foreach(Category c in _categories){
+                if(p.CategoryId == c.Id){
+                    p.Category = c;
+                    break;
+                }
+            }
+        }
+    }
+    public void LoadPurchasesTable(){
+        foreach(Purchase p in _purchases){
+            foreach(Customer c in _customers){
+                if(p.CustomerId == c.Id){
+                    p.Customer = c;
+                    break;
+                }
+            }
+            foreach(Product pr in _products){
+                if(p.ProductId == pr.Id){
+                    p.Product = pr;
+                    break;
+                }
+            }
+        }
     }
     public List<Product> GetProducts()   // Retrieves all products along with their categories
 
