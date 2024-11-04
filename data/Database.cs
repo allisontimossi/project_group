@@ -54,18 +54,51 @@ public class Database : DbContext
     }
     public List<Product> GetProducts()   // Retrieves all products along with their categories
     {
-        return _products.Include(t => t.Category).ToList(); // Return all products with category info
+        return _products.ToList(); // Return all products with category info
     }
     // Retrieves products ordered by price
     public List<Product> GetProductsByPrice()
     {
-        return _products.Include(t => t.Category).OrderBy(p => p.Price).ToList();
+        List<Product> originalList = _products.ToList();
+        List<Product> orderedList = new List<Product>();
+        Product temp = new Product();
+        while(originalList.Count > 0)
+        {
+            temp.Price = 0;
+            foreach (Product p in originalList)
+            {
+                if (p.Price >= temp.Price)
+                {
+                    temp = p;
+                }
+            }
+            originalList.Remove(temp);
+            orderedList.Add(temp);
+        }
+        return orderedList;
     }
     // Retrieves products ordered by stock
     public List<Product> GetProductsByStock()
     {
-        return _products.Include(t => t.Category).OrderBy(p => p.Stock).ToList();
+        List<Product> originalList = _products.ToList();
+        List<Product> orderedList = new List<Product>();
+        Product temp = new Product();
+        while(originalList.Count > 0)
+        {
+            temp.Stock = 0;
+            foreach (Product p in originalList)
+            {
+                if (p.Stock >= temp.Stock)
+                {
+                    temp = p;
+                }
+            }
+            originalList.Remove(temp);
+            orderedList.Add(temp);
+        }
+        return orderedList;
     }
+
     // Updates the price of a product by its name
     public void UpdateProductPrice(string name, int price)
     {
@@ -165,17 +198,13 @@ public class Database : DbContext
         SaveChanges();
     }
 
-    // Retrieves a product by its name
-    public Product GetProductByName(string name)
-    {
-        return _products.Include(t => t.Category).FirstOrDefault(p => p.Name == name);
-    }
+    
 
     // Retrieves products by a specific category ID
     public List<Product> GetProductsByCategory(int categoryId)
     {
         List<Product> productsByCategory = new List<Product>();
-        foreach (Product p in _products.Include(t => t.Category))
+        foreach (Product p in _products)
         {
             if (p.Category.Id == categoryId)
             {

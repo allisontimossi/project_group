@@ -154,8 +154,15 @@ public class ProductController
     {
         Console.WriteLine("Insert product name"); // Prompt for product name
         string name = Console.ReadLine()!; // Read product name
-        Product product = _database.GetProductByName(name); // Retrieve the product by name
-        _productview.ShowProduct(product.Id.ToString(), product.Name, product.Price.ToString(), product.Stock.ToString(), product.Category.Name); // Show the product details
+        
+        List<Product> product = _database.GetProducts(); // Retrieve the product by name
+        foreach (Product p in product)
+        {
+            if (p.Name == name)
+            {
+                _productview.ShowProduct(p.Id.ToString(), p.Name, p.Price.ToString(), p.Stock.ToString(), p.Category.Name); // Show the product details
+            }
+        }
         Console.ReadKey(); // Wait for user input
     }
 
