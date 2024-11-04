@@ -3,6 +3,7 @@ public class PurchaseView
     // Displays the main menu options for managing purchases
     public void ShowPurchaseMainMenu()
     {
+        Console.Clear();
         Console.WriteLine("1 - Show Purchases");       // Option to display all purchases
         Console.WriteLine("2 - Add Purchase");         // Option to add a new purchase
         Console.WriteLine("3 - Back");                 // Option to return to the previous menu
