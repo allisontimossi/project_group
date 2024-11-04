@@ -71,10 +71,18 @@ public class Database : DbContext
     {
         List<Product> originalList = _products.ToList();
         List<Product> orderedList = new List<Product>();
-        Product temp = new Product();
+       /* Product temp = new Product();
+        foreach(Product p in originalList){
+            foreach(Product p2 in originalList){
+                if(p.Price>=p2.Price){
+                    temp = p;
+                }
+            }
+        }*/
+        Product temp;
         while(originalList.Count > 0)
         {
-            temp.Price = 0;
+            temp = new Product();
             foreach (Product p in originalList)
             {
                 if (p.Price >= temp.Price)
@@ -92,10 +100,10 @@ public class Database : DbContext
     {
         List<Product> originalList = _products.ToList();
         List<Product> orderedList = new List<Product>();
-        Product temp = new Product();
+        Product temp;
         while(originalList.Count > 0)
         {
-            temp.Stock = 0;
+            temp = new Product();
             foreach (Product p in originalList)
             {
                 if (p.Stock >= temp.Stock)
@@ -161,7 +169,7 @@ public class Database : DbContext
     {
         List<Product> mostExpensive = new List<Product>();
         Product temp = new Product();
-        foreach (Product p in _products.Include(t => t.Category))
+        foreach (Product p in _products)
         {
             if (p.Price >= temp.Price)
             {
@@ -182,9 +190,9 @@ public class Database : DbContext
     public List<Product> GetLeastExpensiveProduct()
     {
         List<Product> LeastExpensive = new List<Product>();
-        Product temp = new Product();
-        temp.Price = 9000000;
-        foreach (Product p in _products.Include(t => t.Category))
+        Product temp;
+        temp = _products.ToList()[0];
+        foreach (Product p in _products)
         {
             if (p.Price <= temp.Price)
             {
