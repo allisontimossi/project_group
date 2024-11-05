@@ -1,1 +1,289 @@
-psibndfobndbo
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Startup Catalog</title>
+    <link rel="stylesheet" href="/esercitazioni/project_group/css/site.css" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#">Home</a>
+      <span class="navbar-text mx-auto">Startup Catalog</span>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container content-container">
+        <div class="row d-flex m-3">
+            <button class="btn btn-outline-secondary filter-btn">
+              <i class="bi bi-funnel-fill"></i> Filter by
+            </button>
+            <input type="text" class="form-control searchbar" placeholder="Search..." />
+            <button class="btn btn-outline-secondary mr-4">
+              <i class="bi bi-search"></i> Search
+            </button>
+            <button class="btn btn-outline-secondary orderby-btn">
+              <i class="bi bi-arrow-down-up"></i> Order By
+            </button>
+          </div>
+
+      <!-- Catalog Items -->
+      <div class="catalog-container border p-3" style="height: auto">
+        <div class="row">
+          <!-- Product Card 1 -->
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img
+                src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQEhATExITEhAQERIQEBAQEBAPEA4RFhIWFxUSFRMYHSsgGBsxHBMTIT0hMTUtLjE6GB8zPTMuOCg5LisBCgoKDg0OGhAQGjciICUtLS0tNy8tNy8uLS8tNS0tLSstLS03LS01MDUtLTctNzUtLy0rLS0wNS0tMDUtLTUtLf/AABEIAOEA4QMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYDBAcBAv/EADgQAAICAQMCBQMBBQcFAQAAAAECAAMRBBIhBTEGEyJBUTJhcRQjgZGhsRUzQlJigsFDVHKS8Af/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAwIBBP/EACQRAQACAgEDBQEBAQAAAAAAAAABAgMRMRMhQQQSIjJRFKFh/9oADAMBAAIRAxEAPwDtEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERARPi25UGWYKBzliAP5/kSL13Xq6mKsCihXc22ArWFRVLEDu31AY7k/bmZtaK8y7ETPCXnxbaqAlmCgAkliFAABJOT9gT+6U1/FFjbzWRqVLota0OlGASGLs5YvwrKMbf8ACxPB4g7+tugArsWpsubE1dVr78KVRGsDPsAIXkDPDEjMjPqI4iFYwz5dDbq1GwuH3qu7JrVrACvcEqOD+cTDb1tAhfZZgZ4YJWwO7auVcg4J7HHM5nd1pbCM22rtTywK7i6N9OS9ZTDD0kc7vrJmK3VJY5sNJNp4WyqpkZF24K53eoEk5GADhRg4meplnirvspHMukP4lrA7ILAcNU16eYhLYViFz6Dgnd7AZx3xhXxbUeA1HmA7Wr/VKzIxcqpO1SNnBO7PGD7yhL59hDfp3azfvFgVanRsHAUoANvqbgg8nPfmbX6bXHBNDM4c2CxivmBzjswXtgAY+AB85bzmsX6udXi2lhw2nLg7WQapGKNuIUkhSAhwTuzxgjuMTPp/EtbqpUKxZjXsS+p2FmeFOOMY9W7O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"
+                class="card-img-top"
+                alt="Bracelet Image"
+                style="
+                  object-fit: cover;
+                  height: 150px;
+                  width: 150px;
+                  margin: auto;
+                "
+              />
+              <div class="card-body">
+                <h5 class="card-title">Bracelet Name</h5>
+                <p class="card-text"><strong>Price:</strong> $50.00</p>
+                <div
+                  class="col d-flex flex-column justify-content-center align-content-center"
+                >
+                  <a
+                    href="#"
+                    class="btn btn-primary mb-2"
+                    style="height: fit-content"
+                  >
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                  </a>
+                  <a
+                    href="#"
+                    class="btn btn-secondary"
+                    style="height: fit-content"
+                  >
+                    <i class="bi bi-info-circle"></i> Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 2 -->
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img
+                src="data:image/jpeg;base64,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"
+                class="card-img-top"
+                alt="Bracelet Image"
+                style="
+                  object-fit: cover;
+                  height: 150px;
+                  width: 150px;
+                  margin: auto;
+                "
+              />
+              <div class="card-body">
+                <h5 class="card-title">Bracelet Name</h5>
+                <p class="card-text"><strong>Price:</strong> $50.00</p>
+                <div
+                  class="col d-flex flex-column justify-content-center align-content-center"
+                >
+                  <a
+                    href="#"
+                    class="btn btn-primary mb-2"
+                    style="height: fit-content"
+                  >
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                  </a>
+                  <a
+                    href="#"
+                    class="btn btn-secondary"
+                    style="height: fit-content"
+                  >
+                    <i class="bi bi-info-circle"></i> Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 3 -->
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjyoDqYGO4_ctTDEVwHRj3UFr2DnCr28CpjA&s"
+                class="card-img-top"
+                alt="Bracelet Image"
+                style="
+                  object-fit: cover;
+                  height: 150px;
+                  width: 150px;
+                  margin: auto;
+                "
+              />
+              <div class="card-body">
+                <h5 class="card-title">Bracelet Name</h5>
+                <p class="card-text"><strong>Price:</strong> $50.00</p>
+                <div
+                  class="col d-flex flex-column justify-content-center align-content-center"
+                >
+                  <a
+                    href="#"
+                    class="btn btn-primary mb-2"
+                    style="height: fit-content"
+                  >
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                  </a>
+                  <a
+                    href="#"
+                    class="btn btn-secondary"
+                    style="height: fit-content"
+                  >
+                    <i class="bi bi-info-circle"></i> Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <!-- Product Card 1 -->
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <img
+                  src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQEhATExITEhAQERIQEBAQEBAPEA4RFhIWFxUSFRMYHSsgGBsxHBMTIT0hMTUtLjE6GB8zPTMuOCg5LisBCgoKDg0OGhAQGjciICUtLS0tNy8tNy8uLS8tNS0tLSstLS03LS01MDUtLTctNzUtLy0rLS0wNS0tMDUtLTUtLf/AABEIAOEA4QMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYDBAcBAv/EADgQAAICAQMCBQMBBQcFAQAAAAECAAMRBBIhBTEGEyJBUTJhcRQjgZGhsRUzQlJigsFDVHKS8Af/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAwIBBP/EACQRAQACAgEDBQEBAQAAAAAAAAABAgMRMRMhQQQSIjJRFKFh/9oADAMBAAIRAxEAPwDtEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERARPi25UGWYKBzliAP5/kSL13Xq6mKsCihXc22ArWFRVLEDu31AY7k/bmZtaK8y7ETPCXnxbaqAlmCgAkliFAABJOT9gT+6U1/FFjbzWRqVLota0OlGASGLs5YvwrKMbf8ACxPB4g7+tugArsWpsubE1dVr78KVRGsDPsAIXkDPDEjMjPqI4iFYwz5dDbq1GwuH3qu7JrVrACvcEqOD+cTDb1tAhfZZgZ4YJWwO7auVcg4J7HHM5nd1pbCM22rtTywK7i6N9OS9ZTDD0kc7vrJmK3VJY5sNJNp4WyqpkZF24K53eoEk5GADhRg4meplnirvspHMukP4lrA7ILAcNU16eYhLYViFz6Dgnd7AZx3xhXxbUeA1HmA7Wr/VKzIxcqpO1SNnBO7PGD7yhL59hDfp3azfvFgVanRsHAUoANvqbgg8nPfmbX6bXHBNDM4c2CxivmBzjswXtgAY+AB85bzmsX6udXi2lhw2nLg7WQapGKNuIUkhSAhwTuzxgjuMTPp/EtbqpUKxZjXsS+p2FmeFOOMY9W7O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"
+                  class="card-img-top"
+                  alt="Bracelet Image"
+                  style="
+                    object-fit: cover;
+                    height: 150px;
+                    width: 150px;
+                    margin: auto;
+                  "
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Bracelet Name</h5>
+                  <p class="card-text"><strong>Price:</strong> $50.00</p>
+                  <div
+                    class="col d-flex flex-column justify-content-center align-content-center"
+                  >
+                    <a
+                      href="#"
+                      class="btn btn-primary mb-2"
+                      style="height: fit-content"
+                    >
+                      <i class="bi bi-cart-plus"></i> Add to Cart
+                    </a>
+                    <a
+                      href="#"
+                      class="btn btn-secondary"
+                      style="height: fit-content"
+                    >
+                      <i class="bi bi-info-circle"></i> Details
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Product Card 2 -->
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <img
+                  src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBhUIBwgWFRUWGRoaGRcXGR0YHhsfIx0XIBYdIBgaKCghIholHh0YJTEhJSsuLi4uGyAzRDMuOigtMCsBCgoKDg0ODg8QFSsZFR0tLSstKysrKystKy0tKysrKystMi0rNy0tKysrKysrLSs3Nzc3Ny0rKysrKzcrKysrK//AABEIAOEA4QMBIgACEQEDEQH/xAAcAAEAAwEBAQEBAAAAAAAAAAAABQYHBAMBCAL/xABBEAACAQIDBQUFBQYDCQAAAAAAAQIDBAURIQYSMUFRBxMiYXFigZGhsRQyQlLBI3KSstHhNPDxFzNTY4KTosLS/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFxEBAQEBAAAAAAAAAAAAAAAAABEBIf/aAAwDAQACEQMRAD8A3EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcd3iljZ/wC/uYros9X5epG3G0M3HOzsZNfmn4F8H4vgmKJ4/idSFNZ1JperKViWMYs6LqO5jCOWfgWbS5veejWWvAq2Lq6qP9tXnPPPNOTyz5eFeHryJVjSb7ajBrHS4v45rknm/hxK9e9p2DUNKFKpU9I5fzZGc3it6Gkpxj0TaRyNVK0t22t5yz8sv5shRdb3tbrQ/wALg2fnKeXySf1IDEu2LaWlQlWtcMt0l+bfk+WeiceGefocdHZHH71Z0sOkl5qX9MvmdceyzHbim4VVkpJp5bq4rJ/i/QCJodvO08Z51sOtZLoo1Iv477+hoWCdp1W/t41auHRea/DNr6plOXYfXy8VSp/HTX6EhY9n2L4FR3KEKsork9yf8moGoYZtLYX+Uc3CXSX9VoTRj9tWr2lTcr0tVx5Ne5mg7K4nG7odz3meXDqvIZpE+ACoAAAAAAAAAAAAAAPjaSzbIPGdq8LwnwVa6cuUY6t+5a+/gBOnNd39rZx3rmuo+8o1ba68xGqqdL9lGWiyy3n+ifl4ufQ67LcpXCm6e9mn43q081xb4Jpt8l4X1RKsT08Xua+lhZvL81Twr4fe+RwxnO/r9zdX8paZ7sFuRayi1rxekuKa4HBebXYTZT7mNd1anDcpLfefR5aJ+rR4UHtPiknLDcKp2kJNvfreKeuW81BfdbyXVMnRM29GjaVp50YxWmU8uKyXGTXHPNayfDgiDu9qcLtajo0bnvnm8o0k6j1eeTkvCsm2km+GR30tgqN1LvNocSq3T/LJ7sP4Fp71kWXD8KsMNhu2NnCHotfjxEKz6jb7S4lT7vDsI7mHBSrvVLktzTTLo2dtv2eXNy97GsZlL2afhXxWXzTNABYlVzDtiNn8P1pWKk+snnn6pZJ/Anbe1t7WO7bW8YL2YpfQ9gUAAAAOfEL22w6zleXtVRhBZtv/ADq3wS5gQm2n2N2cadxTW/KWUX+JJayafTgsvMpeHXdXCsUVSL1hLJ+0v7o4sQx+tjeKu9qLKPCEfyxXDPzfF+vkeuHwniWJKlT4zlFfTN+5JmVa+nms0D4lkskfTSAAAAAAAAABy4niNnhVnK8xC4jThFZuUnkvmB1Fc2l2zwnZ+nlc1058oR1b9366LzMz2r7V7nFc7bZtOFJ6d7JeKX7sXwXm9fJFFnPequdWpKUpPWTbk5Z5ZebkBdsc2/xjGZulby7mn0X3vjy92vmQVKtTpPfr1OPFt6tv55nfs9sdjmPy36NHu6f55f5/q10NO2e7OcHwpqtdR76p1lw+H6cPIiqHhFLGsVyp4Thbl7dTwxWnT9HkXKy2AuLtb+0mLTqL/hU/BD0fVeufqXunCFKChTgklwSWSXuP6EKj8LwXDMIpqnh1lCGXNLX+LiSABUAAAAAAAAACi7d9p2D7KJ2tF9/c8O6g9Iv/AJkvw+msuGnMC143jFhgVg73FLhQguvFvlGK4uT6IxLara+72ovU5Lcoxfgp5/8AlLrL5Lh1bpOMbS4rtLif2/Grjel+GK0hBdIx5evF5atnZaVHWSVMCdtqsm92BrOwWASsrZX93DxyXhT5Lm/V/T1IfYDYl0oxxLGKWvGFN/JyX6f6GkEigAKgAAAAAAEXtFjVDA8Od1WWb4Qhzk+np1YHLthtVh2yeFO9xCWbye7CP3pvol08+B+Y9sds8V2xvu/xSru0084UYvww6essvxPz4LQte1d3c41WndYjNylLTLouUYr9D07O+y6vitRXeJrKK4p6peXtT8uCIK/sds/iuPZULG2eT4Sa5dUunm8l5m4bJdmuG4PFV79d7V89Uv6+mi8i3YThVnhFr9nsaO6ub5vzbO0o+RjGEd2EckuCR9AAAAAAAAAAAAARm0ePWGzmFSxLE6jUY6JLWUpcoxXOT/volmSZn/bRhUr/AGYjdwWfcT3/AHNbrfzy94GebW9p2PY/F2+H52lF8oPOpJe1UX3c9NI5c9WZ5Wo06VJpaElCNS5n3dpT3nwb4RXrLh7uPkaBsj2UXl/NXeM+CPFby1/6ab5+1P8AhYGebN7PYljt1GlaW8nvcElq1110Ufaehv2w/Z7aYBCNzfpVKy4LjGHpnxl7T/uWnBcFsMEtu4w+go5/elxlJ9ZS4v6LlkSAAAAAAAAAAAAHos2ZPthiE8SxCVecvBHSC6Lr6vj/AKGo32bspqPHdf0MkxqDleq2gtdNPN8ETVw2Q2XljeId/XTVOPF9PJe0+vJfPXba3pWtBULemoxisklyObBcOp4VhsLSlyWr6y/E/j8sjuKgAAAAAAAAAAAAAAAAeV1b0bu2lb3NNShJOMovg0+KPUAQOBbH4HgU+8sLJby4Sk3Jx/dz0j7smyeAAAAAAAAAAAAAAAPjSayZkePp2e0tRTX3Zp+7KLXyNdKntpsvUxdq+w9pVYrJxeimuSz5SWuT93pNVBz2mxPDNbasqkOUZreWXlJZP55HpS7T4wWV3hT9YTT+UkvqU66qXmHVPsl5RlB/kmsn7nzXms0RdzJSee4yDQ7ntfwe2X7TC7n3Km//AHI6fbjhcnu22B3DftOEfo2ZtfxU4aJ/BkBKlXjVzjbz90Zf0NI2S17a4/a19vwFwpc5Qq78l57jjFP0T+JrFKpCtSVWlLNSSaa5p8GflBUrmcdLSf8AC19T9Ddlk7+ewtusSpbsopxjm884KTVN6ezkBbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeVxb0Lql3VzRjOPSSUl8GQ1xsbs7cffwqC/czp/wAjRPACr/7P9mc/8DL/AL1X/wCj1pbC7N0nnHDs/WpUl9ZMsYAibfZrAreW/Swiimubpxb+LWZLJZLJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//Z"
+                  class="card-img-top"
+                  alt="Bracelet Image"
+                  style="
+                    object-fit: cover;
+                    height: 150px;
+                    width: 150px;
+                    margin: auto;
+                  "
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Bracelet Name</h5>
+                  <p class="card-text"><strong>Price:</strong> $50.00</p>
+                  <div
+                    class="col d-flex flex-column justify-content-center align-content-center"
+                  >
+                    <a
+                      href="#"
+                      class="btn btn-primary mb-2"
+                      style="height: fit-content"
+                    >
+                      <i class="bi bi-cart-plus"></i> Add to Cart
+                    </a>
+                    <a
+                      href="#"
+                      class="btn btn-secondary"
+                      style="height: fit-content"
+                    >
+                      <i class="bi bi-info-circle"></i> Details
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Product Card 3 -->
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjyoDqYGO4_ctTDEVwHRj3UFr2DnCr28CpjA&s"
+                  class="card-img-top"
+                  alt="Bracelet Image"
+                  style="
+                    object-fit: cover;
+                    height: 150px;
+                    width: 150px;
+                    margin: auto;
+                  "
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Bracelet Name</h5>
+                  <p class="card-text"><strong>Price:</strong> $50.00</p>
+                  <div
+                    class="col d-flex flex-column justify-content-center align-content-center"
+                  >
+                    <a
+                      href="#"
+                      class="btn btn-primary mb-2"
+                      style="height: fit-content"
+                    >
+                      <i class="bi bi-cart-plus"></i> Add to Cart
+                    </a>
+                    <a
+                      href="#"
+                      class="btn btn-secondary"
+                      style="height: fit-content"
+                    >
+                      <i class="bi bi-info-circle"></i> Details
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center p-3">Footer</footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
