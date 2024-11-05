@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+    <!DOCTYPE html>
+    <html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Il tuo carrello </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel ="stylesheet" href ="site.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    </head>
+<body>
+
+    <header class="hero d-flex align-items-center"> 
+        <div class="container hero-content">
+        <h1 class="display-4">Il tuo carrello</h1>
+        </div>
+    </header>
+
+    <table class="table">
+
+    <thead>
+        <tr>
+        <th scope="col"></th>
+        <th scope="col">Descrizione</th>
+        <th scope="col">Prezzo</th>
+        <th scope="col">Totale</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+        <th scope="row"><img src="img/gioiello1.jpg" alt="Gioiello 1" style="width:200px;height:200px;"></th>
+        <td>
+            
+            <div class="d-flex align-items-center"> 
+                <div
+                class="btn-toolbar"
+                role="toolbar"
+                aria-label="Toolbar with button groups"
+                >
+                <div class="btn-group me-2" role="group" aria-label="Numero articoli">
+                <button type="button" class="btn btn-primary">4</button>
+                </div>
+
+                <div class="btn-group me-2" role="group" aria-label="Cancella articolo">
+                <button type="button" class="btn btn-secondary"> <i class="bi bi-trash3"></i> </button>
+                </div>
+
+                <div class="btn-group" role="group" aria-label="Aggiorna carrello">
+                <button type="button" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i></button>
+                </div>
+
+            </div>
+        </td>
+        <td>€ 9,08</td>
+        <td>€ 36,32</td>
+        </tr>
+
+        <tr>
+            <th scope="row"><img src="img/gioiello2.jpeg" alt="Gioiello 2" style="width:200px;height:200px;"></th>
+            <td>
+                
+                <div class="d-flex flex-column align-items-center"> 
+                    <p> Descrizione dell'articolo molto  molto   molto   molto   molto  molto molto  lunga </p>
+                    <div
+                    class="btn-toolbar"
+                    role="toolbar"
+                    aria-label="Toolbar with button groups"
+                    >
+                    <div class="btn-group me-2" role="group" aria-label="Numero articoli">
+                    <button type="button" class="btn btn-primary">4</button>
+                    </div>
+    
+                    <div class="btn-group me-2" role="group" aria-label="Cancella articolo">
+                    <button type="button" class="btn btn-secondary"> <i class="bi bi-trash3"></i> </button>
+                    </div>
+    
+                    <div class="btn-group" role="group" aria-label="Aggiorna carrello">
+                    <button type="button" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i></button>
+                    </div>
+                </div>
+                <p> Disponibilità: immediata </p>
+            </td>
+            <td>€ 9,08</td>
+            <td>€ 36,32</td>
+            </tr>
+
+    </tbody>
+    </table>
+
+<br>
+
+</body>
+</html>
