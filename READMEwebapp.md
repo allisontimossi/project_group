@@ -1,4 +1,4 @@
-## Progettazione webapp gioielli
+## Progettazione webapp bracciali
 
 #### Questo README ha lo scopo di progettare l'impostazione generale dell'applicazione web dedicata al catalogo della gestione dei prodotti.
 
@@ -15,9 +15,9 @@
 - [ ] ViewModels Specifici per ogni pagina
 - [ ] Decidere tutti gli elementi relativi allo stile delle pagine
 - [ ] Subscription based website
-- [ ] Bundle Gioelli di diverse categorie
 - [ ] Nuova classe azienda estensione di customer
 - [ ] Proprietà bool per prodotto per controllare che sia valido
+- [ ] Filtrare per Brand tramite le immagini
  
 
 ## Struttura del sito
@@ -46,11 +46,39 @@
 - `Admin`: Avrà una pagina dedicata dove potrà aggiungere rimuovere e modifcare prodotti e categorie.
 
 ## Prorietà aggiuntive del model
-- materiale(oro, argento, acciao).
+- materiale(oro, argento, acciao)
 - brand
-- tipo di pietra(diamante, zaffiro, quarzo)
-- categoria (bracciale, collana, orecchini , anello)
+- materiale
+- taglia 
+- colore
+
 
 #### Viewmodels
 
-- Catalogo prodotti:
+- homePage
+
+### HomePageViewModel
+
+- Lista Prodotti 
+- Lista Brand
+
+### ProductCatalogViewModel
+
+- Lista Prodotti
+- Lista Brand
+- Lista Acquisti (Offcanvas come cartier per carrello)
+
+### AdminPageViewModel
+
+- Lista Prodotti
+- Lista Clienti
+- Lista Brand
+
+### BrandManagementViewModel
+
+- Lista Prodotti
+- Lista Brand
+
+
+
+
