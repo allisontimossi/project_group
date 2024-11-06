@@ -40,3 +40,7 @@ body {
   object-fit: contain; /* Adjust this to 'cover' if you want to fill the container */
   margin: 0 auto; /* Center the image */
 }
+
+a {
+  text-decoration: none;
+}
