@@ -9,19 +9,12 @@ body {
 
 /* Navbar Styles */
 .navbar {
-  color: #fff;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .navbar .navbar-brand,
 .navbar .navbar-text {
-  color: #fff;
   font-weight: bold;
-}
-
-.navbar .navbar-brand:hover,
-.navbar .navbar-text:hover {
-  color: #e0e0e0;
 }
 
 /* Content Container */
@@ -31,16 +24,8 @@ body {
   margin: auto;
 }
 
-/* Filter Bar Styles */
-.filter-bar {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
 
 .filter-btn, .orderby-btn {
-  background-color: #007bff;
-  color: #fff;
   border: none;
   transition: transform 0.2s ease;
 }
@@ -98,49 +83,20 @@ body {
   overflow: hidden; /* Hide overflow if title is too long */
   text-overflow: ellipsis; /* Add ellipsis (...) if title is too long */
 }
-
-.card-text {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 15px;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-  color: #fff;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
 /* Footer Styles */
 .footer {
-  background-color: #f8f9fa;
   padding: 20px;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 2rem;
   color: #666;
   margin-top: 40px;
 }
-
-.footer a {
-  color: #007bff;
-  text-decoration: none;
+#cart
+{
+  font-size: 1.5rem;
 }
-
-.footer a:hover {
-  text-decoration: underline;
-}
-
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .filter-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
 
   .filter-btn, .orderby-btn {
     width: 100%;
