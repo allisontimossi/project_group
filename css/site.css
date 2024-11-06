@@ -94,6 +94,9 @@ body {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 10px;
+  height: 3rem; /* Adjust as needed */
+  overflow: hidden; /* Hide overflow if title is too long */
+  text-overflow: ellipsis; /* Add ellipsis (...) if title is too long */
 }
 
 .card-text {
