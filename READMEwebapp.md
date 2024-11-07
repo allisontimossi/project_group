@@ -4,20 +4,19 @@
 
 ### Compiti da organizzare
 
-- [ ] Progettare struttura pagine web
+- [x] Progettare struttura pagine web
 - [ ] Occuparsi della gestione dei ruoli
 
 ### Requisiti
 
-- [ ] Responsività del sito (bootstrap)
-- [ ] Funzionalità CRUD
+- [x] Responsività del sito (bootstrap)
 - [ ] Partial Views per parti di codice che vengono ripetute
 - [ ] ViewModels Specifici per ogni pagina
-- [ ] Decidere tutti gli elementi relativi allo stile delle pagine
-- [ ] Subscription based website
-- [ ] Nuova classe azienda estensione di customer
-- [ ] Proprietà bool per prodotto per controllare che sia valido
+- [x] Decidere tutti gli elementi relativi allo stile delle pagine
+- [x] Nuova classe brand
+- [x] Proprietà bool per prodotto per controllare che sia valido
 - [ ] Filtrare per Brand tramite le immagini
+- [ ] Subscription based website
  
 
 ## Struttura del sito
@@ -48,7 +47,6 @@
 ## Prorietà aggiuntive del model
 - materiale(oro, argento, acciao)
 - brand
-- materiale
 - taglia 
 - colore
 
