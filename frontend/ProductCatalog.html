@@ -6,11 +6,11 @@
     <title>Startup Catalog</title>
     <link rel="stylesheet" href="/esercitazioni/project_group/css/site.css" />
     <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
   </head>
@@ -22,105 +22,94 @@
         <span class="navbar-text mx-auto">Bracelet Catalog</span>
         <div class="d-flex">
           <a href="#"><i id="cart" class="bi bi-cart text-secondary"></i></a>
-          <a href="#" class="btn btn-outline-secondary ml-2">Log in</a>
+          <a href="#" class="btn btn-outline-secondary ms-2">Log in</a>
         </div>
       </nav>
     </header>
-    
 
     <!-- Main Content -->
     <div class="container content-container">
       <div class="row d-flex justify-content-center m-3">
+        <!-- Filter Dropdown -->
         <div class="col-md-3 col-sm-12 mb-2">
           <div class="dropdown">
             <button
               class="btn btn-outline-secondary filter-btn w-100 dropdown-toggle"
               type="button"
               id="filterDropdown"
-              data-toggle="dropdown"
-              aria-haspopup="true"
+              data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               <i class="bi bi-funnel-fill"></i> Filter by
             </button>
-        
-            <!-- Dropdown Menu -->
-            <div class="dropdown-menu w-100" aria-labelledby="filterDropdown">
-              <!-- Filter Options -->
-              <form class="px-3 py-2">
-                <div class="form-check">
+            <ul class="dropdown-menu w-100" aria-labelledby="filterDropdown">
+              <li>
+                <div class="form-check px-3 py-1">
                   <input
                     class="form-check-input"
                     type="checkbox"
                     value="option1"
                     id="filterOption1"
                   />
-                  <label class="form-check-label" for="filterOption1">
-                    Option 1
-                  </label>
+                  <label class="form-check-label" for="filterOption1">Option 1</label>
                 </div>
-                <div class="form-check">
+              </li>
+              <li>
+                <div class="form-check px-3 py-1">
                   <input
                     class="form-check-input"
                     type="checkbox"
                     value="option2"
                     id="filterOption2"
                   />
-                  <label class="form-check-label" for="filterOption2">
-                    Option 2
-                  </label>
+                  <label class="form-check-label" for="filterOption2">Option 2</label>
                 </div>
-                <div class="form-check">
+              </li>
+              <li>
+                <div class="form-check px-3 py-1">
                   <input
                     class="form-check-input"
                     type="checkbox"
                     value="option3"
                     id="filterOption3"
                   />
-                  <label class="form-check-label" for="filterOption3">
-                    Option 3
-                  </label>
+                  <label class="form-check-label" for="filterOption3">Option 3</label>
                 </div>
-                <!-- Confirm Button -->
-                <button
-                  type="button"
-                  class="btn btn-outline-secondary mt-2 w-100"
-                  onclick="confirmFilters()"
-                >
-                  Confirm
-                </button>
-              </form>
-            </div>
+              </li>
+              <li>
+                <button class="btn btn-outline-secondary mt-2 w-100">Confirm</button>
+              </li>
+            </ul>
           </div>
         </div>
+        
+        <!-- Search Bar -->
         <div class="col-md-3 col-sm-12 mb-2">
-          <input
-            type="text"
-            class="form-control searchbar"
-            placeholder="Search..."
-          />
+          <input type="text" class="form-control searchbar " placeholder="Search..." />
         </div>
+
+        <!-- Search Button -->
         <div class="col-md-3 col-sm-12 mb-2">
-          <button class="btn btn-outline-secondary w-50 ali">
+          <button class="btn btn-outline-secondary w-50 mx-auto">
             <i class="bi bi-search"></i>
           </button>
         </div>
+
+        <!-- Order By Dropdown -->
         <div class="col-md-3 col-sm-12 mb-2">
           <div class="dropdown">
             <button
               class="btn btn-outline-secondary orderby-btn w-100 dropdown-toggle"
               type="button"
               id="orderDropdown"
-              data-toggle="dropdown"
-              aria-haspopup="true"
+              data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               <i class="bi bi-arrow-down-up"></i> Order By
             </button>
-            <div class="dropdown-menu w-100" aria-labelledby="orderDropdown">
-              <form class="px-3 py-2">
-                <!-- Order Options -->
-                <div class="form-check">
+            <ul class="dropdown-menu w-100" aria-labelledby="orderDropdown">
+              <li>
+                <div class="form-check px-3 py-1">
                   <input
                     class="form-check-input"
                     type="radio"
@@ -128,11 +117,11 @@
                     value="priceAsc"
                     id="orderPriceAsc"
                   />
-                  <label class="form-check-label" for="orderPriceAsc">
-                    Price: Low to High
-                  </label>
+                  <label class="form-check-label" for="orderPriceAsc">Price: Low to High</label>
                 </div>
-                <div class="form-check">
+              </li>
+              <li>
+                <div class="form-check px-3 py-1">
                   <input
                     class="form-check-input"
                     type="radio"
@@ -140,11 +129,11 @@
                     value="priceDesc"
                     id="orderPriceDesc"
                   />
-                  <label class="form-check-label" for="orderPriceDesc">
-                    Price: High to Low
-                  </label>
+                  <label class="form-check-label" for="orderPriceDesc">Price: High to Low</label>
                 </div>
-                <div class="form-check">
+              </li>
+              <li>
+                <div class="form-check px-3 py-1">
                   <input
                     class="form-check-input"
                     type="radio"
@@ -152,11 +141,11 @@
                     value="alphaAsc"
                     id="orderAlphaAsc"
                   />
-                  <label class="form-check-label" for="orderAlphaAsc">
-                    Alphabetical: A to Z
-                  </label>
+                  <label class="form-check-label" for="orderAlphaAsc">Alphabetical: A to Z</label>
                 </div>
-                <div class="form-check">
+              </li>
+              <li>
+                <div class="form-check px-3 py-1">
                   <input
                     class="form-check-input"
                     type="radio"
@@ -164,21 +153,17 @@
                     value="alphaDesc"
                     id="orderAlphaDesc"
                   />
-                  <label class="form-check-label" for="orderAlphaDesc">
-                    Alphabetical: Z to A
-                  </label>
+                  <label class="form-check-label" for="orderAlphaDesc">Alphabetical: Z to A</label>
                 </div>
-                <button
-                  type="button"
-                  class="btn btn-outline-secondary mt-2 w-100"
-                  onclick="confirmOrder()"
-                >
-                  Confirm
-                </button>
-              </form>
-            </div>
+              </li>
+              <li>
+                <button class="btn btn-outline-secondary mt-2 w-100">Confirm</button>
+              </li>
+            </ul>
           </div>
+        </div>
       </div>
+    </div>
 
       <!-- Catalog Items -->
       <div class="catalog-container border p-3" style="height: auto">
@@ -425,25 +410,6 @@
     <footer class="footer text-center p-3">© All rights reserved</footer>
 
     <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-      // Explicitly initialize Bootstrap dropdowns to ensure they work
-      $(document).ready(function () {
-        $('#filterDropdown').dropdown();
-        $('#orderDropdown').dropdown();
-      });
-
-      function confirmFilters() {
-        // Close the filter dropdown
-        $('#filterDropdown').dropdown('toggle');
-      }
-
-      function confirmOrder() {
-        // Close the order dropdown
-        $('#orderDropdown').dropdown('toggle');
-      }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> 
   </body>
 </html>
